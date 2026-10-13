@@ -25,7 +25,7 @@ export const ptBr: PortfolioContent = {
     links: {
       email: 'alymascarenhas31@gmail.com',
       linkedin: 'https://www.linkedin.com/in/alyssonmascarenhas',
-      github: 'https://github.com/AlyssonMascarenhas',
+      github: 'https://github.com/AlyssonMascarenhas/portfolio',
       resume: 'curriculo-alysson-mascarenhas.pdf',
     },
   },
