@@ -1,0 +1,16 @@
+<pf-scenario-page [text]="text()">
+  <p class="price">
+    {{ text().demo.price }}:
+    @if (mounted()) {
+      <pf-ticker-price />
+    } @else {
+      <span class="destroyed">{{ text().demo.destroyed }}</span>
+    }
+  </p>
+  <button pButton type="button" (click)="mounted.update((value) => !value)">
+    {{ mounted() ? text().demo.destroy : text().demo.recreate }}
+  </button>
+  <p class="hint">{{ text().demo.hint }}</p>
+
+  <pf-instrumentation-panel [metrics]="metrics()" />
+</pf-scenario-page>

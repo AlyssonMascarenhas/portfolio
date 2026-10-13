@@ -1,0 +1,21 @@
+<article class="page">
+  <h1>{{ intro().title }}</h1>
+  <p>{{ intro().lead }}</p>
+
+  <h2>{{ intro().rulesTitle }}</h2>
+  <ul>
+    @for (rule of intro().rules; track $index) {
+      <li>{{ rule }}</li>
+    }
+  </ul>
+
+  <h2>{{ intro().scenariosTitle }}</h2>
+  <ol class="scenarios">
+    @for (scenario of scenarios(); track scenario.path) {
+      <li>
+        <a [routerLink]="scenario.path">{{ scenario.title }}</a>
+        <span>{{ scenario.summary }}</span>
+      </li>
+    }
+  </ol>
+</article>

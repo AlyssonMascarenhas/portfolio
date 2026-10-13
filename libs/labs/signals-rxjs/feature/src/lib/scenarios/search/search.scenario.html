@@ -1,0 +1,19 @@
+<pf-scenario-page [text]="text()">
+  <label class="search">
+    {{ text().demo.label }}
+    <input
+      pInputText
+      type="search"
+      autocomplete="off"
+      (input)="onInput($event)"
+    />
+  </label>
+  <p class="hint">{{ text().demo.hint }}</p>
+
+  @if (search().status === 'idle') {
+    <p>{{ text().demo.idle }}</p>
+  }
+  <pf-product-list [state]="search()" (retry)="retry$.next()" />
+
+  <pf-instrumentation-panel [metrics]="metrics()" [log]="log.entries()" />
+</pf-scenario-page>

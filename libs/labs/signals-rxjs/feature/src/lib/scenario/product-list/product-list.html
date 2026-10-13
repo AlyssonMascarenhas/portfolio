@@ -1,0 +1,26 @@
+@switch (state().status) {
+  @case ('error') {
+    <div>
+      <p-message severity="error">{{
+        'lab.products.loadError' | translate
+      }}</p-message>
+      <button pButton type="button" (click)="retry.emit()">
+        {{ 'common.retry' | translate }}
+      </button>
+    </div>
+  }
+  @case ('loading') {
+    <p aria-busy="true">{{ 'common.loading' | translate }}</p>
+  }
+  @case ('ready') {
+    @if (state().items.length) {
+      <ul>
+        @for (item of state().items; track item.id) {
+          <li>{{ item.name }}</li>
+        }
+      </ul>
+    } @else {
+      <p>{{ 'lab.products.empty' | translate }}</p>
+    }
+  }
+}

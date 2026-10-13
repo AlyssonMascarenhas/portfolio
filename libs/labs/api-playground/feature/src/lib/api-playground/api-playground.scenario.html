@@ -1,0 +1,85 @@
+<pf-scenario-page [text]="text()">
+  <p-fieldset [legend]="text().demo.scenarioLegend" class="group">
+    @for (option of scenarioOptions(); track option.id) {
+      <div class="option">
+        <p-radiobutton
+          inputId="order-scenario-{{ option.id }}"
+          name="order-scenario"
+          [value]="option.id"
+          [ngModel]="scenario()"
+          (ngModelChange)="scenario.set($event)"
+        />
+        <label [for]="'order-scenario-' + option.id">{{ option.label }}</label>
+      </div>
+    }
+  </p-fieldset>
+
+  <div class="option key">
+    <p-checkbox
+      inputId="idempotency-key"
+      [binary]="true"
+      [ngModel]="idempotencyKey()"
+      (ngModelChange)="idempotencyKey.set($event)"
+    />
+    <label for="idempotency-key">{{ text().demo.idempotencyKey }}</label>
+  </div>
+  <p class="hint">{{ text().demo.idempotencyHint }}</p>
+
+  <button
+    pButton
+    type="button"
+    [disabled]="state().status === 'sending'"
+    (click)="send$.next()"
+  >
+    {{ state().status === 'sending' ? text().demo.sending : text().demo.send }}
+  </button>
+  <p class="hint">{{ text().demo.hint }}</p>
+
+  <section aria-labelledby="pipeline-title">
+    <h2 id="pipeline-title">{{ text().demo.pipelineTitle }}</h2>
+    <ol class="pipeline">
+      @for (step of steps(); track step.label) {
+        <li>
+          <strong>{{ step.label }}</strong>
+          <span>{{ step.detail }}</span>
+        </li>
+      }
+    </ol>
+  </section>
+
+  @if (outcome(); as outcome) {
+    @if (outcome.kind === 'success') {
+      <p role="status" class="result ok">{{ outcome.message }}</p>
+    } @else {
+      <p-message severity="error" class="result failed" [closable]="false">
+        <div>
+          <p>
+            <strong>{{ outcome.title }}</strong>
+          </p>
+          <p>{{ outcome.hint }}</p>
+          @if (outcome.fieldErrors.length) {
+            <ul>
+              @for (field of outcome.fieldErrors; track field.name) {
+                <li>
+                  <strong>{{ field.name }}:</strong> {{ field.message }}
+                </li>
+              }
+            </ul>
+          }
+          @if (outcome.correlationId; as code) {
+            <p class="code">
+              {{ text().demo.correlationId }}: <code>{{ code }}</code>
+            </p>
+          }
+          @if (outcome.retryable) {
+            <button pButton type="button" size="small" (click)="send$.next()">
+              {{ text().demo.retry }}
+            </button>
+          }
+        </div>
+      </p-message>
+    }
+  }
+
+  <pf-instrumentation-panel [metrics]="metrics()" [log]="trace.entries()" />
+</pf-scenario-page>

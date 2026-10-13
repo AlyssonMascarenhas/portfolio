@@ -1,0 +1,56 @@
+<section class="page" aria-labelledby="experience-title">
+  <h1 id="experience-title">{{ 'experience.title' | translate }}</h1>
+
+  @if (experience.error()) {
+    <div class="state">
+      <p-message severity="error">{{
+        'experience.loadError' | translate
+      }}</p-message>
+      <button pButton type="button" class="retry" (click)="experience.reload()">
+        {{ 'common.retry' | translate }}
+      </button>
+    </div>
+  } @else if (experience.isLoading()) {
+    <p class="state" aria-busy="true">{{ 'common.loading' | translate }}</p>
+  } @else {
+    <ol class="timeline">
+      @for (entry of entries(); track entry.id) {
+        <li>
+          <p-card>
+            <ng-template #title
+              ><h2>{{ entry.company }}</h2></ng-template
+            >
+            <ng-template #subtitle>
+              <span class="period">
+                {{ entry.startLabel }} –
+                {{ entry.endLabel ?? ('experience.present' | translate) }}
+              </span>
+            </ng-template>
+
+            <ul class="roles">
+              @for (role of entry.roles; track role.title) {
+                <li>{{ role.title }}</li>
+              }
+            </ul>
+
+            <p>{{ entry.context }}</p>
+
+            <ul class="highlights">
+              @for (highlight of entry.highlights; track $index) {
+                <li>{{ highlight }}</li>
+              }
+            </ul>
+
+            <ul class="stack">
+              @for (tech of entry.stack; track tech) {
+                <li>
+                  <p-tag [value]="tech" severity="secondary" [rounded]="true" />
+                </li>
+              }
+            </ul>
+          </p-card>
+        </li>
+      }
+    </ol>
+  }
+</section>

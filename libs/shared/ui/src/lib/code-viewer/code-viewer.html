@@ -1,0 +1,29 @@
+@switch (status()) {
+  @case ('error') {
+    <div class="state">
+      <p-message severity="error">{{
+        'lab.code.loadError' | translate
+      }}</p-message>
+      <button pButton type="button" (click)="retry.emit()">
+        {{ 'common.retry' | translate }}
+      </button>
+    </div>
+  }
+  @case ('loading') {
+    <p class="state" aria-busy="true">
+      {{ 'common.loading' | translate }}
+    </p>
+  }
+  @default {
+    <figure>
+      @if (file(); as file) {
+        <figcaption>{{ file }}</figcaption>
+      }
+      <pre
+        tabindex="0"
+        role="region"
+        [attr.aria-label]="'lab.code.label' | translate"
+      ><code>{{ code() }}</code></pre>
+    </figure>
+  }
+}

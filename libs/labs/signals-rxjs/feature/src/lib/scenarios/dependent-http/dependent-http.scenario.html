@@ -1,0 +1,33 @@
+<pf-scenario-page [text]="text()">
+  <p-fieldset [legend]="text().demo.category" class="group">
+    @for (option of categories(); track option.id) {
+      <div class="option">
+        <p-radiobutton
+          inputId="category-{{ option.id }}"
+          name="category"
+          [value]="option.id"
+          [ngModel]="category()"
+          (ngModelChange)="category.set($event)"
+        />
+        <label [for]="'category-' + option.id">{{ option.label }}</label>
+      </div>
+    }
+  </p-fieldset>
+  <p class="hint">{{ text().demo.hint }}</p>
+
+  <div class="columns">
+    <section aria-labelledby="col-rxjs">
+      <h2 id="col-rxjs">{{ text().demo.rxjsColumn }}</h2>
+      <pf-product-list [state]="viaRxjs()" (retry)="retry$.next()" />
+    </section>
+    <section aria-labelledby="col-resource">
+      <h2 id="col-resource">{{ text().demo.resourceColumn }}</h2>
+      <pf-product-list
+        [state]="resourceState()"
+        (retry)="viaResource.reload()"
+      />
+    </section>
+  </div>
+
+  <pf-instrumentation-panel [metrics]="metrics()" />
+</pf-scenario-page>

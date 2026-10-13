@@ -16,7 +16,7 @@ description: Cria componentes Angular seguindo as convenções do portfólio (An
 - Não declare `standalone: true` nem `changeDetection: OnPush` (já são padrão no Angular 22).
 - `input()`, `output()`, `model()`; `computed()` para derivados; `inject()` para dependências.
 - Host bindings no objeto `host` do decorator.
-- Template inline quando pequeno; controle de fluxo nativo (`@if`, `@for`, `@let`).
+- Uma pasta por componente, com `nome.ts`, `nome.html`, `nome.scss` e `nome.spec.ts` lado a lado (`templateUrl` e `styleUrl`); nunca template ou estilos dentro do .ts. Controle de fluxo nativo (`@if`, `@for`, `@let`).
 - Nenhum texto literal no template: use `{{ 'secao.chave' | translate }}` e siga a skill `traducao-i18n`.
 - Sem métodos chamados no template: monte um view model com `computed()`.
 - Dados assíncronos: trate os três estados (`isLoading()`, `error()`, `hasValue()`), com `role="alert"` e botão de tentar novamente no erro.

@@ -1,1 +1,1 @@
-export * from './lib/labs-page';
+export * from './lib/labs-page/labs-page';

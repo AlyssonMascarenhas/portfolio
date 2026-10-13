@@ -1,0 +1,18 @@
+<span id="language-label" class="visually-hidden">{{
+  'language.label' | translate
+}}</span>
+<p-selectbutton
+  [options]="options"
+  [ngModel]="language.current()"
+  (ngModelChange)="select($event)"
+  [allowEmpty]="false"
+  size="small"
+  ariaLabelledBy="language-label"
+>
+  <ng-template #item let-lang>
+    {{ 'language.short.' + lang | translate }}
+    <span class="visually-hidden">{{
+      'language.name.' + lang | translate
+    }}</span>
+  </ng-template>
+</p-selectbutton>

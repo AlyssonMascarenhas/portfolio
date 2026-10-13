@@ -1,0 +1,21 @@
+.headline {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-bottom: 0.5rem;
+}
+.tagline {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  max-width: 55ch;
+}
+.summary {
+  color: var(--color-muted);
+  margin: 0;
+}
+h3 {
+  margin: 0;
+}
+.retry {
+  margin-top: 0.75rem;
+}

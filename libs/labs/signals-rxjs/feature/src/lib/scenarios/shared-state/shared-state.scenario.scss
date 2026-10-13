@@ -1,0 +1,28 @@
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  padding: 0.5rem var(--space);
+}
+nav {
+  display: flex;
+  gap: 0.5rem;
+}
+button[aria-current='page'] {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  font-weight: 600;
+}
+.products {
+  padding-left: 1.25rem;
+}
+.products li {
+  margin: 0.25rem 0;
+}
+.hint {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}

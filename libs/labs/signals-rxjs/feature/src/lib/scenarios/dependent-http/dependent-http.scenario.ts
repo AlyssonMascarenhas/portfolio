@@ -15,7 +15,7 @@ import {
   LabProductsApi,
   ProductListState,
 } from '../../scenario/lab-products.api';
-import { ProductList } from '../../scenario/product-list';
+import { ProductList } from '../../scenario/product-list/product-list';
 import { DEPENDENT_HTTP_CONTENT } from './dependent-http.content';
 import { localized } from '@portfolio/i18n';
 import {
@@ -40,62 +40,8 @@ import { FormsModule } from '@angular/forms';
     FieldsetModule,
     FormsModule,
   ],
-  template: `
-    <pf-scenario-page [text]="text()">
-      <p-fieldset [legend]="text().demo.category" class="group">
-        @for (option of categories(); track option.id) {
-          <div class="option">
-            <p-radiobutton
-              inputId="category-{{ option.id }}"
-              name="category"
-              [value]="option.id"
-              [ngModel]="category()"
-              (ngModelChange)="category.set($event)"
-            />
-            <label [for]="'category-' + option.id">{{ option.label }}</label>
-          </div>
-        }
-      </p-fieldset>
-      <p class="hint">{{ text().demo.hint }}</p>
-
-      <div class="columns">
-        <section aria-labelledby="col-rxjs">
-          <h2 id="col-rxjs">{{ text().demo.rxjsColumn }}</h2>
-          <pf-product-list [state]="viaRxjs()" (retry)="retry$.next()" />
-        </section>
-        <section aria-labelledby="col-resource">
-          <h2 id="col-resource">{{ text().demo.resourceColumn }}</h2>
-          <pf-product-list
-            [state]="resourceState()"
-            (retry)="viaResource.reload()"
-          />
-        </section>
-      </div>
-
-      <pf-instrumentation-panel [metrics]="metrics()" />
-    </pf-scenario-page>
-  `,
-  styles: `
-    fieldset {
-      border: 1px solid var(--color-border);
-      border-radius: 0.5rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.25rem 1rem;
-    }
-    .hint {
-      color: var(--color-muted);
-      font-size: 0.9rem;
-    }
-    .columns {
-      display: grid;
-      gap: var(--space);
-      grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-    }
-    .columns h2 {
-      font-size: 1rem;
-    }
-  `,
+  templateUrl: './dependent-http.scenario.html',
+  styleUrl: './dependent-http.scenario.scss',
 })
 export class DependentHttpScenario {
   protected readonly text = localized(DEPENDENT_HTTP_CONTENT);

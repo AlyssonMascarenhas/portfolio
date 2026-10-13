@@ -1,0 +1,60 @@
+<pf-scenario-page [text]="text()">
+  <header class="site-header" [attr.aria-label]="text().demo.headerLabel">
+    <nav [attr.aria-label]="text().demo.pages">
+      <button
+        pButton
+        type="button"
+        [attr.aria-current]="page() === 'catalog' ? 'page' : null"
+        (click)="page.set('catalog')"
+      >
+        {{ text().demo.catalogTab }}
+      </button>
+      <button
+        pButton
+        type="button"
+        [attr.aria-current]="page() === 'checkout' ? 'page' : null"
+        (click)="page.set('checkout')"
+      >
+        {{ text().demo.checkoutTab }}
+      </button>
+    </nav>
+    <span class="badge">
+      {{ text().demo.cartCount }}: <strong>{{ store.count() }}</strong>
+    </span>
+  </header>
+
+  @if (page() === 'catalog') {
+    <ul class="products">
+      @for (product of text().demo.products; track product.id) {
+        <li>
+          {{ product.name }} · {{ money().format(product.price) }}
+          <button pButton type="button" (click)="add(product)">
+            {{ text().demo.add }}
+          </button>
+        </li>
+      }
+    </ul>
+  } @else {
+    @if (store.items().length) {
+      <ul class="products">
+        @for (item of store.items(); track item.id) {
+          <li>
+            {{ item.quantity }} × {{ item.name }}
+            <button pButton type="button" (click)="remove(item)">
+              {{ text().demo.remove }}
+            </button>
+          </li>
+        }
+      </ul>
+      <p>
+        {{ text().demo.total }}:
+        <strong>{{ money().format(store.total()) }}</strong>
+      </p>
+    } @else {
+      <p>{{ text().demo.empty }}</p>
+    }
+  }
+  <p class="hint">{{ text().demo.hint }}</p>
+
+  <pf-instrumentation-panel [metrics]="metrics()" [log]="events()" />
+</pf-scenario-page>

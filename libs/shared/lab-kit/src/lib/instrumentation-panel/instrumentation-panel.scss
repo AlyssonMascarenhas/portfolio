@@ -1,0 +1,35 @@
+:host {
+  display: block;
+  margin-top: var(--space);
+}
+h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+dl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 0;
+}
+dt {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+}
+dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+.log {
+  margin: 0.75rem 0 0;
+  padding-left: 1.25rem;
+  font-size: 0.875rem;
+}
+.log li {
+  margin: 0.25rem 0;
+}
+.empty {
+  color: var(--color-muted);
+  margin: 0.75rem 0 0;
+}

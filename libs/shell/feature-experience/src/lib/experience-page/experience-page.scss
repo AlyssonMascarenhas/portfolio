@@ -1,0 +1,25 @@
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space);
+}
+h2 {
+  margin: 0;
+}
+.roles {
+  padding: 0;
+  margin: 0 0 0.75rem;
+  list-style: none;
+  font-weight: 600;
+}
+.highlights {
+  padding-left: 1.25rem;
+}
+.highlights li {
+  margin-bottom: 0.4rem;
+}
+.retry {
+  margin-top: 0.75rem;
+}

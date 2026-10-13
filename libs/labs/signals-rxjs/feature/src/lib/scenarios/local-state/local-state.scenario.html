@@ -1,0 +1,16 @@
+<pf-scenario-page [text]="text()">
+  <button
+    pButton
+    type="button"
+    aria-controls="details-panel"
+    [attr.aria-expanded]="isOpen()"
+    (click)="toggle()"
+  >
+    {{ text().demo.toggle }}
+  </button>
+  @if (isOpen()) {
+    <p id="details-panel">{{ text().demo.panel }}</p>
+  }
+
+  <pf-instrumentation-panel [metrics]="metrics()" />
+</pf-scenario-page>

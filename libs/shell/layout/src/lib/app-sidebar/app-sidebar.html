@@ -1,0 +1,48 @@
+<nav id="main-menu" class="sidebar" [attr.aria-label]="'nav.label' | translate">
+  <ul>
+    <li>
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        ariaCurrentWhenActive="page"
+        >{{ 'nav.home' | translate }}</a
+      >
+    </li>
+    <li>
+      <a
+        routerLink="/experience"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        >{{ 'nav.experience' | translate }}</a
+      >
+    </li>
+    <li>
+      <a
+        routerLink="/labs"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        ariaCurrentWhenActive="page"
+        >{{ 'nav.labs' | translate }}</a
+      >
+      <ul class="sub">
+        <li>
+          <a
+            routerLink="/labs/signals-rxjs"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            >{{ 'labs.signalsRxjs.title' | translate }}</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/labs/api-playground"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            >{{ 'labs.apiPlayground.title' | translate }}</a
+          >
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>

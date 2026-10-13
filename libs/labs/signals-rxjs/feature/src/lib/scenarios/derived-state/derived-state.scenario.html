@@ -1,0 +1,58 @@
+<pf-scenario-page [text]="text()">
+  <div class="fields">
+    <label>
+      {{ text().demo.price }}
+      <input
+        pInputText
+        type="number"
+        min="0"
+        [value]="price()"
+        (input)="setNumber(price, $event)"
+      />
+    </label>
+    <label>
+      {{ text().demo.quantity }}
+      <input
+        pInputText
+        type="number"
+        min="0"
+        [value]="quantity()"
+        (input)="setNumber(quantity, $event)"
+      />
+    </label>
+    <label>
+      {{ text().demo.discount }}
+      <input
+        pInputText
+        type="number"
+        min="0"
+        max="100"
+        [value]="discountPercent()"
+        (input)="setNumber(discountPercent, $event)"
+      />
+    </label>
+    <label>
+      {{ text().demo.note }}
+      <input
+        pInputText
+        type="text"
+        [value]="note()"
+        (input)="setNote($event)"
+      />
+    </label>
+  </div>
+
+  <dl class="summary">
+    <dt>{{ text().demo.subtotal }}</dt>
+    <dd>{{ summary().subtotal }}</dd>
+    <dt>{{ text().demo.discountAmount }}</dt>
+    <dd>{{ summary().discount }}</dd>
+    <dt>{{ text().demo.total }}</dt>
+    <dd>
+      <strong>{{ summary().total }}</strong>
+    </dd>
+  </dl>
+  <p class="hint">{{ text().demo.hint }}</p>
+
+  <pf-instrumentation-panel [metrics]="metrics()" />
+</pf-scenario-page>

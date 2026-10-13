@@ -1,0 +1,34 @@
+.question {
+  display: block;
+  margin-bottom: var(--space);
+}
+.option {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.35rem 0;
+}
+.option label {
+  cursor: pointer;
+}
+.answer {
+  margin-bottom: var(--space);
+  padding: 0.25rem 0 0.25rem var(--space);
+  border-left: 3px solid var(--color-accent);
+}
+.mine {
+  display: block;
+  margin-top: 0.35rem;
+}
+dt {
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+dd {
+  margin-left: 0;
+}
+.back {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 var(--space) var(--space);
+}

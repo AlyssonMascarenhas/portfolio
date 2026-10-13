@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 import { SNIPPET_SOURCE } from '@portfolio/lab-kit';
 import { provideApiPlayground } from '@portfolio/labs/api-playground/data-access';
 import { SnippetsService } from '@portfolio/snippets';
-import { ApiPlaygroundScenario } from './api-playground.scenario';
+import { ApiPlaygroundScenario } from './api-playground/api-playground.scenario';
 
 /** Rotas do lab, relativas ao ponto onde o app o monta (ex.: /labs/api-playground). */
 export const apiPlaygroundRoutes: Routes = [

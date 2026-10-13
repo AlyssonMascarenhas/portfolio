@@ -7,24 +7,7 @@ import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'pf-local-state-scenario',
   imports: [ScenarioPage, InstrumentationPanel, ButtonModule],
-  template: `
-    <pf-scenario-page [text]="text()">
-      <button
-        pButton
-        type="button"
-        aria-controls="details-panel"
-        [attr.aria-expanded]="isOpen()"
-        (click)="toggle()"
-      >
-        {{ text().demo.toggle }}
-      </button>
-      @if (isOpen()) {
-        <p id="details-panel">{{ text().demo.panel }}</p>
-      }
-
-      <pf-instrumentation-panel [metrics]="metrics()" />
-    </pf-scenario-page>
-  `,
+  templateUrl: './local-state.scenario.html',
 })
 export class LocalStateScenario {
   protected readonly text = localized(LOCAL_STATE_CONTENT);

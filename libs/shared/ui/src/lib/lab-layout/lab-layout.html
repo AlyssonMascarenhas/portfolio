@@ -1,0 +1,23 @@
+<header>
+  <h1>{{ title() }}</h1>
+  <p class="problem">{{ problem() }}</p>
+</header>
+
+<p-tabs [(value)]="selected">
+  <p-tablist
+    [pt]="{ content: { 'aria-label': ('lab.tabs.label' | translate) } }"
+  >
+    <p-tab value="demo">{{ 'lab.tabs.demo' | translate }}</p-tab>
+    <p-tab value="code">{{ 'lab.tabs.code' | translate }}</p-tab>
+    <p-tab value="architecture">{{
+      'lab.tabs.architecture' | translate
+    }}</p-tab>
+  </p-tablist>
+  <p-tabpanels>
+    <p-tabpanel value="demo"><ng-content select="[demo]" /></p-tabpanel>
+    <p-tabpanel value="code"><ng-content select="[code]" /></p-tabpanel>
+    <p-tabpanel value="architecture"
+      ><ng-content select="[architecture]"
+    /></p-tabpanel>
+  </p-tabpanels>
+</p-tabs>

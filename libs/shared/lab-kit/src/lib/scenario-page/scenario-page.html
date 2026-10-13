@@ -1,0 +1,82 @@
+<pf-lab-layout [title]="text().title" [problem]="text().problem">
+  <div demo>
+    @if (text().question; as question) {
+      <p-fieldset [legend]="question.prompt" class="question">
+        @for (option of question.options; track option.id) {
+          <div class="option">
+            <p-radiobutton
+              [inputId]="groupName + '-' + option.id"
+              [name]="groupName"
+              [value]="option.id"
+              [ngModel]="chosenId()"
+              (ngModelChange)="chosenId.set($event)"
+            />
+            <label [for]="groupName + '-' + option.id">{{
+              option.label
+            }}</label>
+          </div>
+        }
+      </p-fieldset>
+
+      @if (answer(); as answer) {
+        <div class="answer" role="status">
+          <p>
+            {{ answer.text }}
+            <strong class="mine">
+              @if (answer.isSuggested) {
+                {{ 'lab.scenario.sameChoice' | translate }}
+              } @else {
+                {{
+                  'lab.scenario.myChoice'
+                    | translate: { label: answer.suggestedLabel }
+                }}
+              }
+            </strong>
+          </p>
+        </div>
+      }
+    }
+
+    <ng-content />
+  </div>
+
+  <div code>
+    @for (block of blocks(); track block.id) {
+      <h2>{{ block.label }}</h2>
+      <pf-code-viewer
+        [code]="block.code"
+        [file]="block.file"
+        [status]="status()"
+        (retry)="snippets.reload()"
+      />
+    }
+  </div>
+
+  <div architecture>
+    <h2>{{ 'lab.scenario.why' | translate }}</h2>
+    @for (paragraph of text().why; track $index) {
+      <p>{{ paragraph }}</p>
+    }
+
+    <h2>{{ 'lab.scenario.alternatives' | translate }}</h2>
+    <dl>
+      @for (alt of text().alternatives; track alt.name) {
+        <dt>{{ alt.name }}</dt>
+        <dd>{{ alt.text }}</dd>
+      }
+    </dl>
+
+    <h2>{{ 'lab.scenario.differently' | translate }}</h2>
+    <ul>
+      @for (item of text().differently; track $index) {
+        <li>{{ item }}</li>
+      }
+    </ul>
+  </div>
+</pf-lab-layout>
+
+<p class="back">
+  <a pButton routerLink=".." [text]="true">{{
+    'lab.scenario.back' | translate
+  }}</a>
+</p>

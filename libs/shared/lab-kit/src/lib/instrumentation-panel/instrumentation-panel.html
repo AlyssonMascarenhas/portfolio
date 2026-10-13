@@ -1,0 +1,41 @@
+<p-card class="panel">
+  <ng-template #title
+    ><h2 id="instrumentation-title">
+      {{ 'lab.instrumentation.title' | translate }}
+    </h2></ng-template
+  >
+
+  <dl aria-labelledby="instrumentation-title">
+    @for (metric of metrics(); track metric.label) {
+      <div>
+        <dt>{{ metric.label }}</dt>
+        <dd>{{ metric.value }}</dd>
+      </div>
+    }
+  </dl>
+
+  @if (log() !== undefined) {
+    @if (rows().length) {
+      <ol class="log">
+        @for (row of rows(); track row.id) {
+          <li>
+            @if (row.state === 'canceled') {
+              <s>{{ row.text }}</s>
+            } @else {
+              {{ row.text }}
+            }
+            @if (row.severity; as severity) {
+              <p-tag
+                [value]="row.stateKey | translate"
+                [severity]="severity"
+                [rounded]="true"
+              />
+            }
+          </li>
+        }
+      </ol>
+    } @else {
+      <p class="empty">{{ 'lab.instrumentation.empty' | translate }}</p>
+    }
+  }
+</p-card>

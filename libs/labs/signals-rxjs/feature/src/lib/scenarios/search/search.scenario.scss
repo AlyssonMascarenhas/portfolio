@@ -1,0 +1,12 @@
+.search {
+  display: grid;
+  gap: 0.25rem;
+}
+input {
+  font: inherit;
+  padding: 0.4rem;
+}
+.hint {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}

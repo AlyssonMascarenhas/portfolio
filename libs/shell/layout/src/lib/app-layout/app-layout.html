@@ -1,0 +1,15 @@
+<a class="skip-link" href="#main">{{ 'common.skipToContent' | translate }}</a>
+<pf-topbar />
+<aside class="side" [class.hidden]="hidden()">
+  <pf-sidebar />
+</aside>
+<div class="mask" aria-hidden="true" (click)="layout.closeMenu()"></div>
+<div class="content">
+  <main id="main" tabindex="-1">
+    <router-outlet />
+  </main>
+  <footer class="footer">
+    <span>© Alysson Mascarenhas</span>
+    <span>{{ 'layout.builtWith' | translate }}</span>
+  </footer>
+</div>

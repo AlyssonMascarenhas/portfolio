@@ -1,2 +1,2 @@
-export * from './lib/code-viewer';
-export * from './lib/lab-layout';
+export * from './lib/code-viewer/code-viewer';
+export * from './lib/lab-layout/lab-layout';

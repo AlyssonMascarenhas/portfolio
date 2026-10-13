@@ -16,7 +16,7 @@ import {
   LabProductsApi,
   ProductListState,
 } from '../../scenario/lab-products.api';
-import { ProductList } from '../../scenario/product-list';
+import { ProductList } from '../../scenario/product-list/product-list';
 import { SEARCH_CONTENT } from './search.content';
 import { localized } from '@portfolio/i18n';
 import {
@@ -31,41 +31,8 @@ import { InputTextModule } from 'primeng/inputtext';
 @Component({
   selector: 'pf-search-scenario',
   imports: [ScenarioPage, ProductList, InstrumentationPanel, InputTextModule],
-  template: `
-    <pf-scenario-page [text]="text()">
-      <label class="search">
-        {{ text().demo.label }}
-        <input
-          pInputText
-          type="search"
-          autocomplete="off"
-          (input)="onInput($event)"
-        />
-      </label>
-      <p class="hint">{{ text().demo.hint }}</p>
-
-      @if (search().status === 'idle') {
-        <p>{{ text().demo.idle }}</p>
-      }
-      <pf-product-list [state]="search()" (retry)="retry$.next()" />
-
-      <pf-instrumentation-panel [metrics]="metrics()" [log]="log.entries()" />
-    </pf-scenario-page>
-  `,
-  styles: `
-    .search {
-      display: grid;
-      gap: 0.25rem;
-    }
-    input {
-      font: inherit;
-      padding: 0.4rem;
-    }
-    .hint {
-      color: var(--color-muted);
-      font-size: 0.9rem;
-    }
-  `,
+  templateUrl: './search.scenario.html',
+  styleUrl: './search.scenario.scss',
 })
 export class SearchScenario {
   protected readonly text = localized(SEARCH_CONTENT);

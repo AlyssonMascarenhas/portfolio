@@ -1,0 +1,37 @@
+<section class="page" aria-labelledby="labs-title">
+  <h1 id="labs-title">{{ 'labs.title' | translate }}</h1>
+  <p>{{ 'labs.lead' | translate }}</p>
+
+  <ul class="card-grid">
+    <li>
+      <p-card>
+        <ng-template #title
+          ><h2>{{ 'labs.signalsRxjs.title' | translate }}</h2></ng-template
+        >
+        <p class="summary">{{ 'labs.signalsRxjs.summary' | translate }}</p>
+        <ng-template #footer>
+          <a pButton routerLink="/labs/signals-rxjs" [text]="true">{{
+            'home.labs.cta' | translate
+          }}</a>
+        </ng-template>
+      </p-card>
+    </li>
+    <li>
+      <p-card>
+        <ng-template #title
+          ><h2>
+            {{ 'labs.apiPlayground.title' | translate }}
+          </h2></ng-template
+        >
+        <p class="summary">
+          {{ 'labs.apiPlayground.summary' | translate }}
+        </p>
+        <ng-template #footer>
+          <a pButton routerLink="/labs/api-playground" [text]="true">{{
+            'home.labs.cta' | translate
+          }}</a>
+        </ng-template>
+      </p-card>
+    </li>
+  </ul>
+</section>

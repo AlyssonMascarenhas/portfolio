@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { Routes } from '@angular/router';
 import { SNIPPET_SOURCE } from '@portfolio/lab-kit';
 import { SnippetsService } from '@portfolio/snippets';
-import { SignalsRxjsLabPage } from './signals-rxjs-lab.page';
+import { SignalsRxjsLabPage } from './signals-rxjs-lab/signals-rxjs-lab.page';
 
 /** Rotas do lab, relativas ao ponto onde o app o monta (ex.: /labs/signals-rxjs). */
 const scenarioRoutes: Routes = [
