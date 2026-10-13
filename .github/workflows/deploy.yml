@@ -1,9 +1,12 @@
-name: Deploy (GitHub Pages)
+name: Qualidade e deploy (GitHub Pages)
 
-# Publica o site estático a cada push na main. Antes, roda lint, testes e a checagem de i18n.
+# A cada push na main (e em pull requests), roda todas as verificações de qualidade; só publica se
+# todas passarem: lint, testes com cobertura, i18n, build, testes ponta a ponta (Playwright),
+# acessibilidade (axe, tema claro e escuro) e orçamentos do Lighthouse CI.
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -12,7 +15,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -25,24 +28,53 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+
+      # --- Qualidade do código ---
       - run: npm run lint
-      - run: npm test
+      - run: npm run test:coverage
+      - run: node --test "tools/scripts/*.spec.mjs"
       - run: npm run i18n:check
-      # GitHub Pages de projeto serve em /<repositório>/; o base href e o 404.html (fallback das rotas) dependem disso.
+      # Lê os specs e a cobertura que acabaram de ser gerados e alimenta o lab "Qualidade e testes".
+      - run: node tools/scripts/build-quality-report.mjs
+
+      # --- Build ---
+      # GitHub Pages de projeto serve em /<repositório>/; o base href depende disso.
       - run: npx nx build portfolio --base-href=/${{ github.event.repository.name }}/
         env:
           PRIME_NG_LICENSE_KEY: ${{ secrets.PRIME_NG_LICENSE_KEY }}
+
+      # --- Qualidade do site publicado ---
+      # Monta o site como o Pages o serve (.site/portfolio, com uma cópia do index.html em cada
+      # rota) e testa esse resultado. Pressupõe o repositório chamado "portfolio" (base /portfolio/).
+      - run: npm run site:stage
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test -c e2e
+      - run: npm run lhci
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: relatorios-de-qualidade
+          path: |
+            playwright-report
+            test-results
+            .lighthouseci
+          if-no-files-found: ignore
+          retention-days: 14
+
+      # --- Publicação ---
       # O Pages só serve arquivos: sem uma cópia do index.html em cada rota, as rotas respondem 404.
       # O mesmo passo grava o sitemap.xml e a URL absoluta das tags Open Graph.
       - run: |
           SITE_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
           node tools/scripts/spa-fallbacks.mjs dist/apps/portfolio/browser "$(echo "$SITE_URL" | tr '[:upper:]' '[:lower:]')"
       - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
         with:
           path: dist/apps/portfolio/browser
 
   deploy:
     needs: build
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     environment:
       name: github-pages

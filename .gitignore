@@ -61,3 +61,9 @@ apps/portfolio/src/app/primeng-license.generated.ts
 
 # relatório do lab de qualidade (gerado por tools/scripts/build-quality-report.mjs)
 apps/portfolio/public/quality-report.json
+
+# site montado como no GitHub Pages e relatórios de qualidade (e2e, Lighthouse CI)
+.site/
+playwright-report/
+test-results/
+.lighthouseci/

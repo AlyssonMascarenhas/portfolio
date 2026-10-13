@@ -12,6 +12,8 @@ Portfólio interativo de engenharia front-end. Em vez de listar tecnologias, o s
 - `npm run snippets:extract` — gera `apps/portfolio/public/snippets.json` a partir das regiões `// #region <id>` … `// #endregion` em `libs/labs` (roda sozinho antes de build/serve; o arquivo é ignorado pelo git)
 - `npm run test:coverage` — testes com cobertura (sem cache), gera `coverage/**/coverage-summary.json`
 - `npm run quality:report` — roda os testes com cobertura e gera `apps/portfolio/public/quality-report.json` (cenários dos specs + cobertura) para o lab de qualidade; só os cenários são gerados sozinhos antes de build/serve
+- `npm run e2e` — constrói com --base-href=/portfolio/, monta o site como o GitHub Pages (`.site/portfolio`) e roda os testes ponta a ponta (Playwright, Chrome instalado) e o axe nos dois temas; `npm run e2e:only` reaproveita o site montado
+- `npm run lhci` — Lighthouse CI com orçamentos (performance, acessibilidade 100, SEO 100, CLS) contra o site montado
 - `npx nx affected -t lint test build` — só o que mudou
 - `npx nx graph` — grafo de dependências
 
@@ -25,6 +27,7 @@ Angular 22 (standalone, zoneless, OnPush por padrão), Nx 23, TypeScript strict,
 
 ```
 apps/portfolio              app shell: rotas, header, bootstrap do MSW
+e2e/                        testes ponta a ponta (Playwright + axe) contra o site montado como no GitHub Pages
 libs/contracts              tipos compartilhados (Profile, ExperienceEntry, Lang...)   type:contracts
 libs/mocks                  MSW: handlers + conteúdo pt-br/en-us                         type:mock
 libs/shared/i18n            LanguageService, LanguageSwitcher, provideI18n()            type:data-access

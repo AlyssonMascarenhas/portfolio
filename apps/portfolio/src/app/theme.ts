@@ -40,4 +40,14 @@ export const PortfolioPreset = definePreset(Aura, {
       },
     },
   },
+  components: {
+    // O texto da opção inativa dava 4.34:1 no claro (surface.500 sobre surface.100). Os dois modos
+    // precisam do valor explícito: sem o do escuro, ele herda o do claro e cai para 2.57:1.
+    togglebutton: {
+      colorScheme: {
+        light: { root: { color: '{surface.600}' } },
+        dark: { root: { color: '{surface.400}' } },
+      },
+    },
+  },
 });

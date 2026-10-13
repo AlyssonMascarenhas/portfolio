@@ -29,6 +29,25 @@ test('extrai os testes com a cadeia de describe e ignora o que não é teste', (
   );
 });
 
+test('entende test.describe e test do Playwright, e ignora hooks e nomes interpolados', () => {
+  const src = `
+    test.describe('rotas', () => {
+      test.beforeEach(async () => {});
+      test('abre a home', async () => {});
+      for (const r of rotas) test(\`/\${r}\`, async () => {});
+    });
+    test('fluxo solto', async () => {});
+  `;
+
+  assert.deepEqual(
+    extractScenarios(src).map((s) => [s.suite.join(' > '), s.name]),
+    [
+      ['rotas', 'abre a home'],
+      ['', 'fluxo solto'],
+    ],
+  );
+});
+
 test('it.each conta uma linha por caso da tabela', () => {
   const src = `
     it.each([[400, 'a'], [401, 'b'], [403, 'c']])('status %i', () => {});

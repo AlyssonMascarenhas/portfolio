@@ -11,7 +11,12 @@
     "snippets:extract": "node tools/scripts/extract-snippets.mjs",
     "license:write": "node tools/scripts/write-license.mjs",
     "test:coverage": "nx run-many -t test --coverage --skip-nx-cache",
-    "quality:report": "npm run test:coverage && node tools/scripts/build-quality-report.mjs"
+    "quality:report": "npm run test:coverage && node tools/scripts/build-quality-report.mjs",
+    "build:pages": "nx build portfolio --base-href=/portfolio/",
+    "site:stage": "node tools/scripts/stage-site.mjs",
+    "e2e": "npm run build:pages && npm run site:stage && playwright test -c e2e",
+    "e2e:only": "playwright test -c e2e",
+    "lhci": "lhci autorun --config=lighthouserc.json"
   },
   "private": true,
   "dependencies": {
@@ -37,7 +42,9 @@
     "@angular/cli": "~22.1.0",
     "@angular/compiler-cli": "~22.1.0",
     "@angular/language-service": "~22.1.0",
+    "@axe-core/playwright": "^4.13.0",
     "@eslint/js": "^9.8.0",
+    "@lhci/cli": "^0.15.1",
     "@nx/angular": "23.3.0",
     "@nx/eslint": "23.3.0",
     "@nx/eslint-plugin": "23.3.0",
@@ -47,6 +54,7 @@
     "@nx/web": "23.3.0",
     "@nx/workspace": "23.3.0",
     "@oxc-project/runtime": "^0.115.0",
+    "@playwright/test": "^1.64.0",
     "@schematics/angular": "~22.1.0",
     "@swc/helpers": "~0.5.18",
     "@types/node": "^22.0.0",

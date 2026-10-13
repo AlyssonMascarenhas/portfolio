@@ -1,0 +1,36 @@
+version: 2
+updates:
+  # Dependências do projeto: agrupadas, uma vez por semana. Angular, Nx e PrimeNG sobem juntos
+  # (as versões precisam combinar), então ficam em um grupo cada.
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      angular:
+        patterns:
+          [
+            '@angular/*',
+            '@angular-devkit/*',
+            '@schematics/angular',
+            'angular-eslint',
+          ]
+      nx:
+        patterns: ['nx', '@nx/*']
+      primeng:
+        patterns: ['primeng', '@primeuix/*', '@primeng/*']
+      qualidade:
+        patterns:
+          ['@playwright/*', '@axe-core/*', '@lhci/*', 'vitest', '@vitest/*']
+    ignore:
+      # O Angular 22 exige as versões 22.x do Angular e do PrimeNG: majors novas são migração, não atualização.
+      - dependency-name: '@angular/*'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'primeng'
+        update-types: ['version-update:semver-major']
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

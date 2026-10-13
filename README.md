@@ -22,6 +22,10 @@ Lighthouse (build de produção servido com compressão, perfil mobile): perform
 
 O MSW sobe em paralelo ao Angular: o app pinta o primeiro frame sem esperar, e as chamadas à "API" esperam o service worker (`apps/portfolio/src/app/mocks-ready.ts`). Se o service worker não subir (navegador sem suporte, modo privado), as seções mostram o estado de erro com "tentar novamente".
 
+## Qualidade automatizada
+
+O workflow (`.github/workflows/deploy.yml`) só publica se tudo passar: lint, testes com cobertura, i18n, build, **testes ponta a ponta** (Playwright, desktop e mobile), **acessibilidade com axe** em todas as rotas, nos temas claro e escuro, e **orçamentos do Lighthouse CI** (acessibilidade e SEO 100, CLS até 0,1). Os testes rodam contra o site montado como o GitHub Pages o serve. Localmente: `npm run e2e` e `npm run lhci`. O Dependabot propõe atualizações semanais, agrupadas.
+
 ## Licença do PrimeNG
 
 O PrimeNG 22 exige uma chave de licença (a Community é gratuita para uso individual e não comercial). Sem ela, o site mostra o aviso "Invalid PrimeUI License".

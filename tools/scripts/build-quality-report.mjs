@@ -17,7 +17,7 @@ import ts from 'typescript';
 
 const OUTPUT_FILE = 'apps/portfolio/public/quality-report.json';
 const COVERAGE_DIR = 'coverage';
-const SOURCE_DIRS = ['apps', 'libs', 'tools'];
+const SOURCE_DIRS = ['apps', 'libs', 'tools', 'e2e'];
 const SPEC = /\.spec\.(ts|mjs)$/;
 const posix = (p) => p.split(sep).join('/');
 
@@ -61,7 +61,10 @@ function describeCallee(expr) {
   return undefined;
 }
 
-/** Extrai { name, suite, cases, skipped } de cada teste de um spec (TypeScript ou JavaScript). */
+/**
+ * Extrai { name, suite, cases, skipped } de cada teste de um spec (TypeScript ou JavaScript).
+ * Só entram testes com nome literal: os gerados em um laço, com nome interpolado, ficam de fora.
+ */
 export function extractScenarios(source, fileName = 'spec.ts') {
   const kind = fileName.endsWith('.mjs') ? ts.ScriptKind.JS : ts.ScriptKind.TS;
   const sf = ts.createSourceFile(
@@ -78,7 +81,8 @@ export function extractScenarios(source, fileName = 'spec.ts') {
       const callee = describeCallee(node.expression);
       const name = stringOf(node.arguments[0]);
       if (callee && name !== undefined) {
-        if (SUITE_FNS.has(callee.base)) {
+        // describe(...) e test.describe(...) (Playwright) agrupam; os dois abrem uma suíte.
+        if (SUITE_FNS.has(callee.base) || callee.modifier === 'describe') {
           node.arguments
             .slice(1)
             .forEach((arg) => visit(arg, [...suite, name]));
@@ -101,7 +105,7 @@ export function extractScenarios(source, fileName = 'spec.ts') {
   return scenarios;
 }
 
-/** Raiz da área de um arquivo: o diretório mais próximo com project.json (ou tools/scripts). */
+/** Raiz da área de um arquivo: o diretório mais próximo com project.json (ou tools/scripts e e2e). */
 export function projectRootOf(
   file,
   hasProjectJson = (dir) => existsSync(join(dir, 'project.json')),
@@ -111,7 +115,9 @@ export function projectRootOf(
     if (hasProjectJson(dir)) return posix(dir);
     dir = dirname(dir);
   }
-  return file.startsWith('tools/') ? 'tools/scripts' : posix(dirname(file));
+  if (file.startsWith('tools/')) return 'tools/scripts';
+  if (file.startsWith('e2e/')) return 'e2e';
+  return posix(dirname(file));
 }
 
 const pct = (metric) => Math.round((metric?.pct ?? 0) * 10) / 10;

@@ -19,21 +19,10 @@ import {
 import { dirname, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-/** Rotas do app. O teste (spa-fallbacks.spec.mjs) falha se esta lista divergir das rotas no código. */
-export const ROUTES = [
-  'experience',
-  'labs',
-  'labs/signals-rxjs',
-  'labs/signals-rxjs/local-state',
-  'labs/signals-rxjs/derived-state',
-  'labs/signals-rxjs/search',
-  'labs/signals-rxjs/dependent-http',
-  'labs/signals-rxjs/ticker',
-  'labs/signals-rxjs/shared-state',
-  'labs/api-playground',
-  'labs/quality',
-  'labs/forms',
-];
+/** Fonte única das rotas (também lida pelos testes ponta a ponta). */
+export const ROUTES = JSON.parse(
+  readFileSync(new URL('./routes.json', import.meta.url), 'utf8'),
+);
 
 export const SITE_URL_PLACEHOLDER = '__SITE_URL__';
 
