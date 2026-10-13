@@ -40,6 +40,7 @@ O site é estático (sem backend). O build fica em `dist/apps/portfolio/browser`
 - **Shell:** home (quem sou, stack, contato, currículo) e experiência, funcionando sem passar pelos labs.
 - **Lab Signals vs RxJS** (`/labs/signals-rxjs`): seis cenários (estado local, derivado, busca com debounce, HTTP dependente de estado, fluxo contínuo, estado compartilhado), cada um com demo, código real e arquitetura.
 - **Lab Qualidade e testes** (`/labs/quality`): os cenários que os testes do próprio site garantem, lidos dos specs reais (`tools/scripts/build-quality-report.mjs`), e a cobertura só como contexto. `npm run quality:report` gera o relatório completo.
+- **Lab de formulários** (`/labs/forms`): um checkout com Signal Forms do Angular 22 (validação entre campos, cupom assíncrono com debounce, erro do servidor por campo, foco no primeiro campo inválido) e o mesmo formulário em Reactive Forms, com testes que provam que os dois aceitam e recusam os mesmos valores.
 - **Lab API Playground** (`/labs/api-playground`): onze respostas possíveis de uma API, com interceptors, retry com backoff, timeout, mapeamento para `DomainError` e UX por tipo de erro.
 
 Cada cenário tem demo, código e arquitetura, e termina em "Quando eu escolheria diferente".
@@ -72,4 +73,5 @@ libs/shell/feature-labs         índice dos labs
 libs/labs/signals-rxjs/feature  lab Signals vs RxJS (escopo isolado)
 libs/labs/api-playground/*      lab API Playground: DomainError, interceptors, retry com backoff (escopo isolado)
 libs/labs/quality/*             lab Qualidade e testes: cenários lidos dos specs e cobertura como contexto (escopo isolado)
+libs/labs/forms/*               lab de formulários: checkout com Signal Forms e o equivalente em Reactive Forms (escopo isolado)
 ```

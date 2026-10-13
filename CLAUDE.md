@@ -40,6 +40,8 @@ libs/labs/api-playground/data-access  DomainError, mapper, interceptors, Playgro
 libs/labs/api-playground/feature      lab API Playground                               type:feature scope:lab-api
 libs/labs/quality/data-access         QualityReportService (lê quality-report.json)     type:data-access scope:lab-quality
 libs/labs/quality/feature             lab Qualidade e testes (cenários + cobertura)     type:feature scope:lab-quality
+libs/labs/forms/data-access           CheckoutApi (envio do pedido, erro 422 por campo)  type:data-access scope:lab-forms
+libs/labs/forms/feature               lab de formulários (Signal Forms vs Reactive)      type:feature scope:lab-forms
 ```
 
 Camadas permitidas (forçadas pelo lint em `eslint.config.mjs`):

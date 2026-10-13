@@ -42,3 +42,25 @@ export interface LabApiError {
   correlationId?: string;
   errors?: { field: string; code: string }[];
 }
+
+/** Resposta da validação de cupom (formulário do lab de formulários). */
+export interface LabCouponResult {
+  valid: boolean;
+  discountPercent?: number;
+}
+
+export interface LabCheckoutRequest {
+  name: string;
+  email: string;
+  quantity: number;
+  coupon: string;
+}
+
+export interface LabCheckoutResult {
+  id: string;
+}
+
+/** Erro de validação do servidor no envio do pedido, por campo (a UI traduz `code`). */
+export interface LabCheckoutError {
+  errors: { field: keyof LabCheckoutRequest; code: string }[];
+}

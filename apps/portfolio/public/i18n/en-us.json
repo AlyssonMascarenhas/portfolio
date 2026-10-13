@@ -110,6 +110,10 @@
     "quality": {
       "title": "Quality and tests",
       "summary": "The scenarios this site's own tests guarantee, read from the real specs, and what line coverage does not tell you."
+    },
+    "forms": {
+      "title": "Forms with Signal Forms",
+      "summary": "A checkout with synchronous, cross-field and async (coupon) validation, in Signal Forms and Reactive Forms, side by side."
     }
   },
   "layout": {
@@ -130,7 +134,8 @@
     "ticker": "Continuous stream",
     "sharedState": "State shared across pages",
     "apiPlayground": "API Playground",
-    "quality": "Quality and tests"
+    "quality": "Quality and tests",
+    "forms": "Forms with Signal Forms"
   },
   "meta": {
     "default": "Interactive front-end engineering portfolio built with Angular: labs that show architecture decisions, not a list of technologies.",
@@ -139,6 +144,7 @@
     "labs": "Interactive labs: scenarios with a demo, real code and the reasoning behind each front-end architecture decision.",
     "signalsRxjs": "Six scenarios on when to use signals, when to use RxJS and where the two meet, with instrumentation and tests.",
     "apiPlayground": "One HTTP call that fails in eleven ways: interceptors, retry with backoff, timeouts and mapping errors to the UI.",
-    "quality": "The behavior scenarios guaranteed by the site's tests, grouped by area, with coverage only as context."
+    "quality": "The behavior scenarios guaranteed by the site's tests, grouped by area, with coverage only as context.",
+    "forms": "A checkout built with Angular 22 Signal Forms: cross-field validation, a debounced async coupon check, accessible errors and the Reactive Forms equivalent."
   }
 }

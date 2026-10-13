@@ -1,4 +1,11 @@
-import { LabOrder, toLang } from '@portfolio/contracts';
+import {
+  LabCheckoutError,
+  LabCheckoutRequest,
+  LabCheckoutResult,
+  LabCouponResult,
+  LabOrder,
+  toLang,
+} from '@portfolio/contracts';
 import { HttpResponse, delay, http } from 'msw';
 import { contentByLang } from './data';
 import { labProducts } from './data/lab-products';
@@ -6,6 +13,7 @@ import { labProducts } from './data/lab-products';
 /** Latência artificial para que os estados de loading sejam reais, não teóricos. */
 const LATENCY_MS = 150;
 const LAB_LATENCY_MS = 700;
+const COUPON_LATENCY_MS = 450;
 /** Maior que o timeout do cliente do API Playground (3 s), para a requisição estourar de verdade. */
 const TIMEOUT_SCENARIO_MS = 15_000;
 const FLAKY_FAILURES = 2;
@@ -95,6 +103,41 @@ export const handlers = [
       default:
         return HttpResponse.json(createdOrder(), { status: 201 });
     }
+  }),
+
+  // Formulário do lab de formulários: cupom (validação assíncrona) e envio do pedido.
+  // O cupom válido é PROMO10; o e-mail taken@example.com já existe e volta como erro do servidor.
+  http.get('*/api/lab/coupon', async ({ request }) => {
+    const code = new URL(request.url).searchParams
+      .get('code')
+      ?.trim()
+      .toUpperCase();
+    await delay(COUPON_LATENCY_MS);
+    return code === 'PROMO10'
+      ? HttpResponse.json({
+          valid: true,
+          discountPercent: 10,
+        } satisfies LabCouponResult)
+      : HttpResponse.json({ valid: false } satisfies LabCouponResult);
+  }),
+
+  http.post('*/api/lab/checkout', async ({ request }) => {
+    const body = (await request.json()) as LabCheckoutRequest;
+    await delay(LAB_LATENCY_MS);
+    if (body.email.toLowerCase() === 'taken@example.com') {
+      return HttpResponse.json(
+        {
+          errors: [{ field: 'email', code: 'email_taken' }],
+        } satisfies LabCheckoutError,
+        { status: 422 },
+      );
+    }
+    return HttpResponse.json(
+      {
+        id: `ord_${Math.floor(1000 + Math.random() * 9000)}`,
+      } satisfies LabCheckoutResult,
+      { status: 201 },
+    );
   }),
 
   http.get('*/api/lab/products', async ({ request }) => {

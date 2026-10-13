@@ -81,6 +81,7 @@ export default [
                 'scope:lab-signals',
                 'scope:lab-api',
                 'scope:lab-quality',
+                'scope:lab-forms',
               ],
             },
             {
@@ -102,6 +103,10 @@ export default [
             {
               sourceTag: 'scope:lab-quality',
               onlyDependOnLibsWithTags: ['scope:lab-quality', 'scope:shared'],
+            },
+            {
+              sourceTag: 'scope:lab-forms',
+              onlyDependOnLibsWithTags: ['scope:lab-forms', 'scope:shared'],
             },
           ],
         },

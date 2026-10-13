@@ -50,6 +50,7 @@ describe('HomePage', () => {
       '/labs/signals-rxjs',
       '/labs/api-playground',
       '/labs/quality',
+      '/labs/forms',
     ]);
   });
 

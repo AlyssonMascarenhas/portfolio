@@ -110,6 +110,10 @@
     "quality": {
       "title": "Qualidade e testes",
       "summary": "Os cenários que os testes do próprio site garantem, lidos dos specs reais, e o que a cobertura de linha não diz."
+    },
+    "forms": {
+      "title": "Formulários com Signal Forms",
+      "summary": "Um checkout com validação síncrona, entre campos e assíncrona (cupom), em Signal Forms e em Reactive Forms, lado a lado."
     }
   },
   "layout": {
@@ -130,7 +134,8 @@
     "ticker": "Fluxo contínuo",
     "sharedState": "Estado compartilhado entre páginas",
     "apiPlayground": "API Playground",
-    "quality": "Qualidade e testes"
+    "quality": "Qualidade e testes",
+    "forms": "Formulários com Signal Forms"
   },
   "meta": {
     "default": "Portfólio interativo de engenharia front-end com Angular: labs que mostram decisões de arquitetura, não uma lista de tecnologias.",
@@ -139,6 +144,7 @@
     "labs": "Labs interativos: cenários com demo, código real e o raciocínio por trás de cada decisão de arquitetura front-end.",
     "signalsRxjs": "Seis cenários sobre quando usar signals, quando usar RxJS e onde os dois se encontram, com instrumentação e testes.",
     "apiPlayground": "Uma chamada HTTP que falha de onze jeitos: interceptors, retry com backoff, timeout e mapeamento de erros para a interface.",
-    "quality": "Os cenários de comportamento garantidos pelos testes do site, agrupados por área, com a cobertura só como contexto."
+    "quality": "Os cenários de comportamento garantidos pelos testes do site, agrupados por área, com a cobertura só como contexto.",
+    "forms": "Um checkout com Signal Forms do Angular 22: validação entre campos, cupom assíncrono com debounce, erros acessíveis e o equivalente em Reactive Forms."
   }
 }

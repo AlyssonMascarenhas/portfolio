@@ -46,5 +46,18 @@
         </ng-template>
       </p-card>
     </li>
+    <li>
+      <p-card>
+        <ng-template #title
+          ><h2>{{ 'labs.forms.title' | translate }}</h2></ng-template
+        >
+        <p class="summary">{{ 'labs.forms.summary' | translate }}</p>
+        <ng-template #footer>
+          <a pButton routerLink="/labs/forms" [text]="true">{{
+            'home.labs.cta' | translate
+          }}</a>
+        </ng-template>
+      </p-card>
+    </li>
   </ul>
 </section>

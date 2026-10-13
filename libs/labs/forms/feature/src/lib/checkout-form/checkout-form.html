@@ -1,0 +1,105 @@
+<form class="form" novalidate (submit)="onSubmit($event)">
+  <div class="field">
+    <label for="co-name">{{ labels().name }}</label>
+    <input
+      pInputText
+      id="co-name"
+      autocomplete="name"
+      [formField]="checkout.name"
+      [attr.aria-invalid]="invalid().name"
+      [attr.aria-describedby]="errors().name.length ? 'co-name-error' : null"
+    />
+    <small id="co-name-error" class="error" role="alert">{{
+      errors().name.join(' ')
+    }}</small>
+  </div>
+
+  <div class="field">
+    <label for="co-email">{{ labels().email }}</label>
+    <input
+      pInputText
+      id="co-email"
+      type="email"
+      autocomplete="email"
+      [formField]="checkout.email"
+      [attr.aria-invalid]="invalid().email"
+      [attr.aria-describedby]="errors().email.length ? 'co-email-error' : null"
+    />
+    <small id="co-email-error" class="error" role="alert">{{
+      errors().email.join(' ')
+    }}</small>
+  </div>
+
+  <div class="field">
+    <label for="co-confirm">{{ labels().confirmEmail }}</label>
+    <input
+      pInputText
+      id="co-confirm"
+      type="email"
+      autocomplete="off"
+      [formField]="checkout.confirmEmail"
+      [attr.aria-invalid]="invalid().confirmEmail"
+      [attr.aria-describedby]="
+        errors().confirmEmail.length ? 'co-confirm-error' : null
+      "
+    />
+    <small id="co-confirm-error" class="error" role="alert">{{
+      errors().confirmEmail.join(' ')
+    }}</small>
+  </div>
+
+  <div class="field">
+    <label for="co-quantity">{{ labels().quantity }}</label>
+    <input
+      pInputText
+      id="co-quantity"
+      type="number"
+      inputmode="numeric"
+      [formField]="checkout.quantity"
+      [attr.aria-invalid]="invalid().quantity"
+      [attr.aria-describedby]="
+        errors().quantity.length ? 'co-quantity-error' : null
+      "
+    />
+    <small id="co-quantity-error" class="error" role="alert">{{
+      errors().quantity.join(' ')
+    }}</small>
+  </div>
+
+  <div class="field">
+    <label for="co-coupon">{{ labels().coupon }}</label>
+    <input
+      pInputText
+      id="co-coupon"
+      autocomplete="off"
+      [formField]="checkout.coupon"
+      [attr.aria-invalid]="invalid().coupon"
+      aria-describedby="co-coupon-hint co-coupon-error"
+    />
+    <small id="co-coupon-hint" class="hint">{{ labels().couponHint }}</small>
+    @if (checkout.coupon().pending()) {
+      <small class="hint" aria-live="polite">{{ labels().pending }}…</small>
+    }
+    <small id="co-coupon-error" class="error" role="alert">{{
+      errors().coupon.join(' ')
+    }}</small>
+  </div>
+
+  <button pButton type="submit" [disabled]="checkout().submitting()">
+    {{ checkout().submitting() ? labels().submitting : labels().submit }}
+  </button>
+  <p class="hint">{{ labels().hint }}</p>
+
+  @if (orderId(); as id) {
+    <p class="success" role="status">
+      {{ labels().success.replace('{id}', id) }}
+    </p>
+  }
+  @if (failed()) {
+    <p-message severity="error">{{
+      labels().messages['submitFailed']
+    }}</p-message>
+  }
+</form>
+
+<pf-instrumentation-panel [metrics]="metrics()" />

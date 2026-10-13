@@ -25,8 +25,8 @@ describe('App', () => {
     await fixture.whenStable();
     const el: HTMLElement = fixture.nativeElement;
 
-    // início, experiência, labs e os três labs
-    expect(el.querySelectorAll('pf-sidebar nav a').length).toBe(6);
+    // início, experiência, labs e os quatro labs
+    expect(el.querySelectorAll('pf-sidebar nav a').length).toBe(7);
     expect(
       el.querySelectorAll('pf-language-switcher p-togglebutton').length,
     ).toBe(2);

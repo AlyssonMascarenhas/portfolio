@@ -45,5 +45,11 @@ export const appRoutes: Route[] = [
     loadChildren: () =>
       import('@portfolio/labs/quality').then((m) => m.qualityRoutes),
   },
+  {
+    path: 'labs/forms',
+    data: { description: 'meta.forms' },
+    loadChildren: () =>
+      import('@portfolio/labs/forms').then((m) => m.formsRoutes),
+  },
   { path: '**', redirectTo: '' },
 ];

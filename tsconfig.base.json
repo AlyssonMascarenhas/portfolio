@@ -44,7 +44,11 @@
       "@portfolio/labs/quality/data-access": [
         "./libs/labs/quality/data-access/src/index.ts"
       ],
-      "@portfolio/labs/quality": ["./libs/labs/quality/feature/src/index.ts"]
+      "@portfolio/labs/quality": ["./libs/labs/quality/feature/src/index.ts"],
+      "@portfolio/labs/forms/data-access": [
+        "./libs/labs/forms/data-access/src/index.ts"
+      ],
+      "@portfolio/labs/forms": ["./libs/labs/forms/feature/src/index.ts"]
     },
     "noImplicitOverride": true,
     "noImplicitReturns": true,
