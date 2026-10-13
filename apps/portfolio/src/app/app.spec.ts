@@ -20,13 +20,17 @@ describe('App', () => {
     }).compileComponents();
   });
 
-  it('renderiza a navegação e o seletor de idioma', async () => {
+  it('renderiza o menu lateral, o seletor de idioma e o botão de tema', async () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
     const el: HTMLElement = fixture.nativeElement;
 
-    expect(el.querySelectorAll('.site-header nav a').length).toBe(3);
-    expect(el.querySelectorAll('pf-language-switcher button').length).toBe(2);
+    // início, experiência, labs e os dois labs
+    expect(el.querySelectorAll('pf-sidebar nav a').length).toBe(5);
+    expect(
+      el.querySelectorAll('pf-language-switcher p-togglebutton').length,
+    ).toBe(2);
+    expect(el.querySelector('pf-topbar [aria-label]')).not.toBeNull();
   });
 
   it('atualiza o atributo lang do documento ao trocar o idioma', async () => {
@@ -35,5 +39,21 @@ describe('App', () => {
     await fixture.whenStable();
 
     expect(document.documentElement.lang).toBe('en-US');
+  });
+
+  it('alterna o tema escuro pela classe app-dark no <html>', async () => {
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const toggle = fixture.nativeElement.querySelector(
+      'pf-topbar .actions > button',
+    ) as HTMLButtonElement;
+    const wasDark = document.documentElement.classList.contains('app-dark');
+
+    toggle.click();
+    await fixture.whenStable();
+
+    expect(document.documentElement.classList.contains('app-dark')).toBe(
+      !wasDark,
+    );
   });
 });

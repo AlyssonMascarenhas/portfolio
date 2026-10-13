@@ -1,18 +1,22 @@
 import { Component, input, output } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
+import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'primeng/message';
 
 export type CodeViewerStatus = 'loading' | 'error' | 'ready';
 
 /** Exibe um trecho de código (sem realce de sintaxe), com os estados de loading e erro tratados. */
 @Component({
   selector: 'pf-code-viewer',
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, ButtonModule, MessageModule],
   template: `
     @switch (status()) {
       @case ('error') {
-        <div role="alert" class="state">
-          <p>{{ 'lab.code.loadError' | translate }}</p>
-          <button type="button" (click)="retry.emit()">
+        <div class="state">
+          <p-message severity="error">{{
+            'lab.code.loadError' | translate
+          }}</p-message>
+          <button pButton type="button" (click)="retry.emit()">
             {{ 'common.retry' | translate }}
           </button>
         </div>
@@ -53,9 +57,12 @@ export type CodeViewerStatus = 'loading' | 'error' | 'ready';
       padding: var(--space);
       overflow-x: auto;
       border: 1px solid var(--color-border);
-      border-radius: 0.5rem;
+      border-radius: var(--radius);
       font-size: 0.875rem;
       line-height: 1.5;
+    }
+    button {
+      margin-top: 0.75rem;
     }
   `,
 })

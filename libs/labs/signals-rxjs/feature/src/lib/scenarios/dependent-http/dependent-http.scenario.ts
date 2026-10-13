@@ -26,27 +26,36 @@ import {
   ScenarioPage,
   tracked,
 } from '@portfolio/lab-kit';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { FieldsetModule } from 'primeng/fieldset';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'pf-dependent-http-scenario',
-  imports: [ScenarioPage, ProductList, InstrumentationPanel],
+  imports: [
+    ScenarioPage,
+    ProductList,
+    InstrumentationPanel,
+    RadioButtonModule,
+    FieldsetModule,
+    FormsModule,
+  ],
   template: `
     <pf-scenario-page [text]="text()">
-      <fieldset>
-        <legend>{{ text().demo.category }}</legend>
+      <p-fieldset [legend]="text().demo.category" class="group">
         @for (option of categories(); track option.id) {
-          <label>
-            <input
-              type="radio"
+          <div class="option">
+            <p-radiobutton
+              inputId="category-{{ option.id }}"
               name="category"
               [value]="option.id"
-              [checked]="category() === option.id"
-              (change)="category.set(option.id)"
+              [ngModel]="category()"
+              (ngModelChange)="category.set($event)"
             />
-            {{ option.label }}
-          </label>
+            <label [for]="'category-' + option.id">{{ option.label }}</label>
+          </div>
         }
-      </fieldset>
+      </p-fieldset>
       <p class="hint">{{ text().demo.hint }}</p>
 
       <div class="columns">

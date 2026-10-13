@@ -45,7 +45,15 @@
           "sourceMap": true
         }
       },
-      "dependsOn": ["^build", "extract-snippets"]
+      "dependsOn": ["^build", "extract-snippets", "generate-license"],
+      "inputs": [
+        "production",
+        "^production",
+        {
+          "env": "PRIME_NG_LICENSE_KEY"
+        },
+        "{workspaceRoot}/.env.local"
+      ]
     },
     "serve": {
       "continuous": true,
@@ -59,16 +67,18 @@
           "buildTarget": "portfolio:build:development"
         }
       },
-      "dependsOn": ["extract-snippets"]
+      "dependsOn": ["extract-snippets", "generate-license"]
     },
     "lint": {
-      "executor": "@nx/eslint:lint"
+      "executor": "@nx/eslint:lint",
+      "dependsOn": ["generate-license"]
     },
     "test": {
       "executor": "@angular/build:unit-test",
       "options": {
         "watch": false
-      }
+      },
+      "dependsOn": ["generate-license"]
     },
     "serve-static": {
       "continuous": true,
@@ -90,6 +100,13 @@
       ],
       "outputs": ["{workspaceRoot}/apps/portfolio/public/snippets.json"],
       "cache": true
+    },
+    "generate-license": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/write-license.mjs"
+      },
+      "cache": false
     }
   }
 }

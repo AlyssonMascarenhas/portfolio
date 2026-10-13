@@ -16,6 +16,12 @@ import {
 import { Subject, of } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { API_PLAYGROUND_CONTENT } from './api-playground.content';
+import { ButtonModule } from 'primeng/button';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { CheckboxModule } from 'primeng/checkbox';
+import { FieldsetModule } from 'primeng/fieldset';
+import { MessageModule } from 'primeng/message';
+import { FormsModule } from '@angular/forms';
 
 type PlaygroundState =
   | { status: 'idle' }
@@ -27,36 +33,48 @@ const IDLE: PlaygroundState = { status: 'idle' };
 
 @Component({
   selector: 'pf-api-playground-scenario',
-  imports: [ScenarioPage, InstrumentationPanel],
+  imports: [
+    ScenarioPage,
+    InstrumentationPanel,
+    ButtonModule,
+    RadioButtonModule,
+    CheckboxModule,
+    FieldsetModule,
+    FormsModule,
+    MessageModule,
+  ],
   template: `
     <pf-scenario-page [text]="text()">
-      <fieldset>
-        <legend>{{ text().demo.scenarioLegend }}</legend>
+      <p-fieldset [legend]="text().demo.scenarioLegend" class="group">
         @for (option of scenarioOptions(); track option.id) {
-          <label>
-            <input
-              type="radio"
+          <div class="option">
+            <p-radiobutton
+              inputId="order-scenario-{{ option.id }}"
               name="order-scenario"
               [value]="option.id"
-              [checked]="scenario() === option.id"
-              (change)="scenario.set(option.id)"
+              [ngModel]="scenario()"
+              (ngModelChange)="scenario.set($event)"
             />
-            {{ option.label }}
-          </label>
+            <label [for]="'order-scenario-' + option.id">{{
+              option.label
+            }}</label>
+          </div>
         }
-      </fieldset>
+      </p-fieldset>
 
-      <label class="key">
-        <input
-          type="checkbox"
-          [checked]="idempotencyKey()"
-          (change)="idempotencyKey.set(!idempotencyKey())"
+      <div class="option key">
+        <p-checkbox
+          inputId="idempotency-key"
+          [binary]="true"
+          [ngModel]="idempotencyKey()"
+          (ngModelChange)="idempotencyKey.set($event)"
         />
-        {{ text().demo.idempotencyKey }}
-      </label>
+        <label for="idempotency-key">{{ text().demo.idempotencyKey }}</label>
+      </div>
       <p class="hint">{{ text().demo.idempotencyHint }}</p>
 
       <button
+        pButton
         type="button"
         [disabled]="state().status === 'sending'"
         (click)="send$.next()"
@@ -83,31 +101,38 @@ const IDLE: PlaygroundState = { status: 'idle' };
         @if (outcome.kind === 'success') {
           <p role="status" class="result ok">{{ outcome.message }}</p>
         } @else {
-          <div role="alert" class="result failed">
-            <p>
-              <strong>{{ outcome.title }}</strong>
-            </p>
-            <p>{{ outcome.hint }}</p>
-            @if (outcome.fieldErrors.length) {
-              <ul>
-                @for (field of outcome.fieldErrors; track field.name) {
-                  <li>
-                    <strong>{{ field.name }}:</strong> {{ field.message }}
-                  </li>
-                }
-              </ul>
-            }
-            @if (outcome.correlationId; as code) {
-              <p class="code">
-                {{ text().demo.correlationId }}: <code>{{ code }}</code>
+          <p-message severity="error" class="result failed" [closable]="false">
+            <div>
+              <p>
+                <strong>{{ outcome.title }}</strong>
               </p>
-            }
-            @if (outcome.retryable) {
-              <button type="button" (click)="send$.next()">
-                {{ text().demo.retry }}
-              </button>
-            }
-          </div>
+              <p>{{ outcome.hint }}</p>
+              @if (outcome.fieldErrors.length) {
+                <ul>
+                  @for (field of outcome.fieldErrors; track field.name) {
+                    <li>
+                      <strong>{{ field.name }}:</strong> {{ field.message }}
+                    </li>
+                  }
+                </ul>
+              }
+              @if (outcome.correlationId; as code) {
+                <p class="code">
+                  {{ text().demo.correlationId }}: <code>{{ code }}</code>
+                </p>
+              }
+              @if (outcome.retryable) {
+                <button
+                  pButton
+                  type="button"
+                  size="small"
+                  (click)="send$.next()"
+                >
+                  {{ text().demo.retry }}
+                </button>
+              }
+            </div>
+          </p-message>
         }
       }
 

@@ -9,18 +9,20 @@ import {
   Metric,
   ScenarioPage,
 } from '@portfolio/lab-kit';
+import { ButtonModule } from 'primeng/button';
 
 type Page = 'catalog' | 'checkout';
 
 @Component({
   selector: 'pf-shared-state-scenario',
-  imports: [ScenarioPage, InstrumentationPanel],
+  imports: [ScenarioPage, InstrumentationPanel, ButtonModule],
   providers: [CartStore],
   template: `
     <pf-scenario-page [text]="text()">
       <header class="site-header" [attr.aria-label]="text().demo.headerLabel">
         <nav [attr.aria-label]="text().demo.pages">
           <button
+            pButton
             type="button"
             [attr.aria-current]="page() === 'catalog' ? 'page' : null"
             (click)="page.set('catalog')"
@@ -28,6 +30,7 @@ type Page = 'catalog' | 'checkout';
             {{ text().demo.catalogTab }}
           </button>
           <button
+            pButton
             type="button"
             [attr.aria-current]="page() === 'checkout' ? 'page' : null"
             (click)="page.set('checkout')"
@@ -45,7 +48,7 @@ type Page = 'catalog' | 'checkout';
           @for (product of text().demo.products; track product.id) {
             <li>
               {{ product.name }} · {{ money().format(product.price) }}
-              <button type="button" (click)="add(product)">
+              <button pButton type="button" (click)="add(product)">
                 {{ text().demo.add }}
               </button>
             </li>
@@ -57,7 +60,7 @@ type Page = 'catalog' | 'checkout';
             @for (item of store.items(); track item.id) {
               <li>
                 {{ item.quantity }} × {{ item.name }}
-                <button type="button" (click)="remove(item)">
+                <button pButton type="button" (click)="remove(item)">
                   {{ text().demo.remove }}
                 </button>
               </li>

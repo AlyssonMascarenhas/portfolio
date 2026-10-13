@@ -52,3 +52,9 @@ vitest.config.*.timestamp*
 
 # gerado por tools/scripts/extract-snippets.mjs
 apps/portfolio/public/snippets.json
+
+# chave de licença do PrimeNG (local) e o módulo gerado a partir dela
+.env
+.env.*
+!.env.example
+apps/portfolio/src/app/primeng-license.generated.ts

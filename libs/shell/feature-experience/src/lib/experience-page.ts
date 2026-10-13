@@ -3,6 +3,10 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { YearMonth, toBcp47 } from '@portfolio/contracts';
 import { LanguageService } from '@portfolio/i18n';
 import { PortfolioContentService } from '@portfolio/shell/data-access';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { MessageModule } from 'primeng/message';
+import { TagModule } from 'primeng/tag';
 
 /** 'yyyy-mm' -> 'jan. de 2025' / 'Jan 2025'. Meio-dia evita erro de fuso horário. */
 function formatYearMonth(
@@ -14,15 +18,22 @@ function formatYearMonth(
 
 @Component({
   selector: 'pf-experience-page',
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, ButtonModule, CardModule, MessageModule, TagModule],
   template: `
     <section class="page" aria-labelledby="experience-title">
       <h1 id="experience-title">{{ 'experience.title' | translate }}</h1>
 
       @if (experience.error()) {
-        <div role="alert" class="state">
-          <p>{{ 'experience.loadError' | translate }}</p>
-          <button type="button" (click)="experience.reload()">
+        <div class="state">
+          <p-message severity="error">{{
+            'experience.loadError' | translate
+          }}</p-message>
+          <button
+            pButton
+            type="button"
+            class="retry"
+            (click)="experience.reload()"
+          >
             {{ 'common.retry' | translate }}
           </button>
         </div>
@@ -31,37 +42,76 @@ function formatYearMonth(
       } @else {
         <ol class="timeline">
           @for (entry of entries(); track entry.id) {
-            <li class="timeline-entry">
-              <h2>{{ entry.company }}</h2>
-              <p class="period">
-                {{ entry.startLabel }} –
-                {{ entry.endLabel ?? ('experience.present' | translate) }}
-              </p>
+            <li>
+              <p-card>
+                <ng-template #title
+                  ><h2>{{ entry.company }}</h2></ng-template
+                >
+                <ng-template #subtitle>
+                  <span class="period">
+                    {{ entry.startLabel }} –
+                    {{ entry.endLabel ?? ('experience.present' | translate) }}
+                  </span>
+                </ng-template>
 
-              <ul class="roles">
-                @for (role of entry.roles; track role.title) {
-                  <li>{{ role.title }}</li>
-                }
-              </ul>
+                <ul class="roles">
+                  @for (role of entry.roles; track role.title) {
+                    <li>{{ role.title }}</li>
+                  }
+                </ul>
 
-              <p>{{ entry.context }}</p>
+                <p>{{ entry.context }}</p>
 
-              <ul class="highlights">
-                @for (highlight of entry.highlights; track $index) {
-                  <li>{{ highlight }}</li>
-                }
-              </ul>
+                <ul class="highlights">
+                  @for (highlight of entry.highlights; track $index) {
+                    <li>{{ highlight }}</li>
+                  }
+                </ul>
 
-              <ul class="tags">
-                @for (tech of entry.stack; track tech) {
-                  <li>{{ tech }}</li>
-                }
-              </ul>
+                <ul class="stack">
+                  @for (tech of entry.stack; track tech) {
+                    <li>
+                      <p-tag
+                        [value]="tech"
+                        severity="secondary"
+                        [rounded]="true"
+                      />
+                    </li>
+                  }
+                </ul>
+              </p-card>
             </li>
           }
         </ol>
       }
     </section>
+  `,
+  styles: `
+    .timeline {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: var(--space);
+    }
+    h2 {
+      margin: 0;
+    }
+    .roles {
+      padding: 0;
+      margin: 0 0 0.75rem;
+      list-style: none;
+      font-weight: 600;
+    }
+    .highlights {
+      padding-left: 1.25rem;
+    }
+    .highlights li {
+      margin-bottom: 0.4rem;
+    }
+    .retry {
+      margin-top: 0.75rem;
+    }
   `,
 })
 export class ExperiencePage {

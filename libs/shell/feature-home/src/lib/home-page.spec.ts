@@ -43,7 +43,7 @@ describe('HomePage', () => {
     TestBed.tick();
 
     expect(el.querySelector('.actions a')?.getAttribute('href')).toBe('/labs');
-    const labLinks = [...el.querySelectorAll('.card a')].map((a) =>
+    const labLinks = [...el.querySelectorAll('p-card a')].map((a) =>
       a.getAttribute('href'),
     );
     expect(labLinks).toEqual(['/labs/signals-rxjs', '/labs/api-playground']);

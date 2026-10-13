@@ -28,14 +28,6 @@ describe('LabLayout', () => {
     panels()
       .filter((p) => !p.hidden)
       .map((p) => p.textContent?.trim());
-  const press = (key: string) => {
-    root
-      .querySelector('[role=tab][aria-selected=true]')
-      ?.dispatchEvent(
-        new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true }),
-      );
-    TestBed.tick();
-  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({ providers: [provideTranslateService()] });
@@ -63,6 +55,12 @@ describe('LabLayout', () => {
     expect(panels()).toHaveLength(3);
   });
 
+  it('rotula o tablist para leitores de tela', () => {
+    expect(
+      root.querySelector('[role=tablist]')?.getAttribute('aria-label'),
+    ).toBe('lab.tabs.label');
+  });
+
   it('liga cada aba ao seu painel por aria-controls e aria-labelledby', () => {
     tabs().forEach((tab, i) => {
       expect(tab.getAttribute('aria-controls')).toBe(panels()[i].id);
@@ -70,21 +68,13 @@ describe('LabLayout', () => {
     });
   });
 
-  it('navega por teclado e só a aba ativa entra na ordem de tab', () => {
-    press('ArrowRight');
-    expect(visible()).toEqual(['conteúdo code']);
-    expect(tabs().map((t) => t.tabIndex)).toEqual([-1, 0, -1]);
+  it('só a aba ativa entra na ordem de tab (a navegação por teclado é do PrimeNG Tabs)', () => {
+    expect(tabs().map((t) => t.tabIndex)).toEqual([0, -1, -1]);
 
-    press('End');
+    tabs()[2].click();
+    TestBed.tick();
+
+    expect(tabs().map((t) => t.tabIndex)).toEqual([-1, -1, 0]);
     expect(visible()).toEqual(['conteúdo arquitetura']);
-
-    press('ArrowRight'); // dá a volta
-    expect(visible()).toEqual(['conteúdo demo']);
-
-    press('ArrowLeft'); // dá a volta no outro sentido
-    expect(visible()).toEqual(['conteúdo arquitetura']);
-
-    press('Home');
-    expect(visible()).toEqual(['conteúdo demo']);
   });
 });

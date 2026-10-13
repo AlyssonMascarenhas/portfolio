@@ -105,5 +105,11 @@
       "title": "API Playground",
       "summary": "One HTTP call that fails in eleven ways: interceptors, retry with backoff, error mapping and UX."
     }
+  },
+  "layout": {
+    "menu": "Open or close the menu",
+    "themeLight": "Switch to the light theme",
+    "themeDark": "Switch to the dark theme",
+    "builtWith": "Built with Angular and PrimeNG"
   }
 }

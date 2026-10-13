@@ -105,5 +105,11 @@
       "title": "API Playground",
       "summary": "Uma chamada HTTP que falha de onze jeitos: interceptors, retry com backoff, mapeamento de erros e UX."
     }
+  },
+  "layout": {
+    "menu": "Abrir ou fechar o menu",
+    "themeLight": "Mudar para o tema claro",
+    "themeDark": "Mudar para o tema escuro",
+    "builtWith": "Feito com Angular e PrimeNG"
   }
 }

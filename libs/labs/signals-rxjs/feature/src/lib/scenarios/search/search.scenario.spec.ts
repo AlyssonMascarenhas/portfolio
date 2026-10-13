@@ -96,7 +96,7 @@ describe('SearchScenario', () => {
 
     expect(el.querySelector('[role=alert]')).not.toBeNull();
 
-    el.querySelector<HTMLButtonElement>('[role=alert] button')?.click();
+    el.querySelector<HTMLButtonElement>('pf-product-list button')?.click();
     TestBed.tick();
     const [retry] = searchRequests();
     expect(retry.request.params.get('q')).toBe('erro');

@@ -22,6 +22,15 @@ Lighthouse (build de produção servido com compressão, perfil mobile): perform
 
 O MSW sobe em paralelo ao Angular: o app pinta o primeiro frame sem esperar, e as chamadas à "API" esperam o service worker (`apps/portfolio/src/app/mocks-ready.ts`). Se o service worker não subir (navegador sem suporte, modo privado), as seções mostram o estado de erro com "tentar novamente".
 
+## Licença do PrimeNG
+
+O PrimeNG 22 exige uma chave de licença (a Community é gratuita para uso individual e não comercial). Sem ela, o site mostra o aviso "Invalid PrimeUI License".
+
+- **Local:** copie `.env.example` para `.env.local` (ignorado pelo git) e preencha `PRIME_NG_LICENSE_KEY`.
+- **CI:** o workflow lê o secret `PRIME_NG_LICENSE_KEY` do repositório.
+- **Como entra no app:** `tools/scripts/write-license.mjs` gera `apps/portfolio/src/app/primeng-license.generated.ts` (ignorado) antes de build, serve, lint e test. `npm run license:write` roda à mão.
+- **Atenção:** a verificação é offline e roda no navegador, então a chave vai dentro do bundle publicado e fica visível a quem inspecionar o site. O secret só a mantém fora do repositório.
+
 ## Deploy
 
 O site é estático (sem backend). O build fica em `dist/apps/portfolio/browser`. Em hospedagem com subpasta (ex.: GitHub Pages de um repositório), faça o build com `--base-href=/nome-do-repo/` e copie `index.html` para `404.html` para o fallback das rotas. O workflow `.github/workflows/deploy.yml` faz isso e publica no GitHub Pages.

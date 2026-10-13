@@ -1,0 +1,20 @@
+{
+  "name": "shell-layout",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shell/layout/src",
+  "prefix": "pf",
+  "projectType": "library",
+  "tags": ["type:feature", "scope:shell"],
+  "targets": {
+    "test": {
+      "executor": "@nx/vitest:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "coverage/libs/shell/layout"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

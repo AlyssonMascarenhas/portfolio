@@ -3,6 +3,10 @@ import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { YearMonth } from '@portfolio/contracts';
 import { PortfolioContentService } from '@portfolio/shell/data-access';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { MessageModule } from 'primeng/message';
+import { TagModule } from 'primeng/tag';
 
 function yearsSince(start: YearMonth, now: Date): number {
   const [year, month] = start.split('-').map(Number);
@@ -12,12 +16,21 @@ function yearsSince(start: YearMonth, now: Date): number {
 
 @Component({
   selector: 'pf-home-page',
-  imports: [TranslatePipe, RouterLink],
+  imports: [
+    TranslatePipe,
+    RouterLink,
+    ButtonModule,
+    CardModule,
+    MessageModule,
+    TagModule,
+  ],
   template: `
     @if (profile.error()) {
-      <div role="alert" class="state page">
-        <p>{{ 'home.loadError' | translate }}</p>
-        <button type="button" (click)="profile.reload()">
+      <div class="state page">
+        <p-message severity="error">{{
+          'home.loadError' | translate
+        }}</p-message>
+        <button pButton type="button" class="retry" (click)="profile.reload()">
           {{ 'common.retry' | translate }}
         </button>
       </div>
@@ -32,13 +45,27 @@ function yearsSince(start: YearMonth, now: Date): number {
           {{ 'hero.yearsOfExperience' | translate: { years: years() } }} ·
           {{ p.sectors }} · {{ p.location }}
         </p>
-        <nav class="actions" aria-label="{{ 'hero.actionsLabel' | translate }}">
-          <a routerLink="/labs">{{ 'hero.cta.labs' | translate }}</a>
-          <a routerLink="/experience">{{
-            'hero.cta.experience' | translate
-          }}</a>
+        <nav
+          class="actions"
+          [attr.aria-label]="'hero.actionsLabel' | translate"
+        >
+          <a pButton routerLink="/labs">{{ 'hero.cta.labs' | translate }}</a>
+          <a
+            pButton
+            routerLink="/experience"
+            severity="secondary"
+            [outlined]="true"
+            >{{ 'hero.cta.experience' | translate }}</a
+          >
           @if (p.links.resume; as resume) {
-            <a [href]="resume" download>{{ 'hero.cta.resume' | translate }}</a>
+            <a
+              pButton
+              [href]="resume"
+              download
+              severity="secondary"
+              [outlined]="true"
+              >{{ 'hero.cta.resume' | translate }}</a
+            >
           }
         </nav>
       </section>
@@ -54,19 +81,39 @@ function yearsSince(start: YearMonth, now: Date): number {
         <h2 id="labs-title">{{ 'home.labs.title' | translate }}</h2>
         <p>{{ 'labs.lead' | translate }}</p>
         <ul class="card-grid">
-          <li class="card">
-            <h3>{{ 'labs.signalsRxjs.title' | translate }}</h3>
-            <p>{{ 'labs.signalsRxjs.summary' | translate }}</p>
-            <a routerLink="/labs/signals-rxjs">{{
-              'home.labs.cta' | translate
-            }}</a>
+          <li>
+            <p-card>
+              <ng-template #title
+                ><h3>
+                  {{ 'labs.signalsRxjs.title' | translate }}
+                </h3></ng-template
+              >
+              <p class="summary">
+                {{ 'labs.signalsRxjs.summary' | translate }}
+              </p>
+              <ng-template #footer>
+                <a pButton routerLink="/labs/signals-rxjs" [text]="true">{{
+                  'home.labs.cta' | translate
+                }}</a>
+              </ng-template>
+            </p-card>
           </li>
-          <li class="card">
-            <h3>{{ 'labs.apiPlayground.title' | translate }}</h3>
-            <p>{{ 'labs.apiPlayground.summary' | translate }}</p>
-            <a routerLink="/labs/api-playground">{{
-              'home.labs.cta' | translate
-            }}</a>
+          <li>
+            <p-card>
+              <ng-template #title
+                ><h3>
+                  {{ 'labs.apiPlayground.title' | translate }}
+                </h3></ng-template
+              >
+              <p class="summary">
+                {{ 'labs.apiPlayground.summary' | translate }}
+              </p>
+              <ng-template #footer>
+                <a pButton routerLink="/labs/api-playground" [text]="true">{{
+                  'home.labs.cta' | translate
+                }}</a>
+              </ng-template>
+            </p-card>
           </li>
         </ul>
       </section>
@@ -76,14 +123,18 @@ function yearsSince(start: YearMonth, now: Date): number {
         @if (skills.hasValue()) {
           @for (group of skills.value(); track group.id) {
             <h3>{{ group.title }}</h3>
-            <ul class="tags">
+            <ul class="stack">
               @for (item of group.items; track item) {
-                <li>{{ item }}</li>
+                <li>
+                  <p-tag [value]="item" severity="secondary" [rounded]="true" />
+                </li>
               }
             </ul>
           }
         } @else if (skills.error()) {
-          <p role="alert">{{ 'skills.loadError' | translate }}</p>
+          <p-message severity="error">{{
+            'skills.loadError' | translate
+          }}</p-message>
         }
       </section>
 
@@ -102,22 +153,38 @@ function yearsSince(start: YearMonth, now: Date): number {
 
       <section class="page" id="contact" aria-labelledby="contact-title">
         <h2 id="contact-title">{{ 'contact.title' | translate }}</h2>
-        <ul class="contact">
+        <ul class="stack">
           <li>
-            <a [href]="'mailto:' + p.links.email">{{
-              'contact.email' | translate
-            }}</a>
+            <a
+              pButton
+              [href]="'mailto:' + p.links.email"
+              severity="secondary"
+              [outlined]="true"
+              >{{ 'contact.email' | translate }}</a
+            >
           </li>
           <li>
-            <a [href]="p.links.linkedin" target="_blank" rel="noopener">{{
-              'contact.linkedin' | translate
-            }}</a>
+            <a
+              pButton
+              [href]="p.links.linkedin"
+              target="_blank"
+              rel="noopener"
+              severity="secondary"
+              [outlined]="true"
+              >{{ 'contact.linkedin' | translate }}</a
+            >
           </li>
           @if (p.links.github; as github) {
             <li>
-              <a [href]="github" target="_blank" rel="noopener">{{
-                'contact.github' | translate
-              }}</a>
+              <a
+                pButton
+                [href]="github"
+                target="_blank"
+                rel="noopener"
+                severity="secondary"
+                [outlined]="true"
+                >{{ 'contact.github' | translate }}</a
+              >
             </li>
           }
         </ul>
@@ -126,6 +193,29 @@ function yearsSince(start: YearMonth, now: Date): number {
       <p class="state page" aria-busy="true">
         {{ 'common.loading' | translate }}
       </p>
+    }
+  `,
+  styles: `
+    .headline {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      margin-bottom: 0.5rem;
+    }
+    .tagline {
+      font-size: 1.25rem;
+      line-height: 1.5;
+      max-width: 55ch;
+    }
+    .summary {
+      color: var(--color-muted);
+      margin: 0;
+    }
+    h3 {
+      margin: 0;
+    }
+    .retry {
+      margin-top: 0.75rem;
     }
   `,
 })

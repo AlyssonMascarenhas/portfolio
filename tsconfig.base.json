@@ -39,7 +39,8 @@
       ],
       "@portfolio/shell/feature-labs": [
         "./libs/shell/feature-labs/src/index.ts"
-      ]
+      ],
+      "@portfolio/shell/layout": ["./libs/shell/layout/src/index.ts"]
     },
     "noImplicitOverride": true,
     "noImplicitReturns": true,

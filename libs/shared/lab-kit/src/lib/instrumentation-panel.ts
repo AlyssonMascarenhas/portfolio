@@ -1,11 +1,22 @@
 import { Component, computed, input } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { LogEntry } from './request-log';
+import { CardModule } from 'primeng/card';
+import { TagModule } from 'primeng/tag';
+import { LogEntry, LogState } from './request-log';
 
 export interface Metric {
   label: string;
   value: string | number;
 }
+
+type TagSeverity = 'success' | 'info' | 'danger' | 'secondary';
+
+const SEVERITY: Record<Exclude<LogState, 'info'>, TagSeverity> = {
+  pending: 'info',
+  done: 'success',
+  failed: 'danger',
+  canceled: 'secondary',
+};
 
 /**
  * Painel que torna visível o comportamento invisível: contadores e, opcionalmente,
@@ -13,14 +24,16 @@ export interface Metric {
  */
 @Component({
   selector: 'pf-instrumentation-panel',
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, CardModule, TagModule],
   template: `
-    <section aria-labelledby="instrumentation-title">
-      <h2 id="instrumentation-title">
-        {{ 'lab.instrumentation.title' | translate }}
-      </h2>
+    <p-card class="panel">
+      <ng-template #title
+        ><h2 id="instrumentation-title">
+          {{ 'lab.instrumentation.title' | translate }}
+        </h2></ng-template
+      >
 
-      <dl>
+      <dl aria-labelledby="instrumentation-title">
         @for (metric of metrics(); track metric.label) {
           <div>
             <dt>{{ metric.label }}</dt>
@@ -33,14 +46,18 @@ export interface Metric {
         @if (rows().length) {
           <ol class="log">
             @for (row of rows(); track row.id) {
-              <li [class]="row.state">
+              <li>
                 @if (row.state === 'canceled') {
                   <s>{{ row.text }}</s>
                 } @else {
                   {{ row.text }}
                 }
-                @if (row.state !== 'info') {
-                  <span class="state">({{ row.stateKey | translate }})</span>
+                @if (row.severity; as severity) {
+                  <p-tag
+                    [value]="row.stateKey | translate"
+                    [severity]="severity"
+                    [rounded]="true"
+                  />
                 }
               </li>
             }
@@ -49,17 +66,15 @@ export interface Metric {
           <p class="empty">{{ 'lab.instrumentation.empty' | translate }}</p>
         }
       }
-    </section>
+    </p-card>
   `,
   styles: `
-    section {
-      border: 1px solid var(--color-border);
-      border-radius: 0.5rem;
-      padding: var(--space);
+    :host {
+      display: block;
       margin-top: var(--space);
     }
     h2 {
-      margin: 0 0 0.5rem;
+      margin: 0;
       font-size: 1rem;
     }
     dl {
@@ -82,9 +97,12 @@ export interface Metric {
       padding-left: 1.25rem;
       font-size: 0.875rem;
     }
-    .state,
+    .log li {
+      margin: 0.25rem 0;
+    }
     .empty {
       color: var(--color-muted);
+      margin: 0.75rem 0 0;
     }
   `,
 })
@@ -97,6 +115,7 @@ export class InstrumentationPanel {
     (this.log() ?? []).map((entry) => ({
       ...entry,
       stateKey: `lab.instrumentation.state.${entry.state}`,
+      severity: entry.state === 'info' ? undefined : SEVERITY[entry.state],
     })),
   );
 }

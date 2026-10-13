@@ -24,10 +24,10 @@ describe('ApiPlaygroundScenario', () => {
     TestBed.tick();
   };
   const choose = (label: string) => {
-    [...el.querySelectorAll('label')]
-      .find((l) => l.textContent?.includes(label))
-      ?.querySelector('input')
-      ?.click();
+    const target = [...el.querySelectorAll('label')].find((l) =>
+      l.textContent?.includes(label),
+    );
+    el.querySelector<HTMLInputElement>('#' + target?.htmlFor)?.click();
     tick();
   };
   const click = (label: string) => {

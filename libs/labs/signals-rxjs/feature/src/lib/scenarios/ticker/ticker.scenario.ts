@@ -5,6 +5,7 @@ import { TickerFeed } from './ticker-feed';
 import { TICKER_CONTENT } from './ticker.content';
 import { LanguageService, localized } from '@portfolio/i18n';
 import { InstrumentationPanel, Metric, ScenarioPage } from '@portfolio/lab-kit';
+import { ButtonModule } from 'primeng/button';
 
 /** O componente que consome o feed. Ao ser destruído, a assinatura é encerrada. */
 @Component({
@@ -41,7 +42,7 @@ export class TickerPrice {
 
 @Component({
   selector: 'pf-ticker-scenario',
-  imports: [ScenarioPage, TickerPrice, InstrumentationPanel],
+  imports: [ScenarioPage, TickerPrice, InstrumentationPanel, ButtonModule],
   providers: [TickerFeed],
   template: `
     <pf-scenario-page [text]="text()">
@@ -53,7 +54,7 @@ export class TickerPrice {
           <span class="destroyed">{{ text().demo.destroyed }}</span>
         }
       </p>
-      <button type="button" (click)="mounted.update((value) => !value)">
+      <button pButton type="button" (click)="mounted.update((value) => !value)">
         {{ mounted() ? text().demo.destroy : text().demo.recreate }}
       </button>
       <p class="hint">{{ text().demo.hint }}</p>

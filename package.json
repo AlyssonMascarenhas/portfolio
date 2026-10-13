@@ -8,10 +8,12 @@
     "test": "nx run-many -t test && node --test \"tools/scripts/*.spec.mjs\"",
     "lint": "nx run-many -t lint",
     "i18n:check": "node tools/scripts/check-i18n.mjs",
-    "snippets:extract": "node tools/scripts/extract-snippets.mjs"
+    "snippets:extract": "node tools/scripts/extract-snippets.mjs",
+    "license:write": "node tools/scripts/write-license.mjs"
   },
   "private": true,
   "dependencies": {
+    "@angular/cdk": "~22.1.0",
     "@angular/common": "~22.1.0",
     "@angular/compiler": "~22.1.0",
     "@angular/core": "~22.1.0",
@@ -20,6 +22,8 @@
     "@angular/router": "~22.1.0",
     "@ngx-translate/core": "^18.0.0",
     "@ngx-translate/http-loader": "^18.0.0",
+    "@primeuix/themes": "^3.0.1",
+    "primeng": "^22.1.2",
     "rxjs": "~7.8.0"
   },
   "devDependencies": {

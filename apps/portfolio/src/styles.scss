@@ -1,19 +1,20 @@
-// Identidade visual: sóbria e técnica. Fundo neutro, um único acento azul, fonte do sistema
-// (sem webfont, para não pesar no LCP) e mono só onde há código. Claro e escuro seguem o sistema.
-// Contraste: texto e acento >= 4.5:1 sobre bg e surface nos dois temas (WCAG AA).
+// Estilos globais. Os componentes visuais vêm do PrimeNG (tema Aura, azul como primária);
+// aqui ficam só a tipografia, os tokens usados pelos nossos componentes e utilitários.
+//
+// Os tokens --color-* são apelidos das variáveis do PrimeNG (--p-*), então trocar o tema
+// ou o modo escuro muda tudo junto. Os valores de fallback cobrem o instante antes de o
+// PrimeNG injetar o tema (o script do index.html já aplica a classe app-dark antes da pintura).
 :root {
-  color-scheme: light dark;
-
-  --color-bg: #f7f8fa;
-  --color-surface: #ffffff;
-  --color-text: #111827;
-  --color-muted: #4b5563;
-  --color-border: #d3d9e0;
-  --color-accent: #0a5bb5;
-  --color-accent-hover: #084a93;
-  --color-on-accent: #ffffff;
-  --color-danger: #b42318;
-  --color-accent-soft: #e8f0fb;
+  --color-bg: var(--p-surface-50, #f8fafc);
+  --color-surface: var(--p-content-background, #ffffff);
+  --color-text: var(--p-text-color, #1e293b);
+  --color-muted: var(--p-text-muted-color, #475569);
+  --color-border: var(--p-content-border-color, #e2e8f0);
+  --color-accent: var(--p-primary-color, #1d4ed8);
+  --color-accent-hover: var(--p-primary-hover-color, #1e40af);
+  --color-on-accent: var(--p-primary-contrast-color, #ffffff);
+  --color-accent-soft: var(--p-highlight-background, #eff6ff);
+  --color-danger: var(--p-red-700, #b91c1c);
 
   --font-body:
     system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
@@ -27,19 +28,17 @@
   --radius-lg: 0.875rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #0d1117;
-    --color-surface: #161b22;
-    --color-text: #e6edf3;
-    --color-muted: #9aa7b5;
-    --color-border: #30363d;
-    --color-accent: #58a6ff;
-    --color-accent-hover: #79b8ff;
-    --color-on-accent: #0d1117;
-    --color-danger: #f47067;
-    --color-accent-soft: #12233a;
-  }
+:root.app-dark {
+  --color-bg: var(--p-surface-950, #020617);
+  --color-surface: var(--p-content-background, #0f172a);
+  --color-text: var(--p-text-color, #f1f5f9);
+  --color-muted: var(--p-text-muted-color, #94a3b8);
+  --color-border: var(--p-content-border-color, #1e293b);
+  --color-accent: var(--p-primary-color, #60a5fa);
+  --color-accent-hover: var(--p-primary-hover-color, #93c5fd);
+  --color-on-accent: var(--p-primary-contrast-color, #0f172a);
+  --color-accent-soft: var(--p-highlight-background, #172554);
+  --color-danger: var(--p-red-400, #f87171);
 }
 
 * {
@@ -48,6 +47,10 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  color-scheme: light;
+  &.app-dark {
+    color-scheme: dark;
+  }
 }
 
 body {
@@ -91,6 +94,11 @@ p {
   text-wrap: pretty;
 }
 
+a.p-button,
+a.p-button:hover {
+  text-decoration: none;
+}
+
 a {
   color: var(--color-accent);
   text-underline-offset: 0.2em;
@@ -118,63 +126,9 @@ pre {
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
-  border-radius: 2px;
 }
 
-// ---------- Controles ----------
-button,
-input,
-select {
-  font: inherit;
-  color: inherit;
-}
-
-button {
-  color: var(--color-text);
-  padding: 0.45rem 1rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  background: var(--color-surface);
-  cursor: pointer;
-  transition:
-    border-color 0.15s,
-    color 0.15s,
-    background-color 0.15s;
-  &:hover:not(:disabled) {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-  }
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.55;
-  }
-}
-
-input[type='text'],
-input[type='number'],
-input[type='search'] {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  padding: 0.5rem 0.75rem;
-  width: 100%;
-}
-input[type='radio'],
-input[type='checkbox'] {
-  accent-color: var(--color-accent);
-}
-
-fieldset {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  background: var(--color-surface);
-}
-legend {
-  padding: 0 0.5rem;
-  font-weight: 600;
-}
-
-// ---------- Estrutura ----------
+// ---------- Utilitários ----------
 // Texto só para leitores de tela (o nome acessível precisa conter o texto visível).
 .visually-hidden {
   position: absolute;
@@ -191,76 +145,12 @@ legend {
   &:focus {
     left: var(--space);
     top: var(--space);
-    z-index: 20;
+    z-index: 1000;
     background: var(--color-accent);
     color: var(--color-on-accent);
     padding: 0.5rem 1rem;
     border-radius: var(--radius);
   }
-}
-
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--space);
-  padding: 0.75rem var(--space);
-  border-bottom: 1px solid var(--color-border);
-  background: color-mix(in srgb, var(--color-bg) 88%, transparent);
-  backdrop-filter: blur(10px);
-
-  nav {
-    display: flex;
-    gap: 1.25rem;
-  }
-  nav a {
-    color: var(--color-muted);
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0.25rem 0;
-    border-bottom: 2px solid transparent;
-    &:hover {
-      color: var(--color-text);
-    }
-  }
-  nav a.active {
-    color: var(--color-text);
-    border-bottom-color: var(--color-accent);
-  }
-}
-
-.language-switcher > div {
-  display: inline-flex;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-.language-switcher button {
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  padding: 0.25rem 0.65rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--color-muted);
-  &[aria-pressed='true'] {
-    background: var(--color-accent);
-    color: var(--color-on-accent);
-  }
-  &:hover:not(:disabled):not([aria-pressed='true']) {
-    color: var(--color-text);
-    border-color: transparent;
-  }
-}
-
-main {
-  padding: calc(var(--space) * 2.5) var(--space) calc(var(--space) * 4);
-}
-main:focus {
-  outline: none;
 }
 
 .page {
@@ -271,29 +161,31 @@ main:focus {
 .state {
   color: var(--color-muted);
 }
-[role='alert'] {
-  color: var(--color-danger);
-}
 
-// ---------- Home ----------
-.hero {
-  padding-top: calc(var(--space) * 1.5);
-}
-.headline {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--color-accent);
-  margin-bottom: 0.5rem;
-}
-.tagline {
-  font-size: 1.25rem;
-  line-height: 1.5;
-  max-width: 55ch;
-}
 .meta,
 .period {
   color: var(--color-muted);
   font-size: 0.9rem;
+}
+
+// Opção de rádio/checkbox do PrimeNG com o rótulo ao lado.
+.option {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.3rem 0;
+  label {
+    cursor: pointer;
+  }
+}
+
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0 0 var(--space);
+  list-style: none;
 }
 
 .actions {
@@ -301,70 +193,8 @@ main:focus {
   flex-wrap: wrap;
   gap: 0.75rem;
   margin-top: calc(var(--space) * 1.5);
-
-  a {
-    display: inline-block;
-    padding: 0.6rem 1.25rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    font-weight: 600;
-    text-decoration: none;
-    background: var(--color-surface);
-    color: var(--color-text);
-    &:hover {
-      border-color: var(--color-accent);
-      color: var(--color-accent);
-    }
-    &:first-child {
-      background: var(--color-accent);
-      border-color: var(--color-accent);
-      color: var(--color-on-accent);
-      &:hover {
-        background: var(--color-accent-hover);
-        border-color: var(--color-accent-hover);
-        color: var(--color-on-accent);
-      }
-    }
-  }
 }
 
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  padding: 0;
-  margin: 0 0 var(--space);
-  list-style: none;
-  li {
-    padding: 0.15rem 0.65rem;
-    border: 1px solid var(--color-border);
-    border-radius: 999px;
-    background: var(--color-surface);
-    font-size: 0.85rem;
-  }
-}
-
-.contact {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  padding: 0;
-  list-style: none;
-  a {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    background: var(--color-surface);
-    text-decoration: none;
-    font-weight: 500;
-    &:hover {
-      border-color: var(--color-accent);
-    }
-  }
-}
-
-// ---------- Cards (labs) ----------
 .card-grid {
   display: grid;
   gap: var(--space);
@@ -372,58 +202,6 @@ main:focus {
   padding: 0;
   margin: var(--space) 0 0;
   list-style: none;
-}
-.card {
-  display: flex;
-  flex-direction: column;
-  padding: calc(var(--space) * 1.25);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  background: var(--color-surface);
-  h2,
-  h3 {
-    margin: 0 0 0.5rem;
-    font-size: 1.15rem;
-  }
-  p {
-    flex: 1;
-    color: var(--color-muted);
-    font-size: 0.95rem;
-  }
-  a {
-    font-weight: 600;
-    text-decoration: none;
-    &::after {
-      content: ' →';
-    }
-  }
-}
-
-// ---------- Experiência ----------
-.timeline {
-  padding: 0;
-  list-style: none;
-}
-.timeline-entry {
-  padding: calc(var(--space) * 1.25);
-  margin-bottom: var(--space);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  background: var(--color-surface);
-  h2 {
-    margin-bottom: 0.25rem;
-  }
-}
-.roles {
-  padding: 0;
-  list-style: none;
-  font-weight: 600;
-}
-.highlights {
-  padding-left: 1.25rem;
-  li {
-    margin-bottom: 0.4rem;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

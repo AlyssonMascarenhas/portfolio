@@ -2,13 +2,15 @@ import { Component, computed, signal } from '@angular/core';
 import { LOCAL_STATE_CONTENT } from './local-state.content';
 import { localized } from '@portfolio/i18n';
 import { InstrumentationPanel, Metric, ScenarioPage } from '@portfolio/lab-kit';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'pf-local-state-scenario',
-  imports: [ScenarioPage, InstrumentationPanel],
+  imports: [ScenarioPage, InstrumentationPanel, ButtonModule],
   template: `
     <pf-scenario-page [text]="text()">
       <button
+        pButton
         type="button"
         aria-controls="details-panel"
         [attr.aria-expanded]="isOpen()"

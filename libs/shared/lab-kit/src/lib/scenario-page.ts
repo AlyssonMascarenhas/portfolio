@@ -1,7 +1,11 @@
 import { Component, computed, inject, input, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { CodeViewer, LabLayout } from '@portfolio/ui';
+import { ButtonModule } from 'primeng/button';
+import { FieldsetModule } from 'primeng/fieldset';
+import { RadioButtonModule } from 'primeng/radiobutton';
 import { ScenarioText } from './scenario-text';
 import { SNIPPET_SOURCE } from './snippet-source';
 
@@ -11,39 +15,51 @@ import { SNIPPET_SOURCE } from './snippet-source';
  */
 @Component({
   selector: 'pf-scenario-page',
-  imports: [TranslatePipe, RouterLink, LabLayout, CodeViewer],
+  imports: [
+    TranslatePipe,
+    RouterLink,
+    FormsModule,
+    ButtonModule,
+    FieldsetModule,
+    RadioButtonModule,
+    LabLayout,
+    CodeViewer,
+  ],
   template: `
     <pf-lab-layout [title]="text().title" [problem]="text().problem">
       <div demo>
         @if (text().question; as question) {
-          <fieldset>
-            <legend>{{ question.prompt }}</legend>
+          <p-fieldset [legend]="question.prompt" class="question">
             @for (option of question.options; track option.id) {
-              <label>
-                <input
-                  type="radio"
+              <div class="option">
+                <p-radiobutton
+                  [inputId]="groupName + '-' + option.id"
                   [name]="groupName"
                   [value]="option.id"
-                  [checked]="chosenId() === option.id"
-                  (change)="chosenId.set(option.id)"
+                  [ngModel]="chosenId()"
+                  (ngModelChange)="chosenId.set($event)"
                 />
-                {{ option.label }}
-              </label>
+                <label [for]="groupName + '-' + option.id">{{
+                  option.label
+                }}</label>
+              </div>
             }
-          </fieldset>
+          </p-fieldset>
 
           @if (answer(); as answer) {
             <div class="answer" role="status">
-              <p>{{ answer.text }}</p>
-              <p class="mine">
-                @if (answer.isSuggested) {
-                  {{ 'lab.scenario.sameChoice' | translate }}
-                } @else {
-                  {{
-                    'lab.scenario.myChoice'
-                      | translate: { label: answer.suggestedLabel }
-                  }}
-                }
+              <p>
+                {{ answer.text }}
+                <strong class="mine">
+                  @if (answer.isSuggested) {
+                    {{ 'lab.scenario.sameChoice' | translate }}
+                  } @else {
+                    {{
+                      'lab.scenario.myChoice'
+                        | translate: { label: answer.suggestedLabel }
+                    }}
+                  }
+                </strong>
               </p>
             </div>
           }
@@ -88,26 +104,33 @@ import { SNIPPET_SOURCE } from './snippet-source';
     </pf-lab-layout>
 
     <p class="back">
-      <a routerLink="..">{{ 'lab.scenario.back' | translate }}</a>
+      <a pButton routerLink=".." [text]="true">{{
+        'lab.scenario.back' | translate
+      }}</a>
     </p>
   `,
   styles: `
-    fieldset {
-      border: 1px solid var(--color-border);
-      border-radius: 0.5rem;
-      margin: 0 0 var(--space);
-    }
-    label {
+    .question {
       display: block;
-      padding: 0.25rem 0;
-    }
-    .answer {
-      border-left: 3px solid var(--color-accent);
-      padding-left: var(--space);
       margin-bottom: var(--space);
     }
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.35rem 0;
+    }
+    .option label {
+      cursor: pointer;
+    }
+    .answer {
+      margin-bottom: var(--space);
+      padding: 0.25rem 0 0.25rem var(--space);
+      border-left: 3px solid var(--color-accent);
+    }
     .mine {
-      font-weight: 600;
+      display: block;
+      margin-top: 0.35rem;
     }
     dt {
       font-weight: 600;

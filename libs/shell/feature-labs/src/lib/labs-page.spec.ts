@@ -11,7 +11,7 @@ describe('LabsPage', () => {
     const el: HTMLElement = TestBed.createComponent(LabsPage).nativeElement;
     TestBed.tick();
 
-    const links = [...el.querySelectorAll('.card a')].map((a) =>
+    const links = [...el.querySelectorAll('p-card a')].map((a) =>
       a.getAttribute('href'),
     );
     expect(links).toEqual(['/labs/signals-rxjs', '/labs/api-playground']);

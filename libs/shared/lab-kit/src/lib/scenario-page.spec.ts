@@ -108,9 +108,7 @@ describe('ScenarioPage', () => {
 
     expect(el.querySelector('pf-code-viewer [role=alert]')).not.toBeNull();
 
-    el.querySelector<HTMLButtonElement>(
-      'pf-code-viewer [role=alert] button',
-    )?.click();
+    el.querySelector<HTMLButtonElement>('pf-code-viewer button')?.click();
     expect(reload).toHaveBeenCalledTimes(1);
   });
 });

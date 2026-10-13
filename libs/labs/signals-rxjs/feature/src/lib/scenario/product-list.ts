@@ -1,17 +1,21 @@
 import { Component, input, output } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ProductListState } from './lab-products.api';
+import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'primeng/message';
 
 /** Lista de produtos com os estados de loading, erro (com tentar de novo) e vazio. */
 @Component({
   selector: 'pf-product-list',
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, ButtonModule, MessageModule],
   template: `
     @switch (state().status) {
       @case ('error') {
-        <div role="alert">
-          <p>{{ 'lab.products.loadError' | translate }}</p>
-          <button type="button" (click)="retry.emit()">
+        <div>
+          <p-message severity="error">{{
+            'lab.products.loadError' | translate
+          }}</p-message>
+          <button pButton type="button" (click)="retry.emit()">
             {{ 'common.retry' | translate }}
           </button>
         </div>

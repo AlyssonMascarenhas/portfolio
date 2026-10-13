@@ -26,15 +26,21 @@ import {
   ScenarioPage,
   tracked,
 } from '@portfolio/lab-kit';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'pf-search-scenario',
-  imports: [ScenarioPage, ProductList, InstrumentationPanel],
+  imports: [ScenarioPage, ProductList, InstrumentationPanel, InputTextModule],
   template: `
     <pf-scenario-page [text]="text()">
       <label class="search">
         {{ text().demo.label }}
-        <input type="search" autocomplete="off" (input)="onInput($event)" />
+        <input
+          pInputText
+          type="search"
+          autocomplete="off"
+          (input)="onInput($event)"
+        />
       </label>
       <p class="hint">{{ text().demo.hint }}</p>
 

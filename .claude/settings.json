@@ -18,7 +18,15 @@
       "Bash(git commit:*)",
       "Bash(git push:*)"
     ],
-    "deny": ["Read(./.env)", "Read(./.env.*)", "Bash(npm publish:*)"]
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Bash(npm publish:*)"
+    ]
   },
-  "enabledMcpjsonServers": ["angular-cli", "nx-mcp"]
+  "enabledMcpjsonServers": [
+    "angular-cli",
+    "nx-mcp",
+    "primeng"
+  ]
 }

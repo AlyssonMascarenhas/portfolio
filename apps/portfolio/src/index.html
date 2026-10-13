@@ -19,6 +19,18 @@
       content="#0d1117"
       media="(prefers-color-scheme: dark)"
     />
+    <script>
+      // Aplica o tema escuro antes da primeira pintura, para não piscar (ver LayoutService).
+      (function () {
+        try {
+          var t = localStorage.getItem('portfolio.theme');
+          var dark = t
+            ? t === 'dark'
+            : matchMedia('(prefers-color-scheme: dark)').matches;
+          if (dark) document.documentElement.classList.add('app-dark');
+        } catch (e) {}
+      })();
+    </script>
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
   </head>
   <body>

@@ -14,16 +14,18 @@ import {
   Metric,
   ScenarioPage,
 } from '@portfolio/lab-kit';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'pf-derived-state-scenario',
-  imports: [ScenarioPage, InstrumentationPanel],
+  imports: [ScenarioPage, InstrumentationPanel, InputTextModule],
   template: `
     <pf-scenario-page [text]="text()">
       <div class="fields">
         <label>
           {{ text().demo.price }}
           <input
+            pInputText
             type="number"
             min="0"
             [value]="price()"
@@ -33,6 +35,7 @@ import {
         <label>
           {{ text().demo.quantity }}
           <input
+            pInputText
             type="number"
             min="0"
             [value]="quantity()"
@@ -42,6 +45,7 @@ import {
         <label>
           {{ text().demo.discount }}
           <input
+            pInputText
             type="number"
             min="0"
             max="100"
@@ -51,7 +55,12 @@ import {
         </label>
         <label>
           {{ text().demo.note }}
-          <input type="text" [value]="note()" (input)="setNote($event)" />
+          <input
+            pInputText
+            type="text"
+            [value]="note()"
+            (input)="setNote($event)"
+          />
         </label>
       </div>
 

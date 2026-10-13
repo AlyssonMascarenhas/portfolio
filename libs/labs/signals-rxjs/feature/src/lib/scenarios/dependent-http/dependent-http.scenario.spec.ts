@@ -30,10 +30,10 @@ describe('DependentHttpScenario', () => {
         r.url === 'api/lab/products' && r.params.get('category') === category,
     );
   const pick = (label: string) => {
-    const radio = [...el.querySelectorAll('label')]
-      .find((l) => l.textContent?.includes(label))
-      ?.querySelector('input');
-    radio?.click();
+    const target = [...el.querySelectorAll('label')].find((l) =>
+      l.textContent?.includes(label),
+    );
+    el.querySelector<HTMLInputElement>('#' + target?.htmlFor)?.click();
   };
   const columns = () =>
     [...el.querySelectorAll('.columns section')].map((s) => s.textContent);
@@ -91,7 +91,7 @@ describe('DependentHttpScenario', () => {
 
     expect(el.querySelectorAll('[role=alert]')).toHaveLength(2);
 
-    el.querySelector<HTMLButtonElement>('[role=alert] button')?.click();
+    el.querySelector<HTMLButtonElement>('pf-product-list button')?.click();
     await settle();
 
     expect(requestsFor('keyboards')).toHaveLength(1);

@@ -30,6 +30,8 @@ jobs:
       - run: npm run i18n:check
       # GitHub Pages de projeto serve em /<repositório>/; o base href e o 404.html (fallback das rotas) dependem disso.
       - run: npx nx build portfolio --base-href=/${{ github.event.repository.name }}/
+        env:
+          PRIME_NG_LICENSE_KEY: ${{ secrets.PRIME_NG_LICENSE_KEY }}
       - run: cp dist/apps/portfolio/browser/index.html dist/apps/portfolio/browser/404.html
       - uses: actions/upload-pages-artifact@v3
         with:
