@@ -56,6 +56,7 @@ describe('SearchScenario', () => {
     expect(requests[0].request.params.get('q')).toBe('wir');
   });
 
+  // #region quality-test-cancel
   it('cancela a requisição anterior quando um termo novo chega (switchMap)', () => {
     type('wi');
     advance(300);
@@ -73,6 +74,7 @@ describe('SearchScenario', () => {
     expect(metrics()).toEqual([2, 1, 1]); // disparadas, canceladas, concluídas
     expect(el.querySelector('s')?.textContent).toBe('wi');
   });
+  // #endregion
 
   it('não refaz a busca quando o termo não muda (distinctUntilChanged)', () => {
     type('wire');

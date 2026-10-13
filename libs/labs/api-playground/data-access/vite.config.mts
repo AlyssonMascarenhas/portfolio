@@ -26,6 +26,10 @@ export default defineConfig(() => ({
       reportsDirectory:
         '../../../../coverage/libs/labs/api-playground/data-access',
       provider: 'v8' as const,
+      // json-summary alimenta o relatório do lab de qualidade; include conta também os arquivos sem teste.
+      reporter: ['text-summary', 'json-summary'],
+      include: ['src/**/*.ts'],
+      exclude: ['src/**/*.spec.ts', 'src/test-setup.ts', 'src/index.ts'],
     },
   },
 }));

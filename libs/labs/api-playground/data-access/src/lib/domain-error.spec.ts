@@ -6,6 +6,7 @@ const http = (status: number, error: unknown = null) =>
   new HttpErrorResponse({ status, error });
 
 describe('mapHttpError', () => {
+  // #region quality-test-table
   it.each<[number, ErrorKind, boolean]>([
     [0, 'offline', true],
     [400, 'bad-request', false],
@@ -25,6 +26,7 @@ describe('mapHttpError', () => {
     expect(error.retryable).toBe(retryable);
     expect(error.details.status).toBe(status);
   });
+  // #endregion
 
   it('timeout vira "timeout" e é repetível', () => {
     const error = mapHttpError(new TimeoutError());

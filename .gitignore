@@ -58,3 +58,6 @@ apps/portfolio/public/snippets.json
 .env.*
 !.env.example
 apps/portfolio/src/app/primeng-license.generated.ts
+
+# relatório do lab de qualidade (gerado por tools/scripts/build-quality-report.mjs)
+apps/portfolio/public/quality-report.json

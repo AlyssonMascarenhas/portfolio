@@ -33,5 +33,18 @@
         </ng-template>
       </p-card>
     </li>
+    <li>
+      <p-card>
+        <ng-template #title
+          ><h2>{{ 'labs.quality.title' | translate }}</h2></ng-template
+        >
+        <p class="summary">{{ 'labs.quality.summary' | translate }}</p>
+        <ng-template #footer>
+          <a pButton routerLink="/labs/quality" [text]="true">{{
+            'home.labs.cta' | translate
+          }}</a>
+        </ng-template>
+      </p-card>
+    </li>
   </ul>
 </section>

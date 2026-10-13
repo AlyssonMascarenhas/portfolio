@@ -40,7 +40,11 @@
       "@portfolio/shell/feature-labs": [
         "./libs/shell/feature-labs/src/index.ts"
       ],
-      "@portfolio/shell/layout": ["./libs/shell/layout/src/index.ts"]
+      "@portfolio/shell/layout": ["./libs/shell/layout/src/index.ts"],
+      "@portfolio/labs/quality/data-access": [
+        "./libs/labs/quality/data-access/src/index.ts"
+      ],
+      "@portfolio/labs/quality": ["./libs/labs/quality/feature/src/index.ts"]
     },
     "noImplicitOverride": true,
     "noImplicitReturns": true,

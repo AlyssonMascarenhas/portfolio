@@ -39,5 +39,11 @@ export const appRoutes: Route[] = [
         (m) => m.apiPlaygroundRoutes,
       ),
   },
+  {
+    path: 'labs/quality',
+    data: { description: 'meta.quality' },
+    loadChildren: () =>
+      import('@portfolio/labs/quality').then((m) => m.qualityRoutes),
+  },
   { path: '**', redirectTo: '' },
 ];

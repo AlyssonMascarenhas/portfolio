@@ -106,6 +106,10 @@
     "apiPlayground": {
       "title": "API Playground",
       "summary": "One HTTP call that fails in eleven ways: interceptors, retry with backoff, error mapping and UX."
+    },
+    "quality": {
+      "title": "Quality and tests",
+      "summary": "The scenarios this site's own tests guarantee, read from the real specs, and what line coverage does not tell you."
     }
   },
   "layout": {
@@ -125,7 +129,8 @@
     "dependentHttp": "HTTP that depends on state",
     "ticker": "Continuous stream",
     "sharedState": "State shared across pages",
-    "apiPlayground": "API Playground"
+    "apiPlayground": "API Playground",
+    "quality": "Quality and tests"
   },
   "meta": {
     "default": "Interactive front-end engineering portfolio built with Angular: labs that show architecture decisions, not a list of technologies.",
@@ -133,6 +138,7 @@
     "experience": "Professional experience of Alysson Mascarenhas: Internet Banking, telecom, ERP and e-commerce, with Angular and technical leadership.",
     "labs": "Interactive labs: scenarios with a demo, real code and the reasoning behind each front-end architecture decision.",
     "signalsRxjs": "Six scenarios on when to use signals, when to use RxJS and where the two meet, with instrumentation and tests.",
-    "apiPlayground": "One HTTP call that fails in eleven ways: interceptors, retry with backoff, timeouts and mapping errors to the UI."
+    "apiPlayground": "One HTTP call that fails in eleven ways: interceptors, retry with backoff, timeouts and mapping errors to the UI.",
+    "quality": "The behavior scenarios guaranteed by the site's tests, grouped by area, with coverage only as context."
   }
 }

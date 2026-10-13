@@ -80,6 +80,7 @@ export default [
                 'scope:shared',
                 'scope:lab-signals',
                 'scope:lab-api',
+                'scope:lab-quality',
               ],
             },
             {
@@ -97,6 +98,10 @@ export default [
             {
               sourceTag: 'scope:lab-api',
               onlyDependOnLibsWithTags: ['scope:lab-api', 'scope:shared'],
+            },
+            {
+              sourceTag: 'scope:lab-quality',
+              onlyDependOnLibsWithTags: ['scope:lab-quality', 'scope:shared'],
             },
           ],
         },

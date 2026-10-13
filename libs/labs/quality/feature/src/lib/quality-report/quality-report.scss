@@ -1,0 +1,72 @@
+:host {
+  display: block;
+}
+.meta,
+.hint,
+.note,
+.empty {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+.search {
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+}
+.count {
+  font-weight: 600;
+  margin: 0.5rem 0 var(--space);
+}
+.area {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  margin-right: 0.75rem;
+}
+.spec {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 1rem 0 0.35rem;
+}
+.spec:first-child {
+  margin-top: 0;
+}
+.scenarios {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+.scenarios li {
+  margin: 0.35rem 0;
+}
+.suite {
+  color: var(--color-muted);
+}
+.coverage {
+  margin-top: calc(var(--space) * 2);
+}
+.coverage h2 {
+  font-size: 1rem;
+}
+.table-wrap {
+  overflow-x: auto;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+th,
+td {
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid var(--color-border);
+  text-align: right;
+}
+thead th,
+tbody th {
+  text-align: left;
+}
+tbody th {
+  font-family: var(--font-mono);
+  font-weight: 400;
+}

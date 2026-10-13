@@ -10,6 +10,8 @@ Portfólio interativo de engenharia front-end. Em vez de listar tecnologias, o s
 - `npm run lint` — ESLint, incluindo as fronteiras entre libs
 - `npm run i18n:check` — confere se pt-br.json e en-us.json têm as mesmas chaves
 - `npm run snippets:extract` — gera `apps/portfolio/public/snippets.json` a partir das regiões `// #region <id>` … `// #endregion` em `libs/labs` (roda sozinho antes de build/serve; o arquivo é ignorado pelo git)
+- `npm run test:coverage` — testes com cobertura (sem cache), gera `coverage/**/coverage-summary.json`
+- `npm run quality:report` — roda os testes com cobertura e gera `apps/portfolio/public/quality-report.json` (cenários dos specs + cobertura) para o lab de qualidade; só os cenários são gerados sozinhos antes de build/serve
 - `npx nx affected -t lint test build` — só o que mudou
 - `npx nx graph` — grafo de dependências
 
@@ -36,6 +38,8 @@ libs/shell/feature-labs     índice dos labs (/labs)                            
 libs/labs/signals-rxjs/feature  lab Signals vs RxJS                                    type:feature scope:lab-signals
 libs/labs/api-playground/data-access  DomainError, mapper, interceptors, PlaygroundApi  type:data-access scope:lab-api
 libs/labs/api-playground/feature      lab API Playground                               type:feature scope:lab-api
+libs/labs/quality/data-access         QualityReportService (lê quality-report.json)     type:data-access scope:lab-quality
+libs/labs/quality/feature             lab Qualidade e testes (cenários + cobertura)     type:feature scope:lab-quality
 ```
 
 Camadas permitidas (forçadas pelo lint em `eslint.config.mjs`):

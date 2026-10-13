@@ -46,7 +46,11 @@ describe('HomePage', () => {
     const labLinks = [...el.querySelectorAll('p-card a')].map((a) =>
       a.getAttribute('href'),
     );
-    expect(labLinks).toEqual(['/labs/signals-rxjs', '/labs/api-playground']);
+    expect(labLinks).toEqual([
+      '/labs/signals-rxjs',
+      '/labs/api-playground',
+      '/labs/quality',
+    ]);
   });
 
   it('mostra o erro das competências com botão de tentar de novo e refaz a requisição', async () => {

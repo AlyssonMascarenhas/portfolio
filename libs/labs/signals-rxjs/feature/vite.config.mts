@@ -24,6 +24,10 @@ export default defineConfig(() => ({
     coverage: {
       reportsDirectory: '../../../../coverage/libs/labs/signals-rxjs/feature',
       provider: 'v8' as const,
+      // json-summary alimenta o relatório do lab de qualidade; include conta também os arquivos sem teste.
+      reporter: ['text-summary', 'json-summary'],
+      include: ['src/**/*.ts'],
+      exclude: ['src/**/*.spec.ts', 'src/test-setup.ts', 'src/index.ts'],
     },
   },
 }));

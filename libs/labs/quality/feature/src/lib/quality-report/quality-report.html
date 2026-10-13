@@ -1,0 +1,100 @@
+<p class="meta">{{ labels().generatedAt }}: {{ generatedAt() }}</p>
+
+<label class="search">
+  {{ labels().search }}
+  <input
+    pInputText
+    type="search"
+    autocomplete="off"
+    [value]="query()"
+    (input)="onSearch($event)"
+  />
+</label>
+<p class="hint">{{ labels().searchHint }}</p>
+<p class="count" aria-live="polite">{{ countLabel() }}</p>
+
+@if (areas().length) {
+  <p-accordion
+    [multiple]="true"
+    [value]="open()"
+    (valueChange)="onToggle($event)"
+  >
+    @for (area of areas(); track area.project) {
+      <p-accordion-panel [value]="area.project">
+        <p-accordion-header>
+          <span class="area">{{ area.project }}</span>
+          <p-tag
+            [value]="area.countLabel"
+            severity="secondary"
+            [rounded]="true"
+          />
+        </p-accordion-header>
+        <p-accordion-content>
+          @for (spec of area.specs; track spec.path) {
+            <h3 class="spec">{{ spec.fileName }}</h3>
+            <ul class="scenarios">
+              @for (scenario of spec.scenarios; track $index) {
+                <li>
+                  @if (scenario.suite) {
+                    <span class="suite">{{ scenario.suite }} ›</span>
+                  }
+                  {{ scenario.name }}
+                  @if (scenario.casesLabel) {
+                    <p-tag
+                      [value]="scenario.casesLabel"
+                      severity="info"
+                      [rounded]="true"
+                    />
+                  }
+                  @if (scenario.skipped) {
+                    <p-tag
+                      [value]="labels().skipped"
+                      severity="warn"
+                      [rounded]="true"
+                    />
+                  }
+                </li>
+              }
+            </ul>
+          }
+        </p-accordion-content>
+      </p-accordion-panel>
+    }
+  </p-accordion>
+} @else {
+  <p class="empty">{{ labels().noResults }}</p>
+}
+
+<section class="coverage" aria-labelledby="coverage-title">
+  <h2 id="coverage-title">{{ labels().coverageTitle }}</h2>
+  <p class="note">{{ labels().coverageNote }}</p>
+
+  @if (report().hasCoverage) {
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">{{ labels().colArea }}</th>
+            <th scope="col">{{ labels().colStatements }}</th>
+            <th scope="col">{{ labels().colBranches }}</th>
+            <th scope="col">{{ labels().colFunctions }}</th>
+            <th scope="col">{{ labels().colLines }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of coverageRows(); track row.project) {
+            <tr>
+              <th scope="row">{{ row.project }}</th>
+              <td>{{ row.statements }}%</td>
+              <td>{{ row.branches }}%</td>
+              <td>{{ row.functions }}%</td>
+              <td>{{ row.lines }}%</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <p class="note">{{ labels().noCoverage }}</p>
+  }
+</section>

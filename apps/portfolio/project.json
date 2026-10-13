@@ -45,15 +45,13 @@
           "sourceMap": true
         }
       },
-      "dependsOn": ["^build", "extract-snippets", "generate-license"],
-      "inputs": [
-        "production",
-        "^production",
-        {
-          "env": "PRIME_NG_LICENSE_KEY"
-        },
-        "{workspaceRoot}/.env.local"
-      ]
+      "dependsOn": [
+        "^build",
+        "extract-snippets",
+        "generate-license",
+        "quality-report"
+      ],
+      "cache": false
     },
     "serve": {
       "continuous": true,
@@ -67,7 +65,7 @@
           "buildTarget": "portfolio:build:development"
         }
       },
-      "dependsOn": ["extract-snippets", "generate-license"]
+      "dependsOn": ["extract-snippets", "generate-license", "quality-report"]
     },
     "lint": {
       "executor": "@nx/eslint:lint",
@@ -76,7 +74,8 @@
     "test": {
       "executor": "@angular/build:unit-test",
       "options": {
-        "watch": false
+        "watch": false,
+        "coverageReporters": ["text-summary", "json-summary"]
       },
       "dependsOn": ["generate-license"]
     },
@@ -105,6 +104,13 @@
       "executor": "nx:run-commands",
       "options": {
         "command": "node tools/scripts/write-license.mjs"
+      },
+      "cache": false
+    },
+    "quality-report": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/build-quality-report.mjs"
       },
       "cache": false
     }

@@ -9,7 +9,9 @@
     "lint": "nx run-many -t lint",
     "i18n:check": "node tools/scripts/check-i18n.mjs",
     "snippets:extract": "node tools/scripts/extract-snippets.mjs",
-    "license:write": "node tools/scripts/write-license.mjs"
+    "license:write": "node tools/scripts/write-license.mjs",
+    "test:coverage": "nx run-many -t test --coverage --skip-nx-cache",
+    "quality:report": "npm run test:coverage && node tools/scripts/build-quality-report.mjs"
   },
   "private": true,
   "dependencies": {

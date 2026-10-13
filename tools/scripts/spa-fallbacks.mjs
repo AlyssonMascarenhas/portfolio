@@ -31,6 +31,7 @@ export const ROUTES = [
   'labs/signals-rxjs/ticker',
   'labs/signals-rxjs/shared-state',
   'labs/api-playground',
+  'labs/quality',
 ];
 
 export const SITE_URL_PLACEHOLDER = '__SITE_URL__';

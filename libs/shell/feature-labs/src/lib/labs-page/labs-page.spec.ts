@@ -4,7 +4,7 @@ import { provideTranslateService } from '@ngx-translate/core';
 import { LabsPage } from './labs-page';
 
 describe('LabsPage', () => {
-  it('lista os dois labs com link para cada rota', () => {
+  it('lista os três labs com link para cada rota', () => {
     TestBed.configureTestingModule({
       providers: [provideRouter([]), provideTranslateService()],
     });
@@ -14,7 +14,11 @@ describe('LabsPage', () => {
     const links = [...el.querySelectorAll('p-card a')].map((a) =>
       a.getAttribute('href'),
     );
-    expect(links).toEqual(['/labs/signals-rxjs', '/labs/api-playground']);
+    expect(links).toEqual([
+      '/labs/signals-rxjs',
+      '/labs/api-playground',
+      '/labs/quality',
+    ]);
     expect(el.querySelector('h1')).not.toBeNull();
   });
 });

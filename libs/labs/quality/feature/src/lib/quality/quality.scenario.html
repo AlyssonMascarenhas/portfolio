@@ -1,0 +1,17 @@
+<pf-scenario-page [text]="text()">
+  @if (report.error()) {
+    <p-message severity="error">{{ text().demo.loadError }}</p-message>
+    <button pButton type="button" class="retry" (click)="report.reload()">
+      {{ 'common.retry' | translate }}
+    </button>
+  } @else if (report.hasValue()) {
+    <pf-quality-report
+      [report]="report.value()"
+      [labels]="text().demo"
+      [(query)]="query"
+    />
+    <pf-instrumentation-panel [metrics]="metrics()" />
+  } @else {
+    <p class="loading" aria-busy="true">{{ 'common.loading' | translate }}</p>
+  }
+</pf-scenario-page>
