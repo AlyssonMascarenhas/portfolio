@@ -12,10 +12,12 @@ import { LanguageService } from './language.service';
         <button
           type="button"
           [attr.aria-pressed]="language.current() === lang"
-          [attr.aria-label]="'language.name.' + lang | translate"
           (click)="language.use(lang)"
         >
           {{ 'language.short.' + lang | translate }}
+          <span class="visually-hidden">{{
+            'language.name.' + lang | translate
+          }}</span>
         </button>
       }
     </div>

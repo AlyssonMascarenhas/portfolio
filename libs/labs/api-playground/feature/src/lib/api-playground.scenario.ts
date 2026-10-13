@@ -149,7 +149,7 @@ const IDLE: PlaygroundState = { status: 'idle' };
       padding-left: var(--space);
     }
     .result.failed {
-      border-left-color: #c0392b;
+      border-left-color: var(--color-danger);
     }
     .code {
       color: var(--color-muted);

@@ -1,23 +1,44 @@
-// Base provisória: tokens e layout mínimo. A identidade visual vem numa etapa própria.
+// Identidade visual: sóbria e técnica. Fundo neutro, um único acento azul, fonte do sistema
+// (sem webfont, para não pesar no LCP) e mono só onde há código. Claro e escuro seguem o sistema.
+// Contraste: texto e acento >= 4.5:1 sobre bg e surface nos dois temas (WCAG AA).
 :root {
   color-scheme: light dark;
-  --color-bg: #ffffff;
-  --color-text: #1c2430;
-  --color-muted: #5a6573;
-  --color-accent: #1f5fbf;
-  --color-border: #d9dee5;
-  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --color-bg: #f7f8fa;
+  --color-surface: #ffffff;
+  --color-text: #111827;
+  --color-muted: #4b5563;
+  --color-border: #d3d9e0;
+  --color-accent: #0a5bb5;
+  --color-accent-hover: #084a93;
+  --color-on-accent: #ffffff;
+  --color-danger: #b42318;
+  --color-accent-soft: #e8f0fb;
+
+  --font-body:
+    system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
+  --font-mono:
+    ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace;
+
   --space: 1rem;
   --measure: 70ch;
+  --radius: 0.5rem;
+  --radius-lg: 0.875rem;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg: #12161c;
-    --color-text: #e6eaf0;
-    --color-muted: #9aa5b4;
-    --color-accent: #7fb0ff;
-    --color-border: #2a313b;
+    --color-bg: #0d1117;
+    --color-surface: #161b22;
+    --color-text: #e6edf3;
+    --color-muted: #9aa7b5;
+    --color-border: #30363d;
+    --color-accent: #58a6ff;
+    --color-accent-hover: #79b8ff;
+    --color-on-accent: #0d1117;
+    --color-danger: #f47067;
+    --color-accent-soft: #12233a;
   }
 }
 
@@ -25,21 +46,143 @@
   box-sizing: border-box;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   margin: 0;
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+// ---------- Tipografia ----------
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+h1 {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  letter-spacing: -0.025em;
+  margin: 0 0 0.5rem;
+}
+h2 {
+  font-size: 1.5rem;
+  margin: 0 0 0.75rem;
+}
+h3 {
+  font-size: 1.05rem;
+  margin: 1.25rem 0 0.5rem;
+}
+p {
+  margin: 0 0 var(--space);
+  text-wrap: pretty;
 }
 
 a {
   color: var(--color-accent);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+  &:hover {
+    color: var(--color-accent-hover);
+    text-decoration-thickness: 2px;
+  }
+}
+
+code,
+pre {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+}
+pre {
+  background: var(--color-surface);
+}
+:not(pre) > code {
+  background: var(--color-accent-soft);
+  border-radius: 0.25rem;
+  padding: 0.1em 0.35em;
 }
 
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
+  border-radius: 2px;
+}
+
+// ---------- Controles ----------
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  color: var(--color-text);
+  padding: 0.45rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    color 0.15s,
+    background-color 0.15s;
+  &:hover:not(:disabled) {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+}
+
+input[type='text'],
+input[type='number'],
+input[type='search'] {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.75rem;
+  width: 100%;
+}
+input[type='radio'],
+input[type='checkbox'] {
+  accent-color: var(--color-accent);
+}
+
+fieldset {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+legend {
+  padding: 0 0.5rem;
+  font-weight: 600;
+}
+
+// ---------- Estrutura ----------
+// Texto só para leitores de tela (o nome acessível precisa conter o texto visível).
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .skip-link {
@@ -48,41 +191,73 @@ a {
   &:focus {
     left: var(--space);
     top: var(--space);
+    z-index: 20;
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
   }
 }
 
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: var(--space);
-  padding: var(--space);
+  padding: 0.75rem var(--space);
   border-bottom: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+  backdrop-filter: blur(10px);
 
   nav {
     display: flex;
-    gap: var(--space);
+    gap: 1.25rem;
   }
-  .active {
-    font-weight: 600;
+  nav a {
+    color: var(--color-muted);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    &:hover {
+      color: var(--color-text);
+    }
+  }
+  nav a.active {
+    color: var(--color-text);
+    border-bottom-color: var(--color-accent);
   }
 }
 
-.language-switcher button {
-  font: inherit;
-  padding: 0.25rem 0.5rem;
+.language-switcher > div {
+  display: inline-flex;
   border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.language-switcher button {
+  border: 0;
+  border-radius: 0;
   background: transparent;
-  color: inherit;
-  cursor: pointer;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-muted);
   &[aria-pressed='true'] {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+  &:hover:not(:disabled):not([aria-pressed='true']) {
+    color: var(--color-text);
+    border-color: transparent;
   }
 }
 
 main {
-  padding: calc(var(--space) * 2) var(--space);
+  padding: calc(var(--space) * 2.5) var(--space) calc(var(--space) * 4);
 }
 main:focus {
   outline: none;
@@ -93,16 +268,64 @@ main:focus {
   margin: 0 auto calc(var(--space) * 3);
 }
 
-.headline,
+.state {
+  color: var(--color-muted);
+}
+[role='alert'] {
+  color: var(--color-danger);
+}
+
+// ---------- Home ----------
+.hero {
+  padding-top: calc(var(--space) * 1.5);
+}
+.headline {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-bottom: 0.5rem;
+}
+.tagline {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  max-width: 55ch;
+}
 .meta,
 .period {
   color: var(--color-muted);
+  font-size: 0.9rem;
 }
 
 .actions {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space);
+  gap: 0.75rem;
+  margin-top: calc(var(--space) * 1.5);
+
+  a {
+    display: inline-block;
+    padding: 0.6rem 1.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    font-weight: 600;
+    text-decoration: none;
+    background: var(--color-surface);
+    color: var(--color-text);
+    &:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+    &:first-child {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: var(--color-on-accent);
+      &:hover {
+        background: var(--color-accent-hover);
+        border-color: var(--color-accent-hover);
+        color: var(--color-on-accent);
+      }
+    }
+  }
 }
 
 .tags {
@@ -110,32 +333,68 @@ main:focus {
   flex-wrap: wrap;
   gap: 0.5rem;
   padding: 0;
+  margin: 0 0 var(--space);
   list-style: none;
   li {
-    padding: 0.125rem 0.5rem;
+    padding: 0.15rem 0.65rem;
     border: 1px solid var(--color-border);
-    font-size: 0.875rem;
+    border-radius: 999px;
+    background: var(--color-surface);
+    font-size: 0.85rem;
   }
 }
 
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0;
+  list-style: none;
+  a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    text-decoration: none;
+    font-weight: 500;
+    &:hover {
+      border-color: var(--color-accent);
+    }
+  }
+}
+
+// ---------- Experiência ----------
 .timeline {
   padding: 0;
   list-style: none;
 }
 .timeline-entry {
-  padding-bottom: calc(var(--space) * 2);
-  border-bottom: 1px solid var(--color-border);
-  margin-bottom: calc(var(--space) * 2);
+  padding: calc(var(--space) * 1.25);
+  margin-bottom: var(--space);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  h2 {
+    margin-bottom: 0.25rem;
+  }
 }
 .roles {
   padding: 0;
   list-style: none;
   font-weight: 600;
 }
+.highlights {
+  padding-left: 1.25rem;
+  li {
+    margin-bottom: 0.4rem;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
     transition: none !important;
+    scroll-behavior: auto !important;
   }
 }
