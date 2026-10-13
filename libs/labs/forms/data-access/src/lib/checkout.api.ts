@@ -15,8 +15,11 @@ export class CheckoutRejected extends Error {
   }
 }
 
-/** Envio do pedido do formulário do lab. Erros 422 viram CheckoutRejected; o resto passa como está. */
-@Service()
+/**
+ * Envio do pedido do formulário do lab. Erros 422 viram CheckoutRejected; o resto passa como está.
+ * Exclusivo do lab: é provido nas rotas dele, não na raiz.
+ */
+@Service({ autoProvided: false })
 export class CheckoutApi {
   private readonly http = inject(HttpClient);
 

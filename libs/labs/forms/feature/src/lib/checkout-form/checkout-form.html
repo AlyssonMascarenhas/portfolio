@@ -10,7 +10,7 @@
       [attr.aria-describedby]="errors().name.length ? 'co-name-error' : null"
     />
     <small id="co-name-error" class="error" role="alert">{{
-      errors().name.join(' ')
+      errorText().name
     }}</small>
   </div>
 
@@ -26,7 +26,7 @@
       [attr.aria-describedby]="errors().email.length ? 'co-email-error' : null"
     />
     <small id="co-email-error" class="error" role="alert">{{
-      errors().email.join(' ')
+      errorText().email
     }}</small>
   </div>
 
@@ -44,7 +44,7 @@
       "
     />
     <small id="co-confirm-error" class="error" role="alert">{{
-      errors().confirmEmail.join(' ')
+      errorText().confirmEmail
     }}</small>
   </div>
 
@@ -62,7 +62,7 @@
       "
     />
     <small id="co-quantity-error" class="error" role="alert">{{
-      errors().quantity.join(' ')
+      errorText().quantity
     }}</small>
   </div>
 
@@ -81,7 +81,7 @@
       <small class="hint" aria-live="polite">{{ labels().pending }}…</small>
     }
     <small id="co-coupon-error" class="error" role="alert">{{
-      errors().coupon.join(' ')
+      errorText().coupon
     }}</small>
   </div>
 
@@ -90,10 +90,8 @@
   </button>
   <p class="hint">{{ labels().hint }}</p>
 
-  @if (orderId(); as id) {
-    <p class="success" role="status">
-      {{ labels().success.replace('{id}', id) }}
-    </p>
+  @if (successMessage(); as message) {
+    <p class="success" role="status">{{ message }}</p>
   }
   @if (failed()) {
     <p-message severity="error">{{

@@ -123,6 +123,23 @@ export class CheckoutForm {
     };
   });
 
+  /** As mensagens de cada campo já unidas, para o template só exibir. */
+  protected readonly errorText = computed(() => {
+    const errors = this.errors();
+    return {
+      name: errors.name.join(' '),
+      email: errors.email.join(' '),
+      confirmEmail: errors.confirmEmail.join(' '),
+      quantity: errors.quantity.join(' '),
+      coupon: errors.coupon.join(' '),
+    };
+  });
+
+  protected readonly successMessage = computed(() => {
+    const id = this.orderId();
+    return id ? this.labels().success.replace('{id}', id) : undefined;
+  });
+
   protected readonly invalid = computed(() => {
     const flag = (field: FieldLike) => field().touched() && field().invalid();
     return {

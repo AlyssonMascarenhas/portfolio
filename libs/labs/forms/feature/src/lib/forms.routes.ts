@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { Routes } from '@angular/router';
 import { SNIPPET_SOURCE } from '@portfolio/lab-kit';
+import { CheckoutApi } from '@portfolio/labs/forms/data-access';
 import { SnippetsService } from '@portfolio/snippets';
 import { CheckoutScenario } from './checkout/checkout.scenario';
 
@@ -9,6 +10,7 @@ export const formsRoutes: Routes = [
   {
     path: '',
     providers: [
+      CheckoutApi,
       {
         provide: SNIPPET_SOURCE,
         useFactory: () => inject(SnippetsService).all,

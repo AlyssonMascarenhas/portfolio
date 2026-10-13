@@ -20,7 +20,7 @@ describe('CheckoutApi', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideHttpClient(), provideHttpClientTesting()],
+      providers: [provideHttpClient(), provideHttpClientTesting(), CheckoutApi],
     });
     api = TestBed.inject(CheckoutApi);
     http = TestBed.inject(HttpTestingController);

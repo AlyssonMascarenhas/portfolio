@@ -21,7 +21,11 @@ describe('QualityReportService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideHttpClient(), provideHttpClientTesting()],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        QualityReportService,
+      ],
     });
     http = TestBed.inject(HttpTestingController);
     service = TestBed.inject(QualityReportService);

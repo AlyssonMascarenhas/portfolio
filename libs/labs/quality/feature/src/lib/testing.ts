@@ -3,6 +3,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideRouter } from '@angular/router';
 import { provideTranslateService } from '@ngx-translate/core';
 import { SNIPPET_SOURCE, SnippetSource } from '@portfolio/lab-kit';
+import { QualityReportService } from '@portfolio/labs/quality/data-access';
 
 /** Fonte de trechos vazia: a aba Code não é o foco dos testes deste lab. */
 const noSnippets: SnippetSource = {
@@ -20,6 +21,7 @@ export function provideQualityTesting() {
     provideHttpClientTesting(),
     provideRouter([]),
     provideTranslateService(),
+    QualityReportService,
     { provide: SNIPPET_SOURCE, useValue: noSnippets },
   ];
 }
