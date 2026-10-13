@@ -86,6 +86,10 @@ import { LayoutService } from './layout.service';
       color: var(--color-muted);
       font-size: 0.875rem;
     }
+    /* Enquanto a rota ainda não renderizou nada, o rodapé fica invisível: ele não "pula" quando o conteúdo chega (CLS). */
+    .content:has(main > router-outlet:last-child) .footer {
+      visibility: hidden;
+    }
     .mask {
       display: none;
     }

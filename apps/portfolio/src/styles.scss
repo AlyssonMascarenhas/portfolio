@@ -161,6 +161,10 @@ pre {
 .state {
   color: var(--color-muted);
 }
+// Carregando: ocupa a altura da tela, para o rodapé ficar fora da vista e não pular quando o conteúdo chega (CLS).
+.state[aria-busy='true'] {
+  min-height: 100vh;
+}
 
 .meta,
 .period {
