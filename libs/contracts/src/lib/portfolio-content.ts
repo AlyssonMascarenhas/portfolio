@@ -45,7 +45,6 @@ export interface ExperienceEntry {
   context: string;
   highlights: string[];
   stack: string[];
-  relatedLab?: { label: string; route: string };
 }
 
 export interface SkillGroup {

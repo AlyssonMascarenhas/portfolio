@@ -10,6 +10,7 @@
   "hero": {
     "yearsOfExperience": "{{years}}+ anos de experiência",
     "cta": {
+      "labs": "Explorar os labs",
       "experience": "Ver experiência",
       "resume": "Baixar currículo"
     },
@@ -21,7 +22,6 @@
   "experience": {
     "title": "Experiência",
     "present": "atual",
-    "relatedLab": "Ver lab relacionado",
     "loadError": "Não foi possível carregar a experiência."
   },
   "skills": {
@@ -54,7 +54,11 @@
     "skipToContent": "Pular para o conteúdo"
   },
   "home": {
-    "loadError": "Não foi possível carregar o perfil."
+    "loadError": "Não foi possível carregar o perfil.",
+    "labs": {
+      "title": "Labs",
+      "cta": "Abrir o lab"
+    }
   },
   "lab": {
     "tabs": {

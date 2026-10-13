@@ -10,6 +10,7 @@
   "hero": {
     "yearsOfExperience": "{{years}}+ years of experience",
     "cta": {
+      "labs": "Explore the labs",
       "experience": "See experience",
       "resume": "Download resume"
     },
@@ -21,7 +22,6 @@
   "experience": {
     "title": "Experience",
     "present": "present",
-    "relatedLab": "See related lab",
     "loadError": "Couldn't load the experience section."
   },
   "skills": {
@@ -54,7 +54,11 @@
     "skipToContent": "Skip to content"
   },
   "home": {
-    "loadError": "Couldn't load the profile."
+    "loadError": "Couldn't load the profile.",
+    "labs": {
+      "title": "Labs",
+      "cta": "Open the lab"
+    }
   },
   "lab": {
     "tabs": {

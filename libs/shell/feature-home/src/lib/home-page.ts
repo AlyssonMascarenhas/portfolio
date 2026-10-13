@@ -33,6 +33,7 @@ function yearsSince(start: YearMonth, now: Date): number {
           {{ p.sectors }} · {{ p.location }}
         </p>
         <nav class="actions" aria-label="{{ 'hero.actionsLabel' | translate }}">
+          <a routerLink="/labs">{{ 'hero.cta.labs' | translate }}</a>
           <a routerLink="/experience">{{
             'hero.cta.experience' | translate
           }}</a>
@@ -47,6 +48,27 @@ function yearsSince(start: YearMonth, now: Date): number {
         @for (paragraph of p.about; track $index) {
           <p>{{ paragraph }}</p>
         }
+      </section>
+
+      <section class="page" aria-labelledby="labs-title">
+        <h2 id="labs-title">{{ 'home.labs.title' | translate }}</h2>
+        <p>{{ 'labs.lead' | translate }}</p>
+        <ul class="card-grid">
+          <li class="card">
+            <h3>{{ 'labs.signalsRxjs.title' | translate }}</h3>
+            <p>{{ 'labs.signalsRxjs.summary' | translate }}</p>
+            <a routerLink="/labs/signals-rxjs">{{
+              'home.labs.cta' | translate
+            }}</a>
+          </li>
+          <li class="card">
+            <h3>{{ 'labs.apiPlayground.title' | translate }}</h3>
+            <p>{{ 'labs.apiPlayground.summary' | translate }}</p>
+            <a routerLink="/labs/api-playground">{{
+              'home.labs.cta' | translate
+            }}</a>
+          </li>
+        </ul>
       </section>
 
       <section class="page" aria-labelledby="skills-title">

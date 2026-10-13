@@ -364,6 +364,41 @@ main:focus {
   }
 }
 
+// ---------- Cards (labs) ----------
+.card-grid {
+  display: grid;
+  gap: var(--space);
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  padding: 0;
+  margin: var(--space) 0 0;
+  list-style: none;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--space) * 1.25);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  h2,
+  h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.15rem;
+  }
+  p {
+    flex: 1;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+  }
+  a {
+    font-weight: 600;
+    text-decoration: none;
+    &::after {
+      content: ' →';
+    }
+  }
+}
+
 // ---------- Experiência ----------
 .timeline {
   padding: 0;

@@ -73,10 +73,6 @@ export const ptBr: PortfolioContent = {
         'Migração do Design System legado para uma nova arquitetura.',
       ],
       stack: ['Angular', 'Jest', 'Design System', 'Sistemas críticos'],
-      relatedLab: {
-        label: 'API Playground: tratamento de erros em fluxos críticos',
-        route: '/labs/api-playground',
-      },
     },
     {
       id: 'brisanet',

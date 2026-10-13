@@ -11,41 +11,23 @@ import { TranslatePipe } from '@ngx-translate/core';
       <h1 id="labs-title">{{ 'labs.title' | translate }}</h1>
       <p>{{ 'labs.lead' | translate }}</p>
 
-      <ul class="labs">
-        <li>
-          <h2>
-            <a routerLink="/labs/signals-rxjs">{{
-              'labs.signalsRxjs.title' | translate
-            }}</a>
-          </h2>
+      <ul class="card-grid">
+        <li class="card">
+          <h2>{{ 'labs.signalsRxjs.title' | translate }}</h2>
           <p>{{ 'labs.signalsRxjs.summary' | translate }}</p>
+          <a routerLink="/labs/signals-rxjs">{{
+            'home.labs.cta' | translate
+          }}</a>
         </li>
-        <li>
-          <h2>
-            <a routerLink="/labs/api-playground">{{
-              'labs.apiPlayground.title' | translate
-            }}</a>
-          </h2>
+        <li class="card">
+          <h2>{{ 'labs.apiPlayground.title' | translate }}</h2>
           <p>{{ 'labs.apiPlayground.summary' | translate }}</p>
+          <a routerLink="/labs/api-playground">{{
+            'home.labs.cta' | translate
+          }}</a>
         </li>
       </ul>
     </section>
-  `,
-  styles: `
-    .labs {
-      list-style: none;
-      padding: 0;
-    }
-    .labs li {
-      margin: var(--space) 0;
-    }
-    h2 {
-      font-size: 1.15rem;
-      margin: 0;
-    }
-    p {
-      margin: 0.25rem 0 0;
-    }
   `,
 })
 export class LabsPage {}

@@ -1,5 +1,4 @@
 import { Component, computed, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { YearMonth, toBcp47 } from '@portfolio/contracts';
 import { LanguageService } from '@portfolio/i18n';
@@ -15,7 +14,7 @@ function formatYearMonth(
 
 @Component({
   selector: 'pf-experience-page',
-  imports: [TranslatePipe, RouterLink],
+  imports: [TranslatePipe],
   template: `
     <section class="page" aria-labelledby="experience-title">
       <h1 id="experience-title">{{ 'experience.title' | translate }}</h1>
@@ -58,10 +57,6 @@ function formatYearMonth(
                   <li>{{ tech }}</li>
                 }
               </ul>
-
-              @if (entry.relatedLab; as lab) {
-                <a [routerLink]="lab.route">{{ lab.label }}</a>
-              }
             </li>
           }
         </ol>

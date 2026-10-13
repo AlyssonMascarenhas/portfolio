@@ -68,10 +68,6 @@ export const enUs: PortfolioContent = {
         'Migration of the legacy Design System to a new architecture.',
       ],
       stack: ['Angular', 'Jest', 'Design System', 'Critical systems'],
-      relatedLab: {
-        label: 'API Playground: error handling in critical flows',
-        route: '/labs/api-playground',
-      },
     },
     {
       id: 'brisanet',
