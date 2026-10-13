@@ -1,0 +1,105 @@
+{
+  "nav": {
+    "about": "About",
+    "experience": "Experience",
+    "labs": "Labs",
+    "contact": "Contact",
+    "home": "Home",
+    "label": "Main navigation"
+  },
+  "hero": {
+    "yearsOfExperience": "{{years}}+ years of experience",
+    "cta": {
+      "experience": "See experience",
+      "resume": "Download resume"
+    },
+    "actionsLabel": "Main actions"
+  },
+  "about": {
+    "title": "About"
+  },
+  "experience": {
+    "title": "Experience",
+    "present": "present",
+    "relatedLab": "See related lab",
+    "loadError": "Couldn't load the experience section."
+  },
+  "skills": {
+    "title": "Skills",
+    "loadError": "Couldn't load the skills section."
+  },
+  "education": {
+    "title": "Education"
+  },
+  "contact": {
+    "title": "Contact",
+    "email": "Send email",
+    "linkedin": "Open LinkedIn",
+    "github": "Open GitHub"
+  },
+  "language": {
+    "label": "Language",
+    "short": {
+      "pt-br": "PT",
+      "en-us": "EN"
+    },
+    "name": {
+      "pt-br": "Português",
+      "en-us": "English"
+    }
+  },
+  "common": {
+    "loading": "Loading…",
+    "retry": "Try again",
+    "skipToContent": "Skip to content"
+  },
+  "home": {
+    "loadError": "Couldn't load the profile."
+  },
+  "lab": {
+    "tabs": {
+      "label": "Scenario sections",
+      "demo": "Demo",
+      "code": "Code",
+      "architecture": "Architecture"
+    },
+    "code": {
+      "label": "Code snippet",
+      "loadError": "Could not load the code."
+    },
+    "scenario": {
+      "back": "Back to the lab",
+      "sameChoice": "That is my choice too.",
+      "myChoice": "I would pick: {{label}}.",
+      "why": "Why this choice",
+      "alternatives": "Alternatives considered",
+      "differently": "When I would choose differently"
+    },
+    "instrumentation": {
+      "title": "Instrumentation",
+      "empty": "No events yet.",
+      "state": {
+        "pending": "in progress",
+        "done": "completed",
+        "canceled": "canceled",
+        "failed": "failed"
+      }
+    },
+    "products": {
+      "loadError": "Could not load the products.",
+      "empty": "No products found."
+    }
+  },
+  "labs": {
+    "title": "Labs",
+    "lead": "Each lab is a set of interactive scenarios: a concrete problem, a working demo, the real code and the reasoning behind the choice.",
+    "signalsRxjs": {
+      "title": "Signals vs RxJS",
+      "summary": "Six scenarios on when to use signals, when to use RxJS and where the two meet."
+    },
+    "apiPlayground": {
+      "title": "API Playground",
+      "summary": "One HTTP call that fails in eleven ways: interceptors, retry with backoff, error mapping and UX."
+    }
+  }
+}

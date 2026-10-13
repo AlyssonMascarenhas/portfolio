@@ -1,0 +1,105 @@
+{
+  "nav": {
+    "about": "Sobre",
+    "experience": "Experiência",
+    "labs": "Labs",
+    "contact": "Contato",
+    "home": "Início",
+    "label": "Navegação principal"
+  },
+  "hero": {
+    "yearsOfExperience": "{{years}}+ anos de experiência",
+    "cta": {
+      "experience": "Ver experiência",
+      "resume": "Baixar currículo"
+    },
+    "actionsLabel": "Ações principais"
+  },
+  "about": {
+    "title": "Sobre"
+  },
+  "experience": {
+    "title": "Experiência",
+    "present": "atual",
+    "relatedLab": "Ver lab relacionado",
+    "loadError": "Não foi possível carregar a experiência."
+  },
+  "skills": {
+    "title": "Competências",
+    "loadError": "Não foi possível carregar as competências."
+  },
+  "education": {
+    "title": "Formação"
+  },
+  "contact": {
+    "title": "Contato",
+    "email": "Enviar e-mail",
+    "linkedin": "Abrir LinkedIn",
+    "github": "Abrir GitHub"
+  },
+  "language": {
+    "label": "Idioma",
+    "short": {
+      "pt-br": "PT",
+      "en-us": "EN"
+    },
+    "name": {
+      "pt-br": "Português",
+      "en-us": "English"
+    }
+  },
+  "common": {
+    "loading": "Carregando…",
+    "retry": "Tentar novamente",
+    "skipToContent": "Pular para o conteúdo"
+  },
+  "home": {
+    "loadError": "Não foi possível carregar o perfil."
+  },
+  "lab": {
+    "tabs": {
+      "label": "Seções do cenário",
+      "demo": "Demo",
+      "code": "Código",
+      "architecture": "Arquitetura"
+    },
+    "code": {
+      "label": "Trecho de código",
+      "loadError": "Não foi possível carregar o código."
+    },
+    "scenario": {
+      "back": "Voltar ao lab",
+      "sameChoice": "Essa também é a minha escolha.",
+      "myChoice": "Eu escolheria: {{label}}.",
+      "why": "Por que essa escolha",
+      "alternatives": "Alternativas consideradas",
+      "differently": "Quando eu escolheria diferente"
+    },
+    "instrumentation": {
+      "title": "Instrumentação",
+      "empty": "Nenhum evento ainda.",
+      "state": {
+        "pending": "em andamento",
+        "done": "concluída",
+        "canceled": "cancelada",
+        "failed": "falhou"
+      }
+    },
+    "products": {
+      "loadError": "Não foi possível carregar os produtos.",
+      "empty": "Nenhum produto encontrado."
+    }
+  },
+  "labs": {
+    "title": "Labs",
+    "lead": "Cada lab é um conjunto de cenários interativos: um problema concreto, a demo funcionando, o código real e o raciocínio por trás da escolha.",
+    "signalsRxjs": {
+      "title": "Signals vs RxJS",
+      "summary": "Seis cenários sobre quando usar signals, quando usar RxJS e onde os dois se encontram."
+    },
+    "apiPlayground": {
+      "title": "API Playground",
+      "summary": "Uma chamada HTTP que falha de onze jeitos: interceptors, retry com backoff, mapeamento de erros e UX."
+    }
+  }
+}

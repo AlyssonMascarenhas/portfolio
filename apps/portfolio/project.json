@@ -1,0 +1,95 @@
+{
+  "name": "portfolio",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "pf",
+  "sourceRoot": "apps/portfolio/src",
+  "tags": ["type:app", "scope:app"],
+  "targets": {
+    "build": {
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/portfolio",
+        "browser": "apps/portfolio/src/main.ts",
+        "tsConfig": "apps/portfolio/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/portfolio/public"
+          }
+        ],
+        "styles": ["apps/portfolio/src/styles.scss"]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "dependsOn": ["^build", "extract-snippets"]
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "defaultConfiguration": "development",
+      "configurations": {
+        "production": {
+          "buildTarget": "portfolio:build:production"
+        },
+        "development": {
+          "buildTarget": "portfolio:build:development"
+        }
+      },
+      "dependsOn": ["extract-snippets"]
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@angular/build:unit-test",
+      "options": {
+        "watch": false
+      }
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "portfolio:build",
+        "staticFilePath": "dist/apps/portfolio/browser",
+        "spa": true
+      }
+    },
+    "extract-snippets": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/extract-snippets.mjs"
+      },
+      "inputs": [
+        "{workspaceRoot}/libs/labs/**/*.ts",
+        "{workspaceRoot}/tools/scripts/extract-snippets.mjs"
+      ],
+      "outputs": ["{workspaceRoot}/apps/portfolio/public/snippets.json"],
+      "cache": true
+    }
+  }
+}

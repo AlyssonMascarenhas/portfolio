@@ -1,0 +1,49 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "bundler",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2022",
+    "module": "esnext",
+    "lib": ["es2022", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "strict": true,
+    "paths": {
+      "@portfolio/contracts": ["./libs/contracts/src/index.ts"],
+      "@portfolio/mocks": ["./libs/mocks/src/index.ts"],
+      "@portfolio/i18n": ["./libs/shared/i18n/src/index.ts"],
+      "@portfolio/shell/data-access": ["./libs/shell/data-access/src/index.ts"],
+      "@portfolio/shell/feature-experience": [
+        "./libs/shell/feature-experience/src/index.ts"
+      ],
+      "@portfolio/shell/feature-home": [
+        "./libs/shell/feature-home/src/index.ts"
+      ],
+      "@portfolio/ui": ["./libs/shared/ui/src/index.ts"],
+      "@portfolio/labs/signals-rxjs": [
+        "./libs/labs/signals-rxjs/feature/src/index.ts"
+      ],
+      "@portfolio/snippets": ["./libs/shared/snippets/src/index.ts"],
+      "@portfolio/lab-kit": ["./libs/shared/lab-kit/src/index.ts"],
+      "@portfolio/labs/api-playground/data-access": [
+        "./libs/labs/api-playground/data-access/src/index.ts"
+      ],
+      "@portfolio/labs/api-playground": [
+        "./libs/labs/api-playground/feature/src/index.ts"
+      ],
+      "@portfolio/shell/feature-labs": [
+        "./libs/shell/feature-labs/src/index.ts"
+      ]
+    },
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "exclude": ["node_modules", "tmp"]
+}

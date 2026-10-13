@@ -1,0 +1,20 @@
+{
+  "name": "shell-feature-labs",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shell/feature-labs/src",
+  "prefix": "pf",
+  "projectType": "library",
+  "tags": ["type:feature", "scope:shell"],
+  "targets": {
+    "test": {
+      "executor": "@nx/vitest:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "coverage/libs/shell/feature-labs"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

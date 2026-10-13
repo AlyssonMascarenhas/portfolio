@@ -1,0 +1,46 @@
+name: Deploy (GitHub Pages)
+
+# Publica o site estático a cada push na main. Antes, roda lint, testes e a checagem de i18n.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run i18n:check
+      # GitHub Pages de projeto serve em /<repositório>/; o base href e o 404.html (fallback das rotas) dependem disso.
+      - run: npx nx build portfolio --base-href=/${{ github.event.repository.name }}/
+      - run: cp dist/apps/portfolio/browser/index.html dist/apps/portfolio/browser/404.html
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/apps/portfolio/browser
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

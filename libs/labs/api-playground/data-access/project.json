@@ -1,0 +1,20 @@
+{
+  "name": "labs-api-playground-data-access",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/labs/api-playground/data-access/src",
+  "prefix": "pf",
+  "projectType": "library",
+  "tags": ["type:data-access", "scope:lab-api"],
+  "targets": {
+    "test": {
+      "executor": "@nx/vitest:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "coverage/libs/labs/api-playground/data-access"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}
