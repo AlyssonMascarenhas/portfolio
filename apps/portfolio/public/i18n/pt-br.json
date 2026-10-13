@@ -51,7 +51,8 @@
   "common": {
     "loading": "Carregando…",
     "retry": "Tentar novamente",
-    "skipToContent": "Pular para o conteúdo"
+    "skipToContent": "Pular para o conteúdo",
+    "opensInNewTab": "(abre em uma nova aba)"
   },
   "home": {
     "loadError": "Não foi possível carregar o perfil.",
@@ -69,7 +70,8 @@
     },
     "code": {
       "label": "Trecho de código",
-      "loadError": "Não foi possível carregar o código."
+      "loadError": "Não foi possível carregar o código.",
+      "github": "Ver no GitHub"
     },
     "scenario": {
       "back": "Voltar ao lab",
@@ -111,5 +113,26 @@
     "themeLight": "Mudar para o tema claro",
     "themeDark": "Mudar para o tema escuro",
     "builtWith": "Feito com Angular e PrimeNG"
+  },
+  "title": {
+    "home": "Início",
+    "experience": "Experiência",
+    "labs": "Labs",
+    "signalsRxjs": "Signals vs RxJS",
+    "localState": "Estado local de UI",
+    "derivedState": "Estado derivado",
+    "search": "Busca com debounce",
+    "dependentHttp": "HTTP que depende de um estado",
+    "ticker": "Fluxo contínuo",
+    "sharedState": "Estado compartilhado entre páginas",
+    "apiPlayground": "API Playground"
+  },
+  "meta": {
+    "default": "Portfólio interativo de engenharia front-end com Angular: labs que mostram decisões de arquitetura, não uma lista de tecnologias.",
+    "home": "Alysson Mascarenhas, engenheiro front-end sênior (Angular). Um portfólio interativo: em vez de listar tecnologias, mostra como eu decido.",
+    "experience": "Experiência profissional de Alysson Mascarenhas: Internet Banking, telecom, ERP e e-commerce, com Angular e liderança técnica.",
+    "labs": "Labs interativos: cenários com demo, código real e o raciocínio por trás de cada decisão de arquitetura front-end.",
+    "signalsRxjs": "Seis cenários sobre quando usar signals, quando usar RxJS e onde os dois se encontram, com instrumentação e testes.",
+    "apiPlayground": "Uma chamada HTTP que falha de onze jeitos: interceptors, retry com backoff, timeout e mapeamento de erros para a interface."
   }
 }

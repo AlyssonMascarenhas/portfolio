@@ -51,7 +51,8 @@
   "common": {
     "loading": "Loading…",
     "retry": "Try again",
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "opensInNewTab": "(opens in a new tab)"
   },
   "home": {
     "loadError": "Couldn't load the profile.",
@@ -69,7 +70,8 @@
     },
     "code": {
       "label": "Code snippet",
-      "loadError": "Could not load the code."
+      "loadError": "Could not load the code.",
+      "github": "View on GitHub"
     },
     "scenario": {
       "back": "Back to the lab",
@@ -111,5 +113,26 @@
     "themeLight": "Switch to the light theme",
     "themeDark": "Switch to the dark theme",
     "builtWith": "Built with Angular and PrimeNG"
+  },
+  "title": {
+    "home": "Home",
+    "experience": "Experience",
+    "labs": "Labs",
+    "signalsRxjs": "Signals vs RxJS",
+    "localState": "Local UI state",
+    "derivedState": "Derived state",
+    "search": "Debounced search",
+    "dependentHttp": "HTTP that depends on state",
+    "ticker": "Continuous stream",
+    "sharedState": "State shared across pages",
+    "apiPlayground": "API Playground"
+  },
+  "meta": {
+    "default": "Interactive front-end engineering portfolio built with Angular: labs that show architecture decisions, not a list of technologies.",
+    "home": "Alysson Mascarenhas, senior front-end engineer (Angular). An interactive portfolio: instead of listing technologies, it shows how I decide.",
+    "experience": "Professional experience of Alysson Mascarenhas: Internet Banking, telecom, ERP and e-commerce, with Angular and technical leadership.",
+    "labs": "Interactive labs: scenarios with a demo, real code and the reasoning behind each front-end architecture decision.",
+    "signalsRxjs": "Six scenarios on when to use signals, when to use RxJS and where the two meet, with instrumentation and tests.",
+    "apiPlayground": "One HTTP call that fails in eleven ways: interceptors, retry with backoff, timeouts and mapping errors to the UI."
   }
 }

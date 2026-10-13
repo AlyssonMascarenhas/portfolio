@@ -99,7 +99,9 @@ describe('ScenarioPage', () => {
     expect(el.querySelector('pf-code-viewer code')?.textContent).toBe(
       'const open = signal(false);',
     );
-    expect(el.querySelector('figcaption')?.textContent).toBe('libs/labs/x.ts');
+    expect(el.querySelector('figcaption')?.textContent).toContain(
+      'libs/labs/x.ts',
+    );
   });
 
   it('mostra erro e pede para recarregar', () => {

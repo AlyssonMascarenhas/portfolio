@@ -17,7 +17,15 @@
   @default {
     <figure>
       @if (file(); as file) {
-        <figcaption>{{ file }}</figcaption>
+        <figcaption>
+          {{ file }} ·
+          <a [href]="sourceUrl()" target="_blank" rel="noopener"
+            >{{ 'lab.code.github' | translate
+            }}<span class="visually-hidden">
+              {{ 'common.opensInNewTab' | translate }}</span
+            ></a
+          >
+        </figcaption>
       }
       <pre
         tabindex="0"

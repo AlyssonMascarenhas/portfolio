@@ -3,7 +3,12 @@ import { InjectionToken } from '@angular/core';
 export interface SnippetSource {
   error(): unknown;
   hasValue(): boolean;
-  value(): Record<string, { file: string; code: string }> | undefined;
+  value():
+    | Record<
+        string,
+        { file: string; code: string; startLine?: number; endLine?: number }
+      >
+    | undefined;
   reload(): unknown;
 }
 

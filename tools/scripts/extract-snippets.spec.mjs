@@ -12,7 +12,12 @@ test('extrai a região e remove a indentação comum', () => {
     '}',
   ].join('\n');
   assert.deepEqual(extractRegions(src), [
-    { id: 'modal', code: 'readonly open = signal(false);\n  nested();' },
+    {
+      id: 'modal',
+      code: 'readonly open = signal(false);\n  nested();',
+      startLine: 3,
+      endLine: 4,
+    },
   ]);
 });
 
@@ -55,8 +60,25 @@ test('indexa por id com o arquivo de origem', () => {
   assert.deepEqual(
     buildSnippets(['x.ts'], (f) => files[f]),
     {
-      a: { file: 'x.ts', code: '2' },
-      b: { file: 'x.ts', code: '1' },
+      a: { file: 'x.ts', code: '2', startLine: 5, endLine: 5 },
+      b: { file: 'x.ts', code: '1', startLine: 2, endLine: 2 },
     },
   );
+});
+
+test('as linhas ignoram os marcadores e as linhas em branco nas pontas', () => {
+  const src = [
+    'a',
+    '// #region x',
+    '',
+    'um',
+    '',
+    'dois',
+    '',
+    '// #endregion',
+  ].join('\n');
+  const [region] = extractRegions(src);
+
+  assert.equal(region.startLine, 4); // 'um'
+  assert.equal(region.endLine, 6); // 'dois'
 });

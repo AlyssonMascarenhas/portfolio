@@ -5,7 +5,10 @@ import { parseEnvValue, renderModule, resolveKey } from './write-license.mjs';
 const NAME = 'PRIME_NG_LICENSE_KEY';
 
 test('lê o valor, com ou sem aspas, ignorando comentários e linhas vazias', () => {
-  assert.equal(parseEnvValue(`# chave\n\n${NAME}=abc123\nOUTRA=x`, NAME), 'abc123');
+  assert.equal(
+    parseEnvValue(`# chave\n\n${NAME}=abc123\nOUTRA=x`, NAME),
+    'abc123',
+  );
   assert.equal(parseEnvValue(`${NAME}="abc 123"`, NAME), 'abc 123');
   assert.equal(parseEnvValue(`${NAME}='abc'`, NAME), 'abc');
   assert.equal(parseEnvValue(`export ${NAME} = abc`, NAME), 'abc');
@@ -18,9 +21,15 @@ test('aceita fim de linha CRLF e devolve vazio quando não há a chave', () => {
 });
 
 test('a variável de ambiente vence o arquivo', () => {
-  assert.equal(resolveKey({ [NAME]: 'do-ambiente' }, `${NAME}=do-arquivo`), 'do-ambiente');
+  assert.equal(
+    resolveKey({ [NAME]: 'do-ambiente' }, `${NAME}=do-arquivo`),
+    'do-ambiente',
+  );
   assert.equal(resolveKey({}, `${NAME}=do-arquivo`), 'do-arquivo');
-  assert.equal(resolveKey({ [NAME]: '  ' }, `${NAME}=do-arquivo`), 'do-arquivo');
+  assert.equal(
+    resolveKey({ [NAME]: '  ' }, `${NAME}=do-arquivo`),
+    'do-arquivo',
+  );
   assert.equal(resolveKey({}, undefined), '');
 });
 

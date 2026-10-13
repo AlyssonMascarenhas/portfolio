@@ -17,7 +17,9 @@ export function parseEnvValue(text, name) {
   for (const raw of text.split(/\r?\n/)) {
     const line = raw.trim();
     if (!line || line.startsWith('#')) continue;
-    const match = line.match(/^(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)$/);
+    const match = line.match(
+      /^(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)$/,
+    );
     if (!match || match[1] !== name) continue;
     return match[2].trim().replace(/^(['"])(.*)\1$/, '$2');
   }
@@ -26,7 +28,9 @@ export function parseEnvValue(text, name) {
 
 /** A variável de ambiente vence o arquivo. */
 export function resolveKey(env, fileText) {
-  return (env[KEY_NAME] ?? '').trim() || parseEnvValue(fileText ?? '', KEY_NAME);
+  return (
+    (env[KEY_NAME] ?? '').trim() || parseEnvValue(fileText ?? '', KEY_NAME)
+  );
 }
 
 export function renderModule(key) {
@@ -48,6 +52,9 @@ function main() {
   );
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(process.argv[1]).href
+) {
   main();
 }

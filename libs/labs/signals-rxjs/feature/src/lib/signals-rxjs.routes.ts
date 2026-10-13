@@ -6,9 +6,10 @@ import { SignalsRxjsLabPage } from './signals-rxjs-lab/signals-rxjs-lab.page';
 
 /** Rotas do lab, relativas ao ponto onde o app o monta (ex.: /labs/signals-rxjs). */
 const scenarioRoutes: Routes = [
-  { path: '', component: SignalsRxjsLabPage },
+  { path: '', title: 'title.signalsRxjs', component: SignalsRxjsLabPage },
   {
     path: 'local-state',
+    title: 'title.localState',
     loadComponent: () =>
       import('./scenarios/local-state/local-state.scenario').then(
         (m) => m.LocalStateScenario,
@@ -16,6 +17,7 @@ const scenarioRoutes: Routes = [
   },
   {
     path: 'derived-state',
+    title: 'title.derivedState',
     loadComponent: () =>
       import('./scenarios/derived-state/derived-state.scenario').then(
         (m) => m.DerivedStateScenario,
@@ -23,6 +25,7 @@ const scenarioRoutes: Routes = [
   },
   {
     path: 'search',
+    title: 'title.search',
     loadComponent: () =>
       import('./scenarios/search/search.scenario').then(
         (m) => m.SearchScenario,
@@ -30,6 +33,7 @@ const scenarioRoutes: Routes = [
   },
   {
     path: 'dependent-http',
+    title: 'title.dependentHttp',
     loadComponent: () =>
       import('./scenarios/dependent-http/dependent-http.scenario').then(
         (m) => m.DependentHttpScenario,
@@ -37,6 +41,7 @@ const scenarioRoutes: Routes = [
   },
   {
     path: 'ticker',
+    title: 'title.ticker',
     loadComponent: () =>
       import('./scenarios/ticker/ticker.scenario').then(
         (m) => m.TickerScenario,
@@ -44,6 +49,7 @@ const scenarioRoutes: Routes = [
   },
   {
     path: 'shared-state',
+    title: 'title.sharedState',
     loadComponent: () =>
       import('./scenarios/shared-state/shared-state.scenario').then(
         (m) => m.SharedStateScenario,

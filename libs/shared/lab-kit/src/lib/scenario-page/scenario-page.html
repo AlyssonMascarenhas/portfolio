@@ -46,6 +46,8 @@
       <pf-code-viewer
         [code]="block.code"
         [file]="block.file"
+        [startLine]="block.startLine"
+        [endLine]="block.endLine"
         [status]="status()"
         (retry)="snippets.reload()"
       />

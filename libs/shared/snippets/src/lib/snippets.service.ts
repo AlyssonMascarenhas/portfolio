@@ -5,6 +5,9 @@ export interface Snippet {
   /** Arquivo de origem, para o botão "ver no código". */
   file: string;
   code: string;
+  /** Linhas do trecho no arquivo (1 a N), para o link "ver no GitHub". */
+  startLine?: number;
+  endLine?: number;
 }
 
 /**

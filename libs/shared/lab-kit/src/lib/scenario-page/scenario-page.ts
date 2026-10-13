@@ -61,6 +61,8 @@ export class ScenarioPage {
       label,
       code: all[id]?.code,
       file: all[id]?.file,
+      startLine: all[id]?.startLine,
+      endLine: all[id]?.endLine,
     }));
   });
 }

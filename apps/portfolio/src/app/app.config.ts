@@ -8,6 +8,7 @@ import {
   provideBrowserGlobalErrorListeners,
 } from '@angular/core';
 import {
+  TitleStrategy,
   provideRouter,
   withComponentInputBinding,
   withInMemoryScrolling,
@@ -17,6 +18,7 @@ import { providePrimeNG } from 'primeng/config';
 import { appRoutes } from './app.routes';
 import { mocksReadyInterceptor } from './mocks-ready';
 import { PRIMENG_LICENSE } from './primeng-license.generated';
+import { PortfolioTitleStrategy } from './seo/portfolio-title.strategy';
 import { PortfolioPreset } from './theme';
 
 export const appConfig: ApplicationConfig = {
@@ -32,6 +34,7 @@ export const appConfig: ApplicationConfig = {
     ),
     provideHttpClient(withFetch(), withInterceptors([mocksReadyInterceptor])),
     provideI18n(),
+    { provide: TitleStrategy, useExisting: PortfolioTitleStrategy },
     // O tema escuro é a classe app-dark no <html> (ver LayoutService e o script do index.html).
     providePrimeNG({
       license: PRIMENG_LICENSE,

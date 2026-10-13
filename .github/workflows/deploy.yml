@@ -33,7 +33,10 @@ jobs:
         env:
           PRIME_NG_LICENSE_KEY: ${{ secrets.PRIME_NG_LICENSE_KEY }}
       # O Pages só serve arquivos: sem uma cópia do index.html em cada rota, as rotas respondem 404.
-      - run: node tools/scripts/spa-fallbacks.mjs dist/apps/portfolio/browser
+      # O mesmo passo grava o sitemap.xml e a URL absoluta das tags Open Graph.
+      - run: |
+          SITE_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+          node tools/scripts/spa-fallbacks.mjs dist/apps/portfolio/browser "$(echo "$SITE_URL" | tr '[:upper:]' '[:lower:]')"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist/apps/portfolio/browser

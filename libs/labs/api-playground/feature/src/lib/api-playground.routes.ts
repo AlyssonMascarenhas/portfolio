@@ -18,7 +18,11 @@ export const apiPlaygroundRoutes: Routes = [
       },
     ],
     children: [
-      { path: '', component: ApiPlaygroundScenario },
+      {
+        path: '',
+        title: 'title.apiPlayground',
+        component: ApiPlaygroundScenario,
+      },
       { path: '**', redirectTo: '' },
     ],
   },

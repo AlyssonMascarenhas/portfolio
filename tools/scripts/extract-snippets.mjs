@@ -18,7 +18,10 @@ function dedent(lines) {
   return lines.map((l) => l.slice(cut));
 }
 
-/** Devolve [{ id, code }] das regiões de um arquivo. Lança erro se houver região mal formada. */
+/**
+ * Devolve [{ id, code, startLine, endLine }] das regiões de um arquivo (linhas de 1 a N, só do código,
+ * sem os marcadores). Lança erro se houver região mal formada.
+ */
 export function extractRegions(source, file = '<arquivo>') {
   const regions = [];
   let current = null;
@@ -31,16 +34,20 @@ export function extractRegions(source, file = '<arquivo>') {
         throw new Error(
           `${where}: região "${start[1]}" dentro de "${current.id}" (aninhamento não é suportado)`,
         );
-      current = { id: start[1], lines: [] };
+      current = { id: start[1], lines: [], numbers: [] };
     } else if (REGION_END.test(line)) {
       if (!current) throw new Error(`${where}: #endregion sem #region`);
+      const filled = current.numbers.filter((_, i) => current.lines[i].trim());
       regions.push({
         id: current.id,
         code: dedent(current.lines).join('\n').trim(),
+        startLine: filled[0] ?? index,
+        endLine: filled.at(-1) ?? index,
       });
       current = null;
     } else if (current) {
       current.lines.push(line);
+      current.numbers.push(index + 1);
     }
   });
 
@@ -51,10 +58,7 @@ export function extractRegions(source, file = '<arquivo>') {
 
 function listSourceFiles(dir) {
   return readdirSync(dir, { recursive: true, withFileTypes: true })
-    .filter(
-      (e) =>
-        e.isFile() && e.name.endsWith('.ts') && !e.name.endsWith('.spec.ts'),
-    )
+    .filter((e) => e.isFile() && e.name.endsWith('.ts'))
     .map((e) => join(e.parentPath, e.name));
 }
 
@@ -63,12 +67,15 @@ export function buildSnippets(files, read = (f) => readFileSync(f, 'utf8')) {
   const snippets = {};
   for (const path of files) {
     const file = path.split(sep).join('/');
-    for (const { id, code } of extractRegions(read(path), file)) {
+    for (const { id, code, startLine, endLine } of extractRegions(
+      read(path),
+      file,
+    )) {
       if (snippets[id])
         throw new Error(
           `id "${id}" duplicado em ${file} e ${snippets[id].file}`,
         );
-      snippets[id] = { file, code };
+      snippets[id] = { file, code, startLine, endLine };
     }
   }
   return Object.fromEntries(
