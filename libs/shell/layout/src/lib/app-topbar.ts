@@ -126,9 +126,15 @@ import { LayoutService } from './layout.service';
       font-size: 0.8rem;
       font-weight: 700;
     }
+    /* Em telas estreitas só a marca "AM" aparece, mas o nome continua no nome acessível do link. */
     @media (max-width: 480px) {
       .name {
-        display: none;
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
       }
     }
   `,
