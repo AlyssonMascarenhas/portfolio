@@ -132,9 +132,19 @@ function yearsSince(start: YearMonth, now: Date): number {
             </ul>
           }
         } @else if (skills.error()) {
-          <p-message severity="error">{{
-            'skills.loadError' | translate
-          }}</p-message>
+          <div>
+            <p-message severity="error">{{
+              'skills.loadError' | translate
+            }}</p-message>
+            <button
+              pButton
+              type="button"
+              class="retry"
+              (click)="skills.reload()"
+            >
+              {{ 'common.retry' | translate }}
+            </button>
+          </div>
         }
       </section>
 

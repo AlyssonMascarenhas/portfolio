@@ -48,4 +48,34 @@ describe('HomePage', () => {
     );
     expect(labLinks).toEqual(['/labs/signals-rxjs', '/labs/api-playground']);
   });
+
+  it('mostra o erro das competências com botão de tentar de novo e refaz a requisição', async () => {
+    TestBed.configureTestingModule({
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideRouter([]),
+        provideTranslateService(),
+      ],
+    });
+    const http = TestBed.inject(HttpTestingController);
+    const el: HTMLElement = TestBed.createComponent(HomePage).nativeElement;
+    TestBed.tick();
+
+    http.expectOne('api/profile').flush(PROFILE);
+    http.expectOne('api/experience').flush([]);
+    http
+      .expectOne('api/skills')
+      .flush(null, { status: 500, statusText: 'Server Error' });
+    await TestBed.inject(ApplicationRef).whenStable();
+    TestBed.tick();
+
+    const section = el.querySelector('section[aria-labelledby=skills-title]');
+    expect(section?.querySelector('p-message[role=alert]')).not.toBeNull();
+
+    section?.querySelector<HTMLButtonElement>('button')?.click();
+    TestBed.tick();
+
+    expect(http.match('api/skills')).toHaveLength(1);
+  });
 });
