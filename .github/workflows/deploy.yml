@@ -32,7 +32,8 @@ jobs:
       - run: npx nx build portfolio --base-href=/${{ github.event.repository.name }}/
         env:
           PRIME_NG_LICENSE_KEY: ${{ secrets.PRIME_NG_LICENSE_KEY }}
-      - run: cp dist/apps/portfolio/browser/index.html dist/apps/portfolio/browser/404.html
+      # O Pages só serve arquivos: sem uma cópia do index.html em cada rota, as rotas respondem 404.
+      - run: node tools/scripts/spa-fallbacks.mjs dist/apps/portfolio/browser
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist/apps/portfolio/browser
