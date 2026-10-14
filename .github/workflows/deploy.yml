@@ -23,11 +23,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # o commitlint precisa do histórico para ler os commits do push
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+
+      # --- Mensagens de commit (Conventional Commits) ---
+      # Valida só os commits novos do push ou do PR; o histórico anterior ao padrão não é reescrito.
+      - name: Conventional Commits
+        env:
+          EVENT: ${{ github.event_name }}
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+          BEFORE: ${{ github.event.before }}
+          SHA: ${{ github.sha }}
+        run: |
+          if [ "$EVENT" = "pull_request" ]; then
+            npx commitlint --from "$BASE" --to "$HEAD"
+          # Num force-push o commit anterior deixa de existir no clone: nesse caso não há o que comparar.
+          elif [ "$EVENT" = "push" ] && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            npx commitlint --from "$BEFORE" --to "$SHA"
+          fi
 
       # --- Qualidade do código ---
       - run: npm run lint

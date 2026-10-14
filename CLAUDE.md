@@ -14,6 +14,7 @@ Portfólio interativo de engenharia front-end. Em vez de listar tecnologias, o s
 - `npm run quality:report` — roda os testes com cobertura e gera `apps/portfolio/public/quality-report.json` (cenários dos specs + cobertura) para o lab de qualidade; só os cenários são gerados sozinhos antes de build/serve
 - `npm run e2e` — constrói com --base-href=/portfolio/, monta o site como o GitHub Pages (`.site/portfolio`) e roda os testes ponta a ponta (Playwright, Chrome instalado) e o axe nos dois temas; `npm run e2e:only` reaproveita o site montado
 - `npm run lhci` — Lighthouse CI com orçamentos (performance, acessibilidade 100, SEO 100, CLS) contra o site montado
+- `npm run changelog` — gera o `CHANGELOG.md` por completo a partir dos commits no padrão (cria o arquivo na primeira vez; só entram `feat`, `fix`, `perf` e `revert`, e quebras de compatibilidade)
 - `npx nx affected -t lint test build` — só o que mudou
 - `npx nx graph` — grafo de dependências
 
@@ -68,7 +69,7 @@ Prefixo de seletores: `pf-`.
 - Estados de loading/erro são sempre tratados no template, com `role="alert"` no erro e botão de tentar novamente.
 - Não chame métodos no template: derive um view model com `computed()`.
 - Testes com `HttpTestingController`; use `TestBed.tick()` para efeitos e resources.
-- Commits e textos de interface em português; nomes de código em inglês.
+- Commits no padrão Conventional Commits, `tipo(escopo): descrição`: o tipo em inglês (`feat`, `fix`, `perf`, `refactor`, `test`, `docs`, `style`, `build`, `ci`, `chore`, `revert`), o escopo da lista em `commitlint.config.mjs` (app, contracts, mocks, i18n, shell, shared, labs, signals-rxjs, api-playground, quality, forms, e2e, tools, ci, deps, deps-dev, docs) e a descrição em português, até 100 caracteres no cabeçalho. O hook `commit-msg` (husky) e a CI barram o que fugir disso. Textos de interface em português; nomes de código em inglês.
 
 ## Skills do projeto
 

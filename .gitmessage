@@ -1,0 +1,21 @@
+# tipo(escopo): descrição no imperativo, em português, até 100 caracteres
+#
+# Tipos:   feat     funcionalidade nova (ex.: um cenário de lab)
+#          fix      correção de bug
+#          perf     ganho de desempenho
+#          refactor mudança de código sem mudar comportamento
+#          test     testes
+#          docs     documentação (CLAUDE.md, README)
+#          style    formatação, sem mudar código
+#          build    build e dependências
+#          ci       workflow, Lighthouse CI, hooks
+#          chore    manutenção que não cabe nos outros
+#          revert   desfaz um commit anterior
+#
+# Escopos: app, contracts, mocks, i18n, shell, shared, labs, signals-rxjs,
+#          api-playground, quality, forms, e2e, tools, ci, deps, deps-dev, docs
+#
+# Exemplo: feat(forms): adiciona o campo de moeda com transformedValue
+#
+# Corpo (opcional, depois de uma linha em branco): o porquê, não o quê.
+# Quebra de compatibilidade: use "!" depois do escopo e um rodapé "BREAKING CHANGE: ...".

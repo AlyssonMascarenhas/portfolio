@@ -26,6 +26,16 @@ O MSW sobe em paralelo ao Angular: o app pinta o primeiro frame sem esperar, e a
 
 O workflow (`.github/workflows/deploy.yml`) só publica se tudo passar: lint, testes com cobertura, i18n, build, **testes ponta a ponta** (Playwright, desktop e mobile), **acessibilidade com axe** em todas as rotas, nos temas claro e escuro, e **orçamentos do Lighthouse CI** (acessibilidade e SEO 100, CLS até 0,1). Os testes rodam contra o site montado como o GitHub Pages o serve. Localmente: `npm run e2e` e `npm run lhci`. O Dependabot propõe atualizações semanais, agrupadas.
 
+## Commits
+
+O projeto usa [Conventional Commits](https://www.conventionalcommits.org/pt-br/): `tipo(escopo): descrição`, com o tipo em inglês e a descrição em português. Exemplo: `feat(forms): adiciona o campo de moeda com transformedValue`.
+
+- **Tipos:** `feat`, `fix`, `perf`, `refactor`, `test`, `docs`, `style`, `build`, `ci`, `chore`, `revert`.
+- **Escopos:** `app`, `contracts`, `mocks`, `i18n`, `shell`, `shared`, `labs`, `signals-rxjs`, `api-playground`, `quality`, `forms`, `e2e`, `tools`, `ci`, `deps`, `deps-dev`, `docs` (lista em `commitlint.config.mjs`).
+- **Hook local:** o husky roda o commitlint no `commit-msg` (instalado pelo `npm install`, via `prepare`). O mesmo `prepare` ativa o `.gitmessage`, um modelo com os tipos e escopos que abre no `git commit`.
+- **CI:** o workflow valida os commits novos de cada push e pull request, para pegar quem pulou o hook.
+- **Changelog:** `npm run changelog` gera o `CHANGELOG.md` por completo a partir dos commits no padrão (o arquivo é criado na primeira execução).
+
 ## Licença do PrimeNG
 
 O PrimeNG 22 exige uma chave de licença (a Community é gratuita para uso individual e não comercial). Sem ela, o site mostra o aviso "Invalid PrimeUI License".
