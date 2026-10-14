@@ -1,0 +1,13 @@
+<input
+  #field
+  pInputText
+  type="text"
+  inputmode="decimal"
+  autocomplete="off"
+  [id]="inputId()"
+  [value]="raw()"
+  [attr.aria-invalid]="showInvalid()"
+  [attr.aria-describedby]="describedBy()"
+  (input)="onInput($event)"
+  (blur)="onBlur()"
+/>

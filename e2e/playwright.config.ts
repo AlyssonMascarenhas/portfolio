@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const PORT = 4300;
+/** E2E_PORT permite fugir de uma porta ocupada (ex.: outro servidor de desenvolvimento). */
+const PORT = Number(process.env['E2E_PORT'] ?? 4300);
 const CI = !!process.env['CI'];
 /** Localmente usa o Chrome instalado (sem baixar navegador); no CI, o Chromium do Playwright. */
 const channel = CI ? undefined : 'chrome';

@@ -5,6 +5,8 @@ import ROUTES from '../../tools/scripts/routes.json';
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
 const THEMES = ['light', 'dark'] as const;
 const TABS = ['Código', 'Arquitetura'];
+/** Rotas que são índices de lab: listam cenários e não têm as abas Demo/Código/Arquitetura. */
+const INDEXES = ['labs/signals-rxjs', 'labs/forms'];
 
 /** Violações que o axe encontra na parte visível da página, em formato legível no relatório. */
 async function violations(page: Page) {
@@ -40,7 +42,7 @@ for (const theme of THEMES) {
     }
 
     for (const route of ROUTES.filter(
-      (r) => r.startsWith('labs/') && r !== 'labs/signals-rxjs',
+      (r) => r.startsWith('labs/') && !INDEXES.includes(r),
     )) {
       for (const tab of TABS) {
         test(`/${route}, aba ${tab}`, async ({ page }) => {

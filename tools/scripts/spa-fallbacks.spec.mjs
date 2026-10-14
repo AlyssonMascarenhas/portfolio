@@ -17,9 +17,12 @@ test('a lista de rotas acompanha as rotas do app e dos labs', () => {
     'libs/labs/signals-rxjs/feature/src/lib/signals-rxjs.routes.ts',
   );
 
+  const forms = pathsIn('libs/labs/forms/feature/src/lib/forms.routes.ts');
+
   const expected = [
     ...appPaths,
     ...signals.map((child) => `labs/signals-rxjs/${child}`),
+    ...forms.map((child) => `labs/forms/${child}`),
   ].sort();
 
   assert.deepEqual([...ROUTES].sort(), expected);

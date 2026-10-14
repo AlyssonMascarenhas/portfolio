@@ -1,0 +1,17 @@
+<div class="form">
+  <div class="field">
+    <label for="mo-amount">{{ labels().amount }}</label>
+    <pf-money-input
+      inputId="mo-amount"
+      [formField]="payment.amount"
+      [showInvalid]="showInvalid()"
+      [describedBy]="'mo-amount-hint' + (errorText() ? ' mo-amount-error' : '')"
+    />
+    <small id="mo-amount-hint" class="hint">{{ labels().hint }}</small>
+    <small id="mo-amount-error" class="error" role="alert">{{
+      errorText()
+    }}</small>
+  </div>
+</div>
+
+<pf-instrumentation-panel [metrics]="metrics()" />

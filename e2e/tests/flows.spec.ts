@@ -67,7 +67,7 @@ test('API Playground: o cenário 422 mostra os erros por campo', async ({
 test('formulário: enviar vazio leva o foco ao primeiro campo inválido', async ({
   page,
 }) => {
-  await page.goto('labs/forms');
+  await page.goto('labs/forms/checkout');
 
   await page.getByRole('button', { name: 'Finalizar pedido' }).click();
 
@@ -84,7 +84,7 @@ test('formulário: um cupom digitado gera uma única consulta ao servidor', asyn
   page.on('request', (request) => {
     if (request.url().includes('api/lab/coupon')) lookups.push(request.url());
   });
-  await page.goto('labs/forms');
+  await page.goto('labs/forms/checkout');
 
   await page.locator('#co-coupon').pressSequentially('PROMO10', { delay: 40 });
   await expect.poll(() => lookups.length).toBe(1);
@@ -143,4 +143,25 @@ test('tema escuro: o botão alterna a classe app-dark e a escolha é lembrada', 
 
   await page.reload();
   await expect(page.locator('html')).toHaveClass(/app-dark/);
+});
+
+test('formulários: o índice leva ao campo de moeda e o texto inválido preserva o model', async ({
+  page,
+}) => {
+  await page.goto('labs/forms');
+  await page
+    .getByRole('link', { name: 'Campo de moeda com transformedValue' })
+    .click();
+
+  const amount = page.locator('#mo-amount');
+  await amount.fill('abc');
+  await amount.blur();
+  await expect(page.locator('#mo-amount-error')).toHaveText(
+    'Informe um valor em reais, como 1.234,56.',
+  );
+
+  await amount.fill('1234,5');
+  await amount.blur();
+  await expect(page.locator('#mo-amount-error')).toHaveText('');
+  await expect(amount).toHaveValue('1.234,50');
 });

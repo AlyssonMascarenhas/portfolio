@@ -10,5 +10,7 @@
   "labs/signals-rxjs/shared-state",
   "labs/api-playground",
   "labs/quality",
-  "labs/forms"
+  "labs/forms",
+  "labs/forms/checkout",
+  "labs/forms/money"
 ]

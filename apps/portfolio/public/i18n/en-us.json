@@ -135,7 +135,9 @@
     "sharedState": "State shared across pages",
     "apiPlayground": "API Playground",
     "quality": "Quality and tests",
-    "forms": "Forms with Signal Forms"
+    "forms": "Forms with Signal Forms",
+    "formsCheckout": "Checkout with Signal Forms",
+    "formsMoney": "Currency field with transformedValue"
   },
   "meta": {
     "default": "Interactive front-end engineering portfolio built with Angular: labs that show architecture decisions, not a list of technologies.",

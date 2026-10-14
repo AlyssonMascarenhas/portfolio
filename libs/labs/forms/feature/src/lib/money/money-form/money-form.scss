@@ -1,0 +1,27 @@
+:host {
+  display: block;
+}
+.form {
+  display: grid;
+  gap: 1rem;
+  max-width: 28rem;
+}
+.field {
+  display: grid;
+  gap: 0.3rem;
+}
+label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.hint {
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+.error {
+  color: var(--color-danger);
+  font-size: 0.85rem;
+}
+.error:empty {
+  display: none;
+}
