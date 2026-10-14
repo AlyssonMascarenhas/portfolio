@@ -50,7 +50,10 @@ jobs:
 
       # --- Qualidade do código ---
       - run: npm run lint
+      # Diagnóstico: o log detalhado do Nx mostra o stack trace quando um projeto de teste falha ao iniciar.
       - run: npm run test:coverage
+        env:
+          NX_VERBOSE_LOGGING: 'true'
       - run: node --test "tools/scripts/*.spec.mjs"
       - run: npm run i18n:check
       # Lê os specs e a cobertura que acabaram de ser gerados e alimenta o lab "Qualidade e testes".
