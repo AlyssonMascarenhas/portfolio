@@ -1,6 +1,8 @@
 .retry {
   margin-top: 0.75rem;
 }
+/* Reserva a altura da lista que vai chegar: sem isso o link "voltar", no fim da página, é empurrado quando o relatório carrega. */
 .loading {
   color: var(--color-muted);
+  min-height: 80vh;
 }
